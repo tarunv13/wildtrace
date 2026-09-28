@@ -17,8 +17,8 @@ identifiers:
   - type: doi
     value: 10.5281/zenodo.22902820
     description: "Version 1.2.1"
-version: 1.7.0
-date-released: "2026-09-28"
+version: 1.8.0
+date-released: "2026-09-29"
 keywords:
   - illegal wildlife trade
   - wildlife trafficking

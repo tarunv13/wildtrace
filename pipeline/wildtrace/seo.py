@@ -10,6 +10,7 @@ a plain HTML layer from the same data:
     /browse.html           the index that ties them together
     /sitemap.xml           every page above
     /robots.txt            crawling allowed, including the AI crawlers, with the sitemap named
+    /pathways.html         wildlife crime as an environment-to-security risk, evidence per link
     /llms.txt              a plain-text brief for answer engines: what this is, how to cite it
 
 These pages are not a trick to catch traffic. They carry the same facts as the panels they
@@ -357,6 +358,7 @@ def build_pages(cases: list[dict], species: dict, countries: dict, meta: dict, o
 <h1>Browse illegal wildlife trade cases</h1>
 <p class="lede">{len(cases):,} cases from {meta.get('n_reports', '')} public reports, {esc(window[0])} to {esc(window[1])},
   covering both animals and plants. Every case links to its sources and says how strongly it is evidenced.</p>
+<p><a class="pill" href="{SITE}/pathways.html">Is wildlife crime a security risk? Seven pathways and their evidence →</a></p>
 <h2>By species group</h2><ul class="cols">{sp_rows}</ul>
 <h2>By country</h2><ul class="cols">{cc_rows}</ul>
 <h2>The data</h2>
@@ -371,6 +373,11 @@ def build_pages(cases: list[dict], species: dict, countries: dict, meta: dict, o
                               {"@context": "https://schema.org", "@type": "CollectionPage",
                                "name": "Browse illegal wildlife trade cases", "url": f"{SITE}/browse.html"},
                               [("WildTrace", SITE + "/")]))
+
+    # ---------------------------------------------------------------- risk pathways
+    from . import pathways
+    pw_path, pw_html = pathways.build(cases, species, countries, meta, out, page, esc, SITE)
+    write(pw_path, pw_html)
 
     # ---------------------------------------------------------------- sitemap, robots, llms.txt
     entries = "".join(f"<url><loc>{SITE}/{u}</loc><lastmod>{m}</lastmod></url>" for u, m in urls)
@@ -408,10 +415,22 @@ into one case, and publishes the result.
   **reported**, in the sources searched, not where it happens.
 - No person accused is ever named. Arrests are counts only.
 
+## Wildlife crime and security
+
+WildTrace maps seven links from nature to national security (extraction, routes, borders, crime
+revenue, disease risk, ecosystem loss, evidence and trust) and rates the open evidence for each.
+The weakest link is who profits: seizures are common in the record, convictions rare, financial
+flows absent. Security framing should not become militarisation (Duffy 2015; Massé et al. 2020).
+Page: {SITE}/pathways.html. Framework after the Oxford Agile Initiative's "Environment and National
+Security: Exploring the Risk Pathways" (2026), research questions R1.37 and R5.2-R5.3.
+
 ## Links
 
 - Atlas (interactive map): {SITE}/
 - Browse by species and country: {SITE}/browse.html
+- Risk pathways (wildlife crime and national security): {SITE}/pathways.html
+- US port seizures (CSV, CC BY 4.0): {SITE}/data/lemis_seized_flows.csv
+- Open research agenda: https://github.com/tarunv13/wildtrace/blob/main/docs/RESEARCH_AGENDA.md
 - Data (CSV, CC BY 4.0): {SITE}/data/cases.csv
 - Method and limits: {SITE}/#methods
 - Source code: https://github.com/tarunv13/wildtrace

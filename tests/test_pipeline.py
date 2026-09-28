@@ -345,3 +345,20 @@ def test_non_zoonotic_outbreaks_are_left_out(tmp_path, monkeypatch):
     (tmp_path / "who_don.json").write_text(json.dumps([{"Title": "Cholera - Haiti", "PublicationDate": "2026-01-01", "UrlName": "y"},
                                                        {"Title": "Poliomyelitis - Pakistan", "PublicationDate": "2026-01-01", "UrlName": "z"}]), encoding="utf-8")
     assert zoonoses.outbreaks() == []
+
+
+def test_pathways_page_states_evidence_limits_and_gap(tmp_path):
+    import json as _json
+    from wildtrace import pathways
+    from wildtrace.seo import SITE, esc, page
+    (tmp_path / "data").mkdir()
+    (tmp_path / "data" / "flows.json").write_text(_json.dumps({"seized": [["orchids", "TH", "TH", "US", 3], ["pangolin", "NG", "CM", "CN", 2]], "year_min": 2015}))
+    cases = [{"kind": "seizure", "verification": "official", "species": ["pangolin"], "countries": ["NG", "CN"], "modes": ["air"]},
+             {"kind": "conviction", "verification": "single", "species": ["orchids"], "people_arrested": 2}]
+    species = {"pangolin": {"label": "Pangolin"}, "orchids": {"label": "Orchids", "kingdom": "plant"}}
+    path, html_ = pathways.build(cases, species, {}, {}, tmp_path, page, esc, SITE)
+    assert path == "pathways.html"
+    assert "Open evidence: a gap" in html_ and "What the number cannot tell you" in html_
+    assert '"@type": "FAQPage"' in html_ and "militarisation" in html_
+    e = pathways.evidence(cases, species, tmp_path / "data")
+    assert e["cites"] == 5 and e["cites_plants"] == 3 and e["cites_transit"] == 2 and e["cites_us"] == 3

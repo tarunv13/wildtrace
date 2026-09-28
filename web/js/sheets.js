@@ -66,6 +66,7 @@ export function mountMethods(root, tab = "pipeline") {
       <h3>Seized at US ports</h3>
       <p>A second, independent seizure layer comes from the US Fish and Wildlife Service's <b>LEMIS</b> import records, released under the Freedom of Information Act and cleaned by Marshall et al. (2025, <i>Current Biology</i>; 2000–2022, land vertebrates and arachnids) and Eskew et al. (2020, <i>Scientific Data</i>; 2000–2014, used only for fish, invertebrates and plants). Only records with disposition S (seized) are kept; genera are placed in families with the GBIF key of the seized-wildlife codebook (Stringham et al. 2021). Both sources are CC BY 4.0.</p>
       <p>Read it with three limits. A LEMIS seizure can follow missing or wrong paperwork as well as smuggling. It shows what US inspectors intercepted, so it measures US enforcement effort as much as trade. And the United States also reports seizures to CITES, so on routes into the US the two layers overlap: compare them, never add them. US-bound routes already make up about four in five CITES seizure records here, which is why "Spread across markets" is on by default.</p>
+      <p>How these layers add up to an environment-to-security pathway, and where the open evidence stops, is set out in <a href="pathways.html">Risk pathways</a>.</p>
       <h3>Zoonoses</h3>
       <p><b>VIRION</b> (Carlson et al. 2022) gives the viruses recorded in each species group; only detections by sequencing or isolation count. A close relative is a virus in a genus that also infects people. <b>WHO Disease Outbreak News</b> gives the outbreak reports: diseases with an animal reservoir are grouped by how they reach people, and each report is placed in every country its title names.
         The two layers share a map, not a cause, and both follow research and reporting effort.</p></div>`,
@@ -139,6 +140,8 @@ export function mountAbout(root) {
     <p><b>Validated</b> (${v.validated || 0}): checked by a person against its sources. <b>Official source</b> (${v.official || 0}): at least one government, customs, police or judicial release. <b>Corroborated</b> (${v.corroborated || 0}): two or more independent outlets. <b>Single report</b> (${v.single || 0}): one outlet; treat as a lead.</p>
     <p>${cov.mapped || 0} cases have a city- or district-level place, ${cov.country_only || 0} only a country, and ${cov.unmapped || 0} none. Coverage follows the newsrooms and government sites searched, so counts show where wildlife crime is <i>reported</i>, not where it happens.</p>
     <p><button class="btn" id="about-video">▶ Watch the 2-minute video guide</button></p>
+    <h3>Why it matters beyond conservation</h3>
+    <p>Wildlife crime reaches national security through crime revenue, disease risk and the loss of ecosystems people depend on. <a href="pathways.html">Risk pathways</a> maps seven links from nature to security, rates the open evidence for each, and says where it runs out, with a commitment to security without militarisation.</p>
     <h3>Who runs it</h3>
     <p>An open-source research project, maintained on GitHub by <a href="https://github.com/tarunv13" target="_blank" rel="noopener">@tarunv13</a>. It builds on the OWT labelled set of online listings and on the observatories listed under Network. Code and method: <a href="https://github.com/tarunv13/wildtrace" target="_blank" rel="noopener">github.com/tarunv13/wildtrace</a>.</p>
     <h3>Use and cite</h3>
@@ -148,6 +151,7 @@ export function mountAbout(root) {
       <a class="btn" href="browse.html">Browse by species &amp; country</a></div>
     <h3>More open data</h3>
     <div class="row"><a class="btn" href="data/cites_seized_flows.csv" download>Seized-shipment flows (CSV)</a>
+      <a class="btn" href="data/lemis_seized_flows.csv" download>US port seizures (CSV)</a>
       <a class="btn" href="data/cites_declared_flows.csv" download>Declared-trade flows (CSV)</a>
       <a class="btn" href="data/zoonotic_outbreak_reports.csv" download>Zoonotic outbreak reports (CSV)</a>
       <a class="btn" href="data/species_viruses.csv" download>Viruses by species group (CSV, ODbL)</a>

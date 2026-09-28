@@ -658,3 +658,7 @@ svg .hit { fill: transparent; cursor: default; }
 .gc-text b { font-size: 13.5px; color: var(--invest-ink); }
 .gc-text span { font-size: 12px; color: var(--muted, #5b6b66); }
 #tour-btn.guide-btn .label { color: var(--invest-ink); font-weight: 650; }
+
+.an-path { display: block; margin: 0 0 12px; padding: 10px 14px; border-radius: 12px; background: rgba(194, 122, 6, 0.09);
+  color: var(--trade-ink); text-decoration: none; font-size: 13.5px; }
+.an-path:hover { background: rgba(194, 122, 6, 0.15); }

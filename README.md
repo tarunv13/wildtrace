@@ -8,6 +8,8 @@
 
 One map of seizures, arrests and convictions worldwide, in fauna and flora, with every case
 graded by the strength of its evidence, and a link-analysis workbench that runs in your browser.
+It traces wildlife crime from where nature is taken to where it touches national security:
+crime revenue, disease risk and the loss of ecosystems people depend on.
 
 [![CI](https://github.com/tarunv13/wildtrace/actions/workflows/ci.yml/badge.svg)](https://github.com/tarunv13/wildtrace/actions/workflows/ci.yml)
 [![Latest release](https://img.shields.io/github/v/release/tarunv13/wildtrace)](https://github.com/tarunv13/wildtrace/releases)
@@ -16,6 +18,8 @@ graded by the strength of its evidence, and a link-analysis workbench that runs 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22902819.svg)](https://doi.org/10.5281/zenodo.22902819)
 
 [Open the Atlas](https://tarunv13.github.io/wildtrace/) ·
+[Risk pathways](https://tarunv13.github.io/wildtrace/pathways.html) ·
+[Research agenda](docs/RESEARCH_AGENDA.md) ·
 [Who it's for](#who-its-for) ·
 [How much to trust a case](#how-much-to-trust-a-case) ·
 [Download the data](https://tarunv13.github.io/wildtrace/data/cases.csv) ·
@@ -32,6 +36,30 @@ graded by the strength of its evidence, and a link-analysis workbench that runs 
 </p>
 
 ---
+
+## Wildlife crime is a security risk. How strong is the evidence?
+
+The Oxford Agile Initiative's *Environment and National Security: Exploring the Risk Pathways*
+(September 2026) maps how environmental damage reaches national security, and notes that its
+pathway diagrams "could be linked to a database showing relevant evidence for each link". Wildlife
+crime appears in its agenda mainly as a revenue source for hostile actors and organised crime
+(R1.37). WildTrace supplies the evidence for that pathway, link by link:
+
+| Link | Open evidence in WildTrace |
+| --- | --- |
+| Nature is taken | strong: cases, 24,719 CITES seizures, 19,117 US port seizures |
+| It moves through routes and hubs | partial: CITES transit, multi-country cases |
+| It reaches the border | strong: CITES and US inspection records (US-heavy) |
+| It funds crime and corrupts institutions | **a gap**: many seizures, few convictions, no open financial data |
+| It carries disease risk | partial: VIRION viruses in traded groups, WHO outbreak reports |
+| It erodes ecosystems | partial: removals by functional group |
+| It is fought with evidence or rumour | strong: every case graded |
+
+Read [Risk pathways](https://tarunv13.github.io/wildtrace/pathways.html) for the numbers, rebuilt
+daily, and the [open research agenda](docs/RESEARCH_AGENDA.md) for the questions that would close the
+gaps, from open event-extraction benchmarks to court-outcome data. WildTrace takes the security frame
+on one condition: **security without militarisation**. Claims carry their evidence, enforcement is
+counted and never glorified, and no accused person is named (see [how WildTrace speaks](docs/VOICE.md)).
 
 ## Why WildTrace
 

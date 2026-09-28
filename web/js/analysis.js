@@ -18,6 +18,7 @@ export function mountAnalysis(root) {
       <span class="mono muted">${fmt(s + d)}</span></div>`;
   }).join("");
   root.innerHTML = `<div class="an">
+    <a class="an-path" href="pathways.html"><b>From evidence to security.</b> Seven links from nature to national security, each rated by its open evidence →</a>
     <div class="an-tiles">
       ${tile(fmt(k.cases), "cases, merged from news reports", "var(--cases)")}
       ${tile(fmt(k.sources), "source reports read", "var(--network)")}

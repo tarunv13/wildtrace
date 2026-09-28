@@ -2,6 +2,22 @@
 
 All notable changes to WildTrace. Dates are the release date, newest first.
 
+## 1.8.0 — 2026-09-29
+
+### Added
+- **Risk pathways** (`pathways.html`): wildlife crime as an environment-to-security risk, in seven links from
+  extraction to crime revenue, disease risk and ecosystem loss. Each link carries a number from the live data,
+  a rating of the open evidence (strong, partial, a gap), the limit of that number, and the research question it
+  answers in the Oxford Agile Initiative's *Environment and National Security: Exploring the Risk Pathways*
+  (2026; R1.37, R5.2-R5.3). It states where the evidence runs out (who profits) and commits to security without
+  militarisation. Rebuilt with every build; Article and FAQ structured data; a tappable list on phones.
+- **Open research agenda** (`docs/RESEARCH_AGENDA.md`): questions that would close the gaps, each tied to data
+  WildTrace already holds, from an open event-extraction benchmark and stance detection for listings to court
+  outcomes, reporting-effort correction and ports.
+- **How WildTrace speaks** (`docs/VOICE.md`): seven writing rules for readers, researchers and answer engines.
+- Links to Risk pathways from About, Methods, Analysis and Browse; a security section in `llms.txt`; the US port
+  seizure CSV in About.
+
 ## 1.7.0 — 2026-09-28
 
 ### Added
