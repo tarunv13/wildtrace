@@ -52,6 +52,32 @@ and shown on its card:
 5. **Bridge source and demand** (PMC8579131, EIA, Operation Jaguar). Map local names to taxa and taxa to end uses, so source-country listings and demand-country seizures meet in one chart.
 6. **Verify before you trust.** LLM-supplied claims are checked, corrections are shown, and unverified terms never drive automation.
 
+## WildTrace and ECO-SOLVE: two ends of the same trade
+
+ECO-SOLVE (GI-TOC, EU-funded) is the most complete open view of wildlife adverts online. WildTrace does not
+try to copy it. The two record different moments of the same trade, and read together they show something
+neither shows alone: which online markets are advertised heavily but rarely reach enforcement.
+
+| | ECO-SOLVE Global Monitoring System | WildTrace |
+| --- | --- | --- |
+| What is recorded | adverts for protected wildlife online | seizures, arrests, convictions and rescues; seized shipments (CITES, US ports) |
+| Moment in the trade | offer (supply online) | interception and outcome (enforcement), online and offline |
+| Scale (latest public) | 21,900+ adverts, 266,000+ products, 61 platforms, Apr 2024-Mar 2026 | 1,300+ cases from public reports; 24,719 CITES and 19,117 US port seizure records |
+| Where | 30+ countries through regional hubs | 60+ countries in news; every CITES Party; US ports |
+| Species | 79 species in hub baskets | 39 groups, fauna and flora, plus every CITES-listed taxon in trade records |
+| Evidence per record | analyst-verified adverts | graded per case (official, corroborated, single report) with sources |
+| Update | manual releases (last May 2026) | daily, automated, versioned with DOIs |
+| Beyond the trade | legal ambiguity, deception patterns | security pathways, disease risk, legal-trade baseline |
+| Code | not open | MIT, reproducible pipeline |
+
+**What WildTrace adds to the picture:** the enforcement end of online trade. Since v1.9.0 every case records
+the platforms its reports name (never the seller), and multilingual searches look for online wildlife crime
+that reached police, customs or courts in eight languages. Set against ECO-SOLVE's advert counts, this can
+show the gap between where wildlife is offered and where anyone is caught.
+
+**What WildTrace does not do:** monitor adverts. Scraping marketplaces raises consent and platform-terms
+problems that ECO-SOLVE's hubs and WILDTRADE handle with their own safeguards; WildTrace links to them.
+
 ## Adding an observatory
 
 Add an entry to `observatories.yaml` with `status.state` and `status.checked`,

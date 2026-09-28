@@ -241,6 +241,7 @@ class Event:
     route: list[str] = field(default_factory=list)
     agencies: list[str] = field(default_factory=list)
     modes: list[str] = field(default_factory=list)
+    platforms: list[str] = field(default_factory=list)
     quantities: list[dict] = field(default_factory=list)
     value_inr: float | None = None
     people_arrested: int | None = None
@@ -292,6 +293,9 @@ def extract(rec: Record) -> Event:
     ev.terms = lexicon.matched_terms(text)
     ev.event_types = [k for k, v in lexicon.count_cues(text, "enforcement_cues").items() if v]
     ev.modes = [k for k, v in lexicon.count_cues(text, "modes").items() if v]
+    ev.platforms = [k for k, v in lexicon.count_cues(text, "platforms").items() if v]
+    if ev.platforms and "online" not in ev.modes:
+        ev.modes.append("online")
 
     ags = []
     for region, names in lexicon.load()["agencies"].items():

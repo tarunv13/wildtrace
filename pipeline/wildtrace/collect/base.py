@@ -72,18 +72,21 @@ def write_jsonl(records: list[Record], name: str) -> Path:
     path = RAW / f"{time.strftime('%Y%m%d')}_{name}.jsonl"
     seen = set()
     if path.exists():
-        seen = {json.loads(l)["id"] for l in path.read_text(encoding="utf-8").splitlines() if l.strip()}
+        seen = {json.loads(l)["id"] for l in path.read_text(encoding="utf-8").split("\n") if l.strip()}
     with path.open("a", encoding="utf-8") as f:
         for r in records:
             if r.id not in seen:
-                f.write(json.dumps(r.to_dict(), ensure_ascii=False) + "\n"); seen.add(r.id)
+                # U+2028/U+2029 are legal inside JSON strings but end a line for splitlines(): escape them.
+                line = json.dumps(r.to_dict(), ensure_ascii=False).replace("\u2028", "\\u2028").replace("\u2029", "\\u2029")
+                f.write(line + "\n"); seen.add(r.id)
     return path
 
 
 def read_all_raw() -> list[Record]:
     out: dict[str, Record] = {}
     for p in sorted(RAW.glob("*.jsonl")):
-        for line in p.read_text(encoding="utf-8").splitlines():
+        # split("\n"), not splitlines(): older files may carry raw U+2028/U+2029 inside a record.
+        for line in p.read_text(encoding="utf-8").split("\n"):
             if line.strip():
                 d = json.loads(line)
                 out.setdefault(d["id"], Record.from_dict(d))

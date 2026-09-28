@@ -144,12 +144,12 @@ observatories:
     focus: Online markets worldwide; regional hubs
     global_south: Its hubs sit in the countries with the biggest regional online markets. Its bulletins include South Asia (musk deer) and Cameroon.
     languages: [multi]
-    features: Manual monitoring + local-language hubs + AI discovery; 13,254 ads detected Apr 2024 – Aug 2025 (84% on Facebook)
-    access: public bulletins and metrics
+    features: "Global Monitoring System: regional hubs, each with a priority species basket and platform shortlist; manual monitoring + local-language knowledge + AI discovery. Sixth Global Trend Report (Apr 2024 - Mar 2026): 21,900+ adverts, 266,000+ products, 61 platforms, about three-quarters on Facebook. Public dashboard: 30+ countries, 79 species, downloadable data, updated manually (last May 2026)."
+    access: public dashboard (ecosolve.eco/dashboard), bulletins and downloadable data
     url: https://globalinitiative.net/initiatives/ecosolve/
     hq: {lon: 6.14, lat: 46.2, city: "Geneva"}
-    status: {state: active, checked: 2026-09-22, note: "Spreadsheet URL /initiatives/eco-solve/ is a 404; corrected."}
-    wildtrace: {role: [benchmark, design], stage: [screen], how: "The same hybrid design as WildTrace's listing classifier: a machine ranks, a person decides (review queue). Their musk-deer bulletin is a direct benchmark for the WCS-OWT musk-deer group."}
+    status: {state: active, checked: 2026-09-29, note: "Figures from the sixth Global Trend Report and the Bellingcat toolkit entry."}
+    wildtrace: {role: [benchmark, design, complement], stage: [screen], how: "Complementary: ECO-SOLVE watches the adverts (supply online); WildTrace records where online trade met enforcement (platforms named in seizure, arrest and court reports), plus offline seizures, CITES and US port records. Same hybrid design as WildTrace's listing classifier: a machine ranks, a person decides."}
     provenance: [xlsx, gemini]
 
   - id: wildtrade_helsinki

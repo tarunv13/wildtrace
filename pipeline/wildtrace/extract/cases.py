@@ -163,6 +163,7 @@ def summarise(evs: list[Event]) -> dict:
         "route": route,
         "agencies": sorted({a for e in evs for a in e.agencies}),
         "modes": sorted({m for e in evs for m in e.modes}),
+        "platforms": sorted({p for e in evs for p in getattr(e, "platforms", [])}),
         "quantity": qty,
         "quantities": quantities[:8],
         "value_inr": value,

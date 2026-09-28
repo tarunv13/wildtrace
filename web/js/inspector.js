@@ -50,6 +50,7 @@ function narrative(c, place, qs) {
   }
   if (c.agencies.length) out.push(`${listOf(c.agencies.map(esc))} ${c.agencies.length > 1 ? "are" : "is"} named as acting in the reports.`);
   if (c.modes.length) out.push(`Transport named: ${listOf(c.modes.map(esc))}.`);
+  if (c.platforms?.length) out.push(`Platform named in the reports: ${listOf(c.platforms.map(esc))}. WildTrace records the platform, never the seller.`);
   if (c.route?.length === 2) {
     out.push(`The consignment is described as moving from <b>${esc(c.route[0])}</b> to <b>${esc(c.route[1])}</b>, as stated in the reports. `
       + `An origin and destination given by a source are not the same as an established route.`);

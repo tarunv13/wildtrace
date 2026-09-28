@@ -427,7 +427,33 @@ modes:
   rail: [train, railway station, railway, express train]
   road: [truck, lorry, highway, checkpost, check post, naka, vehicle, car, bus, motorcycle]
   post: [courier, parcel, postal, speed post]
-  online: [facebook, instagram, whatsapp, telegram, youtube, online, e-commerce, social media]
+  online: [facebook, instagram, whatsapp, telegram, youtube, tiktok, online, e-commerce, social media, dark web, marketplace,
+           redes sociais, internet, redes sociales, en línea, réseaux sociaux, en ligne, mạng xã hội, trực tuyến,
+           media sosial, daring, ऑनलाइन, सोशल मीडिया, ออนไลน์]
+
+# Platforms named in enforcement reports (what was sold where, as the report says). A platform
+# name is not a seller: handles, links and numbers are never extracted (see privacy.py).
+platforms:
+  Facebook: [facebook, fb marketplace, facebook marketplace, फेसबुक]
+  Instagram: [instagram, इंस्टाग्राम]
+  WhatsApp: [whatsapp, व्हाट्सएप]
+  Telegram: [telegram]
+  TikTok: [tiktok, douyin]
+  YouTube: [youtube]
+  WeChat: [wechat, weixin]
+  X (Twitter): [twitter]
+  OLX: [olx]
+  Mercado Livre / Libre: [mercado livre, mercado libre, mercadolibre]
+  Shopee: [shopee]
+  Lazada: [lazada]
+  Tokopedia: [tokopedia]
+  eBay: [ebay]
+  Craigslist: [craigslist]
+  Jiji: [jiji.ng, jiji marketplace]
+  Gumtree: [gumtree]
+  Carousell: [carousell]
+  Zalo: [zalo]
+  Dark web: [dark web, darknet]
 
 # Phrases that make a match NOT a wildlife-trade report. Each came from a real
 # false positive: a film ("Kattalan", an ivory-smuggling thriller), a liquor brand

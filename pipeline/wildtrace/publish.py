@@ -140,6 +140,13 @@ def stats(cases: list[dict]) -> dict:
         "by_kind": dict(Counter(c["kind"] for c in cases).most_common()),
         "by_agency": dict(by(lambda c: c["agencies"]).most_common(25)),
         "by_mode": dict(by(lambda c: c["modes"]).most_common()),
+        # Online trade at the enforcement end: platforms named in seizure, arrest and court reports.
+        "by_platform": dict(by(lambda c: c.get("platforms") or []).most_common()),
+        "online": {"cases": sum(1 for c in cases if "online" in c["modes"]),
+                   "by_kind": dict(Counter(c["kind"] for c in cases if "online" in c["modes"]).most_common()),
+                   "by_species": dict(by(lambda c: c["species"] if "online" in c["modes"] else []).most_common(12)),
+                   "by_country": dict(Counter((c.get("place") or {}).get("country") for c in cases
+                                              if "online" in c["modes"] and c.get("place")).most_common(15))},
         "by_region": dict(state.most_common(40)),
         "by_month": dict(sorted(month.items())),
         "routes": [{"from": a, "to": b, "n": n} for (a, b), n in routes.most_common(50)],
@@ -173,7 +180,7 @@ def write_csv(cases: list[dict]) -> None:
     """Flat, citable export of every published case (CC BY 4.0)."""
     import csv
     cols = ["id", "date", "kind", "verification", "summary", "species", "place", "admin1", "country", "place_precision", "lat", "lon",
-            "quantities", "people_arrested", "agencies", "modes", "n_reports", "n_outlets", "official_sources", "source_urls"]
+            "quantities", "people_arrested", "agencies", "modes", "platforms", "n_reports", "n_outlets", "official_sources", "source_urls"]
     with open(WEB_DATA / "cases.csv", "w", newline="", encoding="utf-8") as f:
         w = csv.writer(f); w.writerow(cols)
         for c in cases:
@@ -181,7 +188,7 @@ def write_csv(cases: list[dict]) -> None:
             w.writerow([c["id"], c["date"], c["kind"], c["verification"], c["summary"], ";".join(c["species"]), p.get("name", ""),
                         p.get("admin1", ""), p.get("country", ""), ("inferred from publisher" if c.get("place_basis") == "outlet" else p.get("type", "")),
                         p.get("lat", ""), p.get("lon", ""), ";".join(f"{q['value']:g} {q['unit']}" for q in c.get("quantities") or []),
-                        c.get("people_arrested") or "", ";".join(c["agencies"]), ";".join(c["modes"]), c["n_sources"], c.get("n_outlets", ""),
+                        c.get("people_arrested") or "", ";".join(c["agencies"]), ";".join(c["modes"]), ";".join(c.get("platforms") or []), c["n_sources"], c.get("n_outlets", ""),
                         sum(1 for s in c["sources"] if s["tier"] == "official"), " ".join(s["url"] for s in c["sources"])])
 
 

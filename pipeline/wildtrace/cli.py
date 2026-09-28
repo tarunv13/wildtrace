@@ -31,6 +31,9 @@ def _collect(a) -> None:
         print(f"Google News RSS: {eds}")
         groups = {g.strip() for g in (getattr(a, "groups", "") or "").split(",") if g.strip()} or None
         print("  ->", write_jsonl(feeds.collect_gnews(eds, when=a.gnews_window, groups=groups), "gnews"))
+        if getattr(a, "online", False):
+            print("Google News: online wildlife crime (platforms, social media)")
+            print("  ->", write_jsonl(feeds.collect_gnews_online(eds, when=a.gnews_window), "gnews"))
     if a.youtube:
         from .collect import social
         print("YouTube (yt-dlp, metadata only)")
@@ -95,6 +98,7 @@ def main(argv=None) -> None:
         c.add_argument("--official", action="store_true", help="search government / enforcement / judicial domains")
         c.add_argument("--history", type=int, default=0, help="backfill this many past months (Google News date ranges)")
         c.add_argument("--no-gdelt", action="store_true", help="skip GDELT (heavily throttled)")
+        c.add_argument("--online", action="store_true", help="also search for online wildlife crime reaching enforcement")
         c.add_argument("--groups", default="", help="limit the news search to these species groups (comma-separated)")
         c.add_argument("--gnews-window", default="30d", help="how far back Google News searches reach (daily runs use 3d)")
     mi = sub.add_parser("mine", help="mine the research literature for taxa, trade names and datasets")

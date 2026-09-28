@@ -99,6 +99,16 @@ LOCAL_CUES = {
 }
 
 
+def _when(w: str) -> str:
+    """Google News `when:` takes hours, days or years; "12m" is read as minutes and returns nothing.
+    Months are converted: 12m -> 1y, 3m -> 90d."""
+    w = (w or "30d").strip().lower()
+    if w.endswith("m") and w[:-1].isdigit():
+        n = int(w[:-1])
+        return f"{n // 12}y" if n % 12 == 0 else f"{n * 30}d"
+    return w
+
+
 def collect_gnews(editions: list[str] | None = None, when: str = "30d", groups: set[str] | None = None) -> list[Record]:
     """Google News RSS search. OPT-IN: Google's feed terms allow personal,
     non-commercial use only. Enable deliberately (``--gnews``) for research runs,
@@ -118,13 +128,49 @@ def collect_gnews(editions: list[str] | None = None, when: str = "30d", groups: 
             terms = local or [t for t in g["terms"].get("en", []) if len(t) > 4][:3]
             if not terms:
                 continue
-            q = "(" + " OR ".join(f'"{t}"' for t in terms) + f") {cue} when:{when}"
+            q = "(" + " OR ".join(f'"{t}"' for t in terms) + f") {cue} when:{_when(when)}"
             url = f"https://news.google.com/rss/search?q={quote_plus(q)}&hl={hl}&gl={gl}&ceid={ceid}"
             r = get(url, delay=3, check_robots=False)
             got = parse(r.content, "gnews", gl, "news", q) if r is not None and r.ok else []
             if got:
                 print(f"  gnews {ed} {gid}: {len(got)}")
             recs += got
+    return recs
+
+
+# ------------------------------------------------------------------ online trade, enforcement end
+# ECO-SOLVE and WILDTRADE watch the adverts. These searches find what happens after: reports of
+# seizures, arrests and convictions that name a platform or online sale. Each language gets one
+# query: [wildlife words] AND [online words], plus enforcement words where the edition accepts them.
+ONLINE_QUERIES = {
+    "en": '(wildlife OR "protected species" OR "exotic animals" OR pangolin OR parrots OR orchids) '
+          '(Facebook OR WhatsApp OR Telegram OR Instagram OR TikTok OR online OR "social media") (seized OR arrested OR convicted)',
+    # Google News returns nothing for three OR-groups in these editions; the enforcement screen runs later anyway.
+    "pt": '("animais silvestres" OR "fauna silvestre" OR "aves silvestres") (internet OR "redes sociais" OR Facebook OR WhatsApp)',
+    "es": '("fauna silvestre" OR "especies protegidas" OR "tráfico de fauna") (Facebook OR "redes sociales" OR internet)',
+    "fr": '("espèces protégées" OR "faune sauvage" OR ivoire OR pangolin) (Facebook OR "réseaux sociaux" OR internet)',
+    "hi": '(वन्यजीव OR तोता OR कछुआ OR तस्करी) (ऑनलाइन OR "सोशल मीडिया" OR फेसबुक)',
+    "vi": '("động vật hoang dã" OR "động vật quý hiếm") ("mạng xã hội" OR Facebook OR Zalo)',
+    "id_ms": '("satwa dilindungi" OR "satwa liar") (online OR "media sosial" OR Facebook)',
+}
+
+
+def collect_gnews_online(editions: list[str] | None = None, when: str = "30d") -> list[Record]:
+    """Google News searches for online wildlife crime reaching enforcement (same terms as collect_gnews)."""
+    recs, seen = [], set()
+    for ed in editions or list(GNEWS_EDITIONS):
+        hl, gl, ceid, lang = GNEWS_EDITIONS[ed]
+        q = ONLINE_QUERIES.get(lang)
+        if not q:
+            continue
+        q = f"{q} when:{_when(when)}"
+        url = f"https://news.google.com/rss/search?q={quote_plus(q)}&hl={hl}&gl={gl}&ceid={ceid}"
+        r = get(url, delay=3, check_robots=False)
+        got = [x for x in (parse(r.content, "gnews", gl, "news", q) if r is not None and r.ok else []) if x.id not in seen]
+        seen.update(x.id for x in got)
+        if got:
+            print(f"  gnews-online {ed}: {len(got)}")
+        recs += got
     return recs
 
 

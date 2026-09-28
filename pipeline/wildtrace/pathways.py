@@ -61,7 +61,9 @@ def evidence(cases: list[dict], species: dict, data: Path) -> dict:
          "arrested": sum(c.get("people_arrested") or 0 for c in cases),
          "multi": sum(1 for c in cases if len(c.get("countries") or []) > 1),
          "plant_cases": sum(1 for c in cases if any(s in plants for s in c.get("species", []))),
-         "groups": len(species)}
+         "groups": len(species),
+         "online": sum(1 for c in cases if "online" in (c.get("modes") or [])),
+         "platforms": Counter(p for c in cases for p in c.get("platforms") or []).most_common(4)}
     if flows:
         s = flows["seized"]
         e["cites"] = sum(r[4] for r in s)
@@ -108,8 +110,10 @@ def links(e: dict, cc_name) -> list[dict]:
          "strength": "partial",
          "shows": f"{e.get('cites_transit', 0):,} CITES seizures passed through a third country between origin and seizure. "
                   f"{e['multi']} news cases span more than one country. Where reports name a transport mode, air "
-                  f"({e['modes'].get('air', 0)}) and online sale ({e['modes'].get('online', 0)}) lead, then road ({e['modes'].get('road', 0)}) and sea ({e['modes'].get('sea', 0)}).",
-         "limit": "Only 2 news cases name both ends of a route, so routes come from trade records, not from reporting.",
+                  f"({e['modes'].get('air', 0)}) and online sale ({e['modes'].get('online', 0)}) lead, then road ({e['modes'].get('road', 0)}) and sea ({e['modes'].get('sea', 0)}). "
+                  + (f"Where online trade reached enforcement, reports most often name {', '.join(f'{p} ({n})' for p, n in e['platforms'])}." if e["platforms"] else ""),
+         "limit": "Only 2 news cases name both ends of a route, so routes come from trade records, not from reporting. "
+                  "Online adverts themselves are monitored by others (ECO-SOLVE, WILDTRADE); WildTrace records where online trade met enforcement.",
          "question": "Theme III, shipping and trade chokepoints",
          "go": [("Follow routes on the Flows map", f"{site}/?mode=flows")]},
         {"id": "ports", "n": 3, "title": "It reaches the border: what inspectors intercept",

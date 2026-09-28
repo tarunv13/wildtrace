@@ -2,6 +2,25 @@
 
 All notable changes to WildTrace. Dates are the release date, newest first.
 
+## 1.9.0 — 2026-09-29
+
+### Added
+- **Caught online: the enforcement end of online wildlife trade.** Every case now records the platforms its
+  reports name (Facebook, WhatsApp, Telegram, TikTok, OLX, Mercado Livre, Shopee and others; never a seller,
+  handle or link), in the case panel, `cases.csv` (`platforms` column) and `stats.json` (`by_platform`,
+  `online`). Analysis gains "Caught online" and "What was sold online". Risk pathways link 2 reports it.
+- **Online-crime searches in eight languages** (`collect --online`, now in the daily run): wildlife words
+  with platform and social-media words in English, Portuguese, Spanish, French, Hindi, Vietnamese and
+  Indonesian/Malay. A one-year backfill added the first records.
+- **WildTrace and ECO-SOLVE** (docs/OBSERVATORIES.md): a side-by-side of coverage. ECO-SOLVE records adverts
+  (offer); WildTrace records interception and outcome. Read together they show where wildlife is offered
+  online but rarely reaches enforcement.
+
+### Fixed
+- **Google News time windows.** `--gnews-window 12m` was read by Google News as twelve *minutes* and returned
+  almost nothing; months are now converted (12m -> 1y, 3m -> 90d). Targeted backfills made with a months
+  window before this release collected little; a one-year backfill of every species group was re-run.
+
 ## 1.8.0 — 2026-09-29
 
 ### Added

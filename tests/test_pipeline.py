@@ -362,3 +362,26 @@ def test_pathways_page_states_evidence_limits_and_gap(tmp_path):
     assert '"@type": "FAQPage"' in html_ and "militarisation" in html_
     e = pathways.evidence(cases, species, tmp_path / "data")
     assert e["cites"] == 5 and e["cites_plants"] == 3 and e["cites_transit"] == 2 and e["cites_us"] == 3
+
+
+def test_online_platforms_are_extracted_without_sellers_and_windows_normalised():
+    from wildtrace.collect.feeds import _when
+    from wildtrace.schema import Record
+    from wildtrace.extract.events import extract
+    rec = Record(url="https://example.org/a", title="Police seize pangolin scales advertised on Facebook Marketplace",
+                 text="The seller used WhatsApp to arrange delivery; two arrested.", outlet="Example", published="2026-09-01", source="gnews")
+    ev = extract(rec)
+    assert set(ev.platforms) == {"Facebook", "WhatsApp"} and "online" in ev.modes
+    assert _when("12m") == "1y" and _when("3m") == "90d" and _when("3d") == "3d"
+
+
+def test_jsonl_survives_unicode_line_separators(tmp_path, monkeypatch):
+    import json as _json
+    from wildtrace.collect import base
+    from wildtrace.schema import Record
+    monkeypatch.setattr(base, "RAW", tmp_path)
+    base.write_jsonl([Record(url="https://e.org/1", title="Seizure of ivory", source="gnews")], "t")
+    old = Record(url="https://e.org/2", title="raw sep", source="gnews").to_dict()
+    (tmp_path / "old.jsonl").write_text(_json.dumps(old, ensure_ascii=False) + "\n", encoding="utf-8")
+    titles = sorted(r.title for r in base.read_all_raw())
+    assert titles == ["Seizure of ivory", "raw sep"]
