@@ -67,6 +67,8 @@ export function mountMethods(root, tab = "pipeline") {
       <p>A second, independent seizure layer comes from the US Fish and Wildlife Service's <b>LEMIS</b> import records, released under the Freedom of Information Act and cleaned by Marshall et al. (2025, <i>Current Biology</i>; 2000–2022, land vertebrates and arachnids) and Eskew et al. (2020, <i>Scientific Data</i>; 2000–2014, used only for fish, invertebrates and plants). Only records with disposition S (seized) are kept; genera are placed in families with the GBIF key of the seized-wildlife codebook (Stringham et al. 2021). Both sources are CC BY 4.0.</p>
       <p>Read it with three limits. A LEMIS seizure can follow missing or wrong paperwork as well as smuggling. It shows what US inspectors intercepted, so it measures US enforcement effort as much as trade. And the United States also reports seizures to CITES, so on routes into the US the two layers overlap: compare them, never add them. US-bound routes already make up about four in five CITES seizure records here, which is why "Spread across markets" is on by default.</p>
       <p>How these layers add up to an environment-to-security pathway, and where the open evidence stops, is set out in <a href="pathways.html">Risk pathways</a>.</p>
+      <h3>Captive-bred claims</h3>
+      <p>For animal groups, commercial CITES exports declared captive-bred (source C, F or D) are compared with those declared wild (W, R, U, X), per exporter, in 2015–2018 and 2020–2023. Declaring wild-caught animals as bred is a documented laundering route: green pythons exported from Indonesia as captive-bred were overwhelmingly wild-caught (Lyons &amp; Natusch 2011, <i>Biological Conservation</i>). A high or rising share tells an investigator where to ask; genuine breeding, ranching and coral mariculture produce it too. Only pairs with at least 30 records are shown.</p>
       <h3>Zoonoses</h3>
       <p><b>VIRION</b> (Carlson et al. 2022) gives the viruses recorded in each species group; only detections by sequencing or isolation count. A close relative is a virus in a genus that also infects people. <b>WHO Disease Outbreak News</b> gives the outbreak reports: diseases with an animal reservoir are grouped by how they reach people, and each report is placed in every country its title names.
         The two layers share a map, not a cause, and both follow research and reporting effort.</p></div>`,
@@ -152,6 +154,7 @@ export function mountAbout(root) {
     <h3>More open data</h3>
     <div class="row"><a class="btn" href="data/cites_seized_flows.csv" download>Seized-shipment flows (CSV)</a>
       <a class="btn" href="data/lemis_seized_flows.csv" download>US port seizures (CSV)</a>
+      <a class="btn" href="data/captive_claims.csv" download>Captive-bred claims (CSV)</a>
       <a class="btn" href="data/cites_declared_flows.csv" download>Declared-trade flows (CSV)</a>
       <a class="btn" href="data/zoonotic_outbreak_reports.csv" download>Zoonotic outbreak reports (CSV)</a>
       <a class="btn" href="data/species_viruses.csv" download>Viruses by species group (CSV, ODbL)</a>

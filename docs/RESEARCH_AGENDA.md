@@ -78,6 +78,10 @@ natural language processing research addresses the exact problems WildTrace's pi
 - **B3. Harms of enforcement.** Which enforcement responses reduce trade without harming local people?
   Open evidence on the human costs of anti-poaching is scarce and belongs on the same map.
 
+- **B4. When is "captive-bred" true?** `captive_claims.csv` lists exporter-group pairs whose commercial CITES
+  exports switched towards captive-bred declarations. Which of them match real breeding capacity (facility
+  counts, species biology, production maths as in Lyons & Natusch 2011), and which do not?
+
 ### C. Correcting for who reports
 
 - **C1. Reporting and inspection effort.** Model the probability that a seizure is recorded, by
@@ -104,6 +108,7 @@ natural language processing research addresses the exact problems WildTrace's pi
 | `web/data/cases.csv` | cases from public reports, graded | CC BY 4.0 |
 | `web/data/cites_seized_flows.csv` | CITES seized shipments by origin, exporter, importer | CITES terms (non-commercial) |
 | `web/data/lemis_seized_flows.csv` | imports seized at US ports by origin | CC BY 4.0 |
+| `web/data/captive_claims.csv` | captive-bred share of commercial CITES exports, per exporter and group | CITES terms (non-commercial) |
 | `web/data/zoonoses.json` | VIRION viruses per group, WHO outbreak reports | ODbL 1.0 |
 | `pipeline/wildtrace/resources/lexicon*.yaml` | multilingual species and trade vocabulary | CC BY 4.0 |
 
@@ -128,6 +133,7 @@ go through a pull request with tests. See [CONTRIBUTING.md](../CONTRIBUTING.md).
 - Liang, B. et al. (2022a). Zero-shot stance detection via contrastive learning. *Proceedings of the ACM Web Conference 2022.* https://doi.org/10.1145/3485447.3511994
 - Liang, B. et al. (2022b). JointCL: a joint contrastive learning framework for zero-shot stance detection. *ACL 2022.* https://doi.org/10.18653/v1/2022.acl-long.7
 - Lunstrum, E. (2014). Green militarization: anti-poaching efforts and the spatial contours of Kruger National Park. *Annals of the Association of American Geographers* 104, 816-832. https://doi.org/10.1080/00045608.2014.912545
+- Lyons, J. A. & Natusch, D. J. D. (2011). Wildlife laundering through breeding farms: illegal harvest, population declines and a means of regulating the trade of green pythons (*Morelia viridis*) from Indonesia. *Biological Conservation* 144, 3073-3081. https://doi.org/10.1016/j.biocon.2011.10.002
 - Margulies, J. D. et al. (2019). Illegal wildlife trade and the persistence of "plant blindness". *Plants, People, Planet* 1, 173-182. https://doi.org/10.1002/ppp3.10053
 - Marshall, B. M. et al. (2025). Tracing trade: mapping the global dimensions of US wildlife imports. *Current Biology* 35, 3959-3972. https://doi.org/10.1016/j.cub.2025.07.012
 - Massé, F. et al. (2020). Conservation and crime convergence? Situating the 2018 London Illegal Wildlife Trade Conference. *Journal of Political Ecology* 27, 23-42. https://doi.org/10.2458/v27i1.23543

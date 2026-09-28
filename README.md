@@ -32,7 +32,7 @@ crime revenue, disease risk and the loss of ecosystems people depend on.
 <p align="center">
   <img src="docs/img/atlas.png" alt="The WildTrace globe with clustered case markers across Africa, South Asia and South America, a summary panel on the left and a timeline along the bottom" width="100%">
   <br>
-  <sub>The Atlas: 1,251 cases in 59 countries. Colour is the kind of event, paler dots are single reports, the glow is density of reporting.</sub>
+  <sub>The Atlas (screenshot from an earlier build; now 2,126 cases in 74 countries). Colour is the kind of event, paler dots are single reports, the glow is density of reporting.</sub>
 </p>
 
 ---
@@ -176,8 +176,8 @@ Every case carries one status:
 | **Corroborated** | Two or more independent outlets report it |
 | **Single report** | One outlet only: a lead, not a finding |
 
-As of the current build: **187 official, 140 corroborated, 924 single report**. Three in four
-cases still rest on one outlet, and **557 of 1,251 cases name no place** at all. Those numbers are
+As of 29 September 2026: **240 official, 308 corroborated, 1,578 single report**. Three in four
+cases still rest on one outlet, and **958 of 2,126 cases name no place** at all. Those numbers are
 on the site, not buried here, because a map that hides them would be misleading.
 
 Found a mistake? Use **Report a correction** on any case, which opens a pre-filled issue.
@@ -192,13 +192,15 @@ Found a mistake? Use **Report a correction** on any case, which opens a pre-fill
   [`cites_declared_flows.csv`](https://tarunv13.github.io/wildtrace/data/cites_declared_flows.csv),
   [`lemis_seized_flows.csv`](https://tarunv13.github.io/wildtrace/data/lemis_seized_flows.csv)
   (imports seized at US ports per species group and origin, CC BY 4.0),
+  [`captive_claims.csv`](https://tarunv13.github.io/wildtrace/data/captive_claims.csv)
+  (commercial CITES exports declared captive-bred, per exporter and group, 2015-18 vs 2020-23; CITES terms),
   [`zoonotic_outbreak_reports.csv`](https://tarunv13.github.io/wildtrace/data/zoonotic_outbreak_reports.csv)
   (2,116 WHO reports with disease, pathway and countries) and
   [`species_viruses.csv`](https://tarunv13.github.io/wildtrace/data/species_viruses.csv).
 - **Licence:** case data CC BY 4.0, code MIT. `flows.json` is derived from the CITES Trade Database
   and shared under its terms (non-commercial, with attribution); the virus counts in
   `zoonoses.json` come from VIRION under ODbL 1.0.
-- **Coverage:** 1,271 cases, 59 countries, 1,788 public reports, 2024-01-15 to 2026-09-22; 24,719
+- **Coverage:** 2,126 cases, 74 countries, 3,126 public reports, 2024-01-15 to 2026-09-28; 24,719
   seized and 7 million declared CITES shipments since 2015; 2,116 zoonotic WHO outbreak reports.
 
 ## How it fits together

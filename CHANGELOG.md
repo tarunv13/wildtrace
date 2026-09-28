@@ -11,12 +11,28 @@ All notable changes to WildTrace. Dates are the release date, newest first.
   `online`). Analysis gains "Caught online" and "What was sold online". Risk pathways link 2 reports it.
 - **Online-crime searches in eight languages** (`collect --online`, now in the daily run): wildlife words
   with platform and social-media words in English, Portuguese, Spanish, French, Hindi, Vietnamese and
-  Indonesian/Malay. A one-year backfill added the first records.
+  Indonesian/Malay. A one-year backfill added 582 reports. Platform names come from headlines only: Google News
+  forbids fetching its article links (robots.txt), and WildTrace respects that.
 - **WildTrace and ECO-SOLVE** (docs/OBSERVATORIES.md): a side-by-side of coverage. ECO-SOLVE records adverts
   (offer); WildTrace records interception and outcome. Read together they show where wildlife is offered
   online but rarely reaches enforcement.
 
+- **Wider screening vocabulary**, each word taken from a real missed report: generic wildlife phrases
+  ("endangered wildlife", "wildlife specimens", "wildlife racket"), enforcement verbs ("busts", "foils", "raid",
+  "charged", "pleaded guilty") and their Hindi, Vietnamese, Indonesian, Portuguese, Spanish and French
+  equivalents (दबोचा, बरामद, khởi tố, thu giữ, diringkus, diamankan, autuado, aseguran, démantelé).
+- **Cases: 1,373 -> 2,126** in 74 countries (from 3,126 reports), after the backfill and vocabulary fixes.
+  A sample of new cases was read by hand; "crackdown" was dropped as a cue because it pulled in policy announcements.
+
+- **Captive-bred claims** (`wildtrace captive`, `captive_claims.csv`, Analysis): for animal groups, the share
+  of commercial CITES exports declared captive-bred per exporter, 2015-2018 against 2020-2023. Declaring
+  wild-caught animals as bred is a documented laundering route (Lyons & Natusch 2011); a rise is a question to
+  ask, never a finding, since genuine breeding, ranching and coral mariculture produce it too. Neither
+  ECO-SOLVE nor WildTrace looked at the legal trade this way before.
+
 ### Fixed
+- **Line separators in records.** Headlines containing U+2028/U+2029 were split mid-record when read back,
+  which crashed the build; records are now written with those characters escaped and read by newline only.
 - **Google News time windows.** `--gnews-window 12m` was read by Google News as twelve *minutes* and returned
   almost nothing; months are now converted (12m -> 1y, 3m -> 90d). Targeted backfills made with a months
   window before this release collected little; a one-year backfill of every species group was re-run.

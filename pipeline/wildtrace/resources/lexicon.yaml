@@ -95,7 +95,7 @@ groups:
     cites: "II"
     products: [dried]
     terms:
-      en: [sea fan, sea fans, black coral, corals seized, coral smuggling]
+      en: [sea fan, sea fans, black coral, black corals, corals seized, coral smuggling, coral racket, coral smugglers, red coral]
       hi_latn: [indrajal]  # owt
       hi: [इंद्रजाल]
   tokay_gecko:
@@ -394,13 +394,14 @@ groups:
     products: [mixed or unnamed species]
     note: "Used only when no specific group matches: official releases often name no species."
     terms:
-      en: [wildlife trafficking, wildlife smuggling, wildlife crime, wild animals seized, protected species, endangered species, exotic animals seized, wildlife products]
+      en: [wildlife trafficking, wildlife smuggling, wildlife crime, wild animals seized, protected species, endangered species, exotic animals seized, wildlife products,
+           wildlife trade, wildlife trader, illegal wildlife, endangered wildlife, exotic wildlife, wildlife specimens, wildlife items, wildlife parts, protected animals, wildlife racket]
       pt: [animais silvestres, fauna silvestre, tráfico de animais silvestres, aves silvestres apreendidas]
       es: [fauna silvestre, vida silvestre, especies protegidas, tráfico de especies]
       fr: [espèces protégées, trafic d'espèces sauvages, faune sauvage]
       id_ms: [satwa dilindungi, perdagangan satwa, satwa liar]
       vi: [động vật hoang dã]
-      hi: [वन्यजीव तस्करी, वन्य जीव]
+      hi: [वन्यजीव तस्करी, वन्य जीव, वन्यजीवों की तस्करी, दुर्लभ वन्यजीव]
 
 # Words that signal a trade listing (supply side) rather than a news report.
 sale_cues:
@@ -410,9 +411,10 @@ sale_cues:
 
 # Words that signal an enforcement event (the news side).
 enforcement_cues:
-  seizure: [seized, seizure, seize, seizes, recovered, confiscated, intercepted, haul, bust, busted, smuggling, smuggled, trafficking, जब्त, bắt giữ, disita, ของกลาง, apreensão, apreende, apreendidos, apreendidas, tráfico de animais, decomiso, decomisan, incautan, incautación, incautaron, tráfico de fauna, saisie, saisies, saisi, trafic]
-  arrest: [arrested, arrest, arrests, held, nabbed, detained, apprehended, गिरफ्तार, ditangkap, ditahan, จับกุม, preso, presos, presa, detenido, detenidos, capturados, arrêté, arrêtés, interpellés]
-  conviction: [convicted, sentenced, jailed, imprisonment, rigorous imprisonment, सजा, dihukum, condenado, condenados, sentenciado, condamné]
+  seizure: [seized, seizure, seize, seizes, recovered, confiscated, intercepted, haul, bust, busted, busts, foils, foiled, raid, raided, racket busted,
+            बरामद, thu giữ, tạm giữ, menyita, diamankan, aseguran, aseguramiento, démantelé, saisis, smuggling, smuggled, trafficking, जब्त, bắt giữ, disita, ของกลาง, apreensão, apreende, apreendidos, apreendidas, tráfico de animais, decomiso, decomisan, incautan, incautación, incautaron, tráfico de fauna, saisie, saisies, saisi, trafic]
+  arrest: [arrested, arrest, arrests, held, nabbed, detained, apprehended, charged, indicted, गिरफ्तार, दबोचा, दबोचे, पकड़ा, पकड़े, हिरासत, diringkus, khởi tố, autuado, flagrante, ditangkap, ditahan, จับกุม, preso, presos, presa, detenido, detenidos, capturados, arrêté, arrêtés, interpellés]
+  conviction: [convicted, sentenced, jailed, imprisonment, rigorous imprisonment, pleaded guilty, fined, condamnés, सजा, dihukum, condenado, condenados, sentenciado, condamné]
   rescue: [rescued, released into the wild, rehabilitated, resgata, resgatados, resgatadas, rescatan, rescatados]
   bail: [bail granted, granted bail, acquitted, discharged]
 

@@ -222,7 +222,7 @@ function openSheet(kind, tab, focus) {
     body.innerHTML = `<div class="skeleton" style="margin:18px;height:50%"></div>`;
     Promise.all(names.map(loadExtra)).then(() => { if (sheetOpen === kind) { body.innerHTML = ""; fn(); } });
   };
-  if (kind === "analysis") later(["flows"], () => mountAnalysis(body));
+  if (kind === "analysis") later(["flows", "captive_claims"], () => mountAnalysis(body));
   if (kind === "matrix") later(["flows"], () => flows.mountMatrix(body));
   if (kind === "zoo") later(["zoonoses", "flows"], () => zoo.mountZoo(body, t));
   if (["analysis", "matrix", "network", "table", "methods"].includes(kind)) setTimeout(() => startSection(kind), kind === "analysis" || kind === "matrix" ? 900 : 300);
@@ -315,7 +315,7 @@ async function boot() {
   else if (q.get("mode") === "zoo") setMode("zoo");
   else document.body.classList.add("mode-cases");
   // Species and country records gain CITES and outbreak blocks once that data is in.
-  setTimeout(() => Promise.all([loadExtra("flows"), loadExtra("zoonoses"), loadExtra("lemis")]).then(refreshInspector), 2500);
+  setTimeout(() => Promise.all([loadExtra("flows"), loadExtra("zoonoses"), loadExtra("lemis"), loadExtra("captive_claims")]).then(refreshInspector), 2500);
   $("#home").addEventListener("click", (e) => { e.preventDefault(); closeTrail(); closeSheet(); if (S.mode !== "cases") setMode("cases"); globe?.world(); });
   $("#play").addEventListener("click", glide);
   $("#range-reset").addEventListener("click", () => { S.filters.range = null; emit("filters"); });

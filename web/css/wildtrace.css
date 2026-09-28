@@ -662,3 +662,9 @@ svg .hit { fill: transparent; cursor: default; }
 .an-path { display: block; margin: 0 0 12px; padding: 10px 14px; border-radius: 12px; background: rgba(194, 122, 6, 0.09);
   color: var(--trade-ink); text-decoration: none; font-size: 13.5px; }
 .an-path:hover { background: rgba(194, 122, 6, 0.15); }
+.tbl { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+.tbl th { text-align: left; font-weight: 600; color: var(--ink-3); padding: 6px 8px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+.tbl td { padding: 6px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.tbl .num { text-align: right; font-variant-numeric: tabular-nums; }
+.tbl tr:last-child td { border-bottom: 0; }
+@media (max-width: 640px) { .tbl th:last-child, .tbl td:last-child { display: none; } }

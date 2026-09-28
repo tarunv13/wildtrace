@@ -148,7 +148,7 @@ ONLINE_QUERIES = {
     # Google News returns nothing for three OR-groups in these editions; the enforcement screen runs later anyway.
     "pt": '("animais silvestres" OR "fauna silvestre" OR "aves silvestres") (internet OR "redes sociais" OR Facebook OR WhatsApp)',
     "es": '("fauna silvestre" OR "especies protegidas" OR "tráfico de fauna") (Facebook OR "redes sociales" OR internet)',
-    "fr": '("espèces protégées" OR "faune sauvage" OR ivoire OR pangolin) (Facebook OR "réseaux sociaux" OR internet)',
+    "fr": '("espèces protégées" OR "faune sauvage" OR pangolin) (Facebook OR "réseaux sociaux" OR internet)',
     "hi": '(वन्यजीव OR तोता OR कछुआ OR तस्करी) (ऑनलाइन OR "सोशल मीडिया" OR फेसबुक)',
     "vi": '("động vật hoang dã" OR "động vật quý hiếm") ("mạng xã hội" OR Facebook OR Zalo)',
     "id_ms": '("satwa dilindungi" OR "satwa liar") (online OR "media sosial" OR Facebook)',

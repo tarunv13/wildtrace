@@ -385,3 +385,21 @@ def test_jsonl_survives_unicode_line_separators(tmp_path, monkeypatch):
     (tmp_path / "old.jsonl").write_text(_json.dumps(old, ensure_ascii=False) + "\n", encoding="utf-8")
     titles = sorted(r.title for r in base.read_all_raw())
     assert titles == ["Seizure of ivory", "raw sep"]
+
+
+def test_captive_claims_use_commercial_animal_trade_and_measure_shift(tmp_path):
+    from wildtrace.collect.captive import aggregate
+    head = "Id,Year,Appendix,Taxon,Class,Order,Family,Genus,Term,Quantity,Unit,Importer,Exporter,Origin,Purpose,Source,Reporter.type\n"
+    rows = []
+    for y in (2015, 2016, 2017, 2018):
+        rows += [f"x,{y},II,Python regius,,,,Python,live,1,,US,TG,,T,W,E"] * 5
+    for y in (2020, 2021, 2022, 2023):
+        rows += [f"x,{y},II,Python regius,,,,Python,live,1,,US,TG,,T,C,E"] * 5
+    rows += ["x,2021,II,Python regius,,,,Python,live,1,,US,TG,,Z,C,E"] * 50        # zoo: ignored
+    rows += ["x,2021,II,Dendrobium nobile,,,,Dendrobium,live,1,,US,TH,,T,A,E"] * 50  # plants: ignored
+    (tmp_path / "t.csv").write_text(head + "\n".join(rows), encoding="utf-8")
+    d = aggregate(tmp_path)
+    assert len(d["rows"]) == 1
+    r = d["rows"][0]
+    assert (r["group"], r["exporter"], r["records"]) == ("pythons_reptiles", "TG", 40)
+    assert r["early_share"] == 0.0 and r["late_share"] == 1.0 and r["shift"] == 1.0
