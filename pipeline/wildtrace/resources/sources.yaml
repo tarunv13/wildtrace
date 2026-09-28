@@ -113,11 +113,13 @@ sources:
 
   - id: lemis
     name: US Fish & Wildlife Service LEMIS import records
-    url: https://doi.org/10.5281/zenodo.3565869
+    url: https://doi.org/10.5281/zenodo.14982583
     access: bulk
-    enabled: false
-    role: [legal-trade, demand]
-    notes: "US imports incl. from India/SE Asia exporters (Eskew et al. 2020, Scientific Data)."
+    enabled: true
+    role: [seizures, demand, products]
+    region: global
+    terms: "CC BY 4.0 (Marshall et al. 2025, Current Biology; Eskew et al. 2020, Scientific Data)"
+    notes: "FOIA import records with their fate; disposition S = seized at a US port. Marshall et al. 2025 (Zenodo 14982583): 2000-2022, terrestrial mammals, birds, reptiles, amphibians, arachnids. Eskew et al. 2020 (Zenodo 3565869): 2000-2014, all taxa, used only for classes Marshall does not cover. Genera placed in families with the PMC8579131 GBIF key. Loader: wildtrace lemis <folder> --taxonomy <codebook> -> web/data/lemis.json + lemis_seized_flows.csv (the 'Seized at US ports' evidence in Flows)."
 
   - id: c4ads_wildleo
     name: C4ADS WildLEO / wildlife seizure database

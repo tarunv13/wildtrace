@@ -79,7 +79,7 @@ async function setMode(m) {
   drawMap();
   syncURL();
   if (m === "cases") { renderPulse($("#pulse-body")); globe?.world(); return; }
-  if (m === "flows") { flows.renderControls($("#pulse-body")); await loadExtra("flows"); if (S.mode === "flows") { drawFlows(); startSection("flows"); } }
+  if (m === "flows") { flows.renderControls($("#pulse-body")); await Promise.all([loadExtra("flows"), loadExtra("lemis")]); if (S.mode === "flows") { drawFlows(); startSection("flows"); } }
   if (m === "zoo") { zoo.renderControls($("#pulse-body")); await Promise.all([loadExtra("zoonoses"), loadExtra("flows")]); if (S.mode === "zoo") { drawZoo(); globe?.fit([[-120, -40], [150, 62]], 3); startSection("zoo"); } }
   globe?.spin(false);
 }
@@ -134,7 +134,8 @@ function drawInspector() {
   if (!item && autoFolded) { $("#pulse").classList.remove("folded"); autoFolded = false; }
   if (!item) { globe?.highlight(null); return; }
   renderInspector(item, $("#insp-body"), { act, entity: localEntity });
-  if (item.kind === "route" && !S.data.flows_detail) Promise.all([loadExtra("flows"), loadExtra("flows_detail")]).then(refreshInspector);
+  if (item.kind === "route" && String(item.id).startsWith("l|") && !S.data.lemis) loadExtra("lemis").then(refreshInspector);
+  else if (item.kind === "route" && !S.data.flows_detail) Promise.all([loadExtra("flows"), loadExtra("flows_detail")]).then(refreshInspector);
   // Move keyboard and screen-reader focus to the record that just opened.
   const h = $("#insp-body .title");
   if (h) { h.setAttribute("tabindex", "-1"); h.focus({ preventScroll: true }); }
@@ -314,7 +315,7 @@ async function boot() {
   else if (q.get("mode") === "zoo") setMode("zoo");
   else document.body.classList.add("mode-cases");
   // Species and country records gain CITES and outbreak blocks once that data is in.
-  setTimeout(() => Promise.all([loadExtra("flows"), loadExtra("zoonoses")]).then(refreshInspector), 2500);
+  setTimeout(() => Promise.all([loadExtra("flows"), loadExtra("zoonoses"), loadExtra("lemis")]).then(refreshInspector), 2500);
   $("#home").addEventListener("click", (e) => { e.preventDefault(); closeTrail(); closeSheet(); if (S.mode !== "cases") setMode("cases"); globe?.world(); });
   $("#play").addEventListener("click", glide);
   $("#range-reset").addEventListener("click", () => { S.filters.range = null; emit("filters"); });

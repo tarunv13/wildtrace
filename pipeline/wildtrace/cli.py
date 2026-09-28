@@ -5,6 +5,7 @@
   wildtrace build                                        extract cases, publish web/data
   wildtrace run                                          collect + build
   wildtrace cites   <folder>                             CITES supply -> demand flows (web/data/flows.json)
+  wildtrace lemis   <folder> [--taxonomy <codebook>]     US LEMIS seizures by origin + product (web/data/lemis.json)
   wildtrace zoonoses [--offline]                         VIRION + WHO outbreaks (web/data/zoonoses.json)
   wildtrace relabel                                      merge reviewed labels into corrections.csv
   wildtrace codebook <zip>                               merge PMC8579131 multilingual names (CC BY)
@@ -102,6 +103,9 @@ def main(argv=None) -> None:
     b = sub.add_parser("build"); b.add_argument("--no-fetch", action="store_true", help="skip fetching article ledes")
     sub.add_parser("relabel"); sub.add_parser("doctor"); sub.add_parser("gazetteer")
     ci = sub.add_parser("cites"); ci.add_argument("folder")
+    le = sub.add_parser("lemis"); le.add_argument("folder")
+    le.add_argument("--taxonomy", default="", help="PMC8579131 zip or folder (genus -> family/order), improves matching")
+    le.add_argument("--min-year", type=int, default=2000)
     zo = sub.add_parser("zoonoses"); zo.add_argument("--offline", action="store_true", help="use the files already in data/raw/zoonoses")
     cb = sub.add_parser("codebook"); cb.add_argument("source", help="PMC8579131 zip or unzipped folder")
     a = p.parse_args(argv)
@@ -124,6 +128,9 @@ def main(argv=None) -> None:
     elif a.cmd == "cites":
         from .collect.cites import aggregate, publish_flows
         print(publish_flows(aggregate(a.folder)))
+    elif a.cmd == "lemis":
+        from .collect.lemis import aggregate as lemis_aggregate, publish as lemis_publish
+        print(lemis_publish(lemis_aggregate(a.folder, a.taxonomy or None, a.min_year)))
     elif a.cmd == "zoonoses":
         from .collect.zoonoses import build as build_zoonoses
         build_zoonoses(a.offline)

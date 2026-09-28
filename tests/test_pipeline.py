@@ -301,6 +301,29 @@ def test_cites_aggregate_keeps_seized_apart_and_drops_domestic(tmp_path):
     assert d["declared"]["red_sanders"] == [["IN", "CN", 1]]
 
 
+def test_lemis_keeps_only_seized_imports_and_never_counts_twice(tmp_path):
+    from wildtrace.collect.lemis import aggregate
+    m = ("control_number,genus,species,description,country_origin,country_imp_exp,purpose,source,action,disposition,"
+         "shipment_date,import_export,sYear,corrected,correctedGenus,orderCorrected,code_origin,code_imp\n")
+    rows = ["1,MANIS,JAVANICA,SCA,Ctry_NG,Ctry_NG,T,W,R,S,2019-05-01,I,2019,Manis javanica,Manis,Pholidota,NG,NG",
+            "2,MANIS,JAVANICA,SCA,Ctry_NG,Ctry_NG,T,W,C,C,2019-05-01,I,2019,Manis javanica,Manis,Pholidota,NG,NG",  # cleared
+            "3,PYTHON,REGIUS,SKI,Ctry_GH,Ctry_IT,T,W,R,S,2018-01-01,I,2018,Python regius,Python,Squamata,GH,IT",
+            "4,CANIS,LUPUS,TRO,Ctry_CA,Ctry_CA,H,W,R,S,2018-01-01,I,2018,Canis lupus,Canis,Carnivora,CA,CA"]      # no group
+    (tmp_path / "LEMIS_distributionsAdded_Mammals.csv").write_text(m + "\n".join(rows), encoding="utf-8")
+    e = "control_number,class,genus,species,description,country_origin,country_imp_exp,purpose,source,action,disposition,shipment_year,import_export\n"
+    (tmp_path / "lemis_2000_2014_cleaned.csv").write_text(e + "\n".join([
+        "9,Reptilia,Python,regius,SKI,GH,GH,T,W,R,S,2010,I",            # Marshall covers reptiles: skipped
+        "8,Elasmobranchii,Carcharhinus,falciformis,FIN,MX,MX,T,W,R,S,2012,I"]), encoding="utf-8")
+    tax = tmp_path / "codebook"
+    tax.mkdir()
+    (tax / "02_gbif_taxonomic_key.csv").write_text("genus,family,order,class\nManis,Manidae,Pholidota,Mammalia\n", encoding="utf-8")
+    d = aggregate(tmp_path, tax)
+    assert sorted(map(tuple, d["seized"])) == [("pangolin", "NG", "NG", "US", 1), ("pythons_reptiles", "GH", "IT", "US", 1),
+                                               ("shark_ray", "MX", "MX", "US", 1)]
+    assert d["detail"]["GH|US"]["via"] == [("IT", 1)]
+    assert d["products"]["pangolin"] == [("SCA", 1)]
+
+
 @pytest.mark.parametrize("title,disease,pathway,countries", [
     ("Ebola disease caused by Bundibugyo virus, Democratic Republic of the Congo & Uganda", "Ebola and Sudan virus disease", "wildlife", ["CD", "UG"]),
     ("Avian Influenza A(H5N1) - Cambodia", "Avian influenza", "birds", ["KH"]),

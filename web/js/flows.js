@@ -1,7 +1,8 @@
 // Flows: where wildlife is taken, where it passes through, and where it is seized.
 // The reader builds the view (species, countries, evidence, colour, how many routes) and
 // switches single routes on and off; the map, the route list and the story sentence follow.
-// Data: CITES Trade Database shipments (web/data/flows.json), plus routes named in cases.
+// Data: CITES Trade Database shipments (web/data/flows.json), US LEMIS seizures (web/data/lemis.json),
+// plus routes named in cases.
 import { esc, fmt } from "./charts.js";
 import { S, ccName, emit, spLabel } from "./store.js";
 import * as icons from "./icons.js";
@@ -70,6 +71,16 @@ export function routes() {
     });
     out.push(...spread(Object.values(agg).filter((r) => has(r.a) && has(r.b)).sort((x, y) => y.n - x.n)).slice(0, f.top));
   }
+  if (f.ev.lemis && S.data.lemis) {
+    const agg = {};
+    S.data.lemis.seized.forEach(([g, o, , i, n]) => {
+      if (o === "XX" || o === i || !okG(g) || !okEnds(o, i)) return;
+      const r = (agg[`l|${o}|${i}`] ||= { key: `l|${o}|${i}`, k: "l", a: o, b: i, n: 0, gs: {} });
+      r.n += n; r.gs[g] = (r.gs[g] || 0) + n;
+    });
+    // Every LEMIS route ends in the US, so "spread across markets" would keep only two.
+    out.push(...Object.values(agg).filter((r) => has(r.a) && has(r.b)).sort((x, y) => y.n - x.n).slice(0, f.top));
+  }
   if (f.ev.declared) {
     const agg = {};
     Object.entries(d.declared).forEach(([g, rows]) => okG(g) && rows.forEach(([e, i, n]) => {
@@ -94,7 +105,7 @@ export function routes() {
 const coords = (cc) => [S.data.countries[cc].lon, S.data.countries[cc].lat];
 const label = (r) => (r.k === "n" ? `${r.la} → ${r.lb}` : `${name(r.a)} → ${name(r.b)}`);
 const flagLabel = (r) => (r.k === "n" ? esc(label(r)) : `${icons.flag(r.a)}${esc(name(r.a))} <span class="muted">→</span> ${icons.flag(r.b)}${esc(name(r.b))}`);
-const KIND = { s: "seized shipments (CITES)", d: "declared shipments (CITES, legal trade)", n: "case(s) naming this route" };
+const KIND = { s: "seized shipments (CITES)", l: "records seized at US ports (LEMIS)", d: "declared shipments (CITES, legal trade)", n: "case(s) naming this route" };
 
 function ends(r, sc) {
   const by = S.flow.colorBy;
@@ -155,7 +166,7 @@ export function geo() {
 
 // ------------------------------------------------------------------ the story sentence
 function story(shown) {
-  const f = S.flow, seized = shown.filter((r) => r.k === "s"), tot = shown.reduce((n, r) => n + r.n, 0);
+  const f = S.flow, seized = shown.filter((r) => r.k === "s" || r.k === "l");
   if (!shown.length) return "Nothing to draw with these choices. Widen the species or countries, or switch on more evidence.";
   if (f.story === "country" && f.country) {
     const v = roles()[f.country] || {};
@@ -166,7 +177,10 @@ function story(shown) {
     return Object.entries(c).sort((a, b) => b[1] - a[1]).slice(0, 2).map(([k]) => regionName(k)); };
   const what = f.groups.size ? [...f.groups].map(spLabel).join(", ") : "Wildlife";
   const lead = seized.length ? `${esc(what)} seized on the way from <b>${esc(top2("a").join(" and "))}</b> to <b>${esc(top2("b").join(" and "))}</b>. ` : "";
-  return `${lead}<span class="mono">${fmt(tot)}</span> ${seized.length ? "shipments" : "records"} on ${shown.length} route${shown.length > 1 ? "s" : ""}.`;
+  // Each evidence layer is counted in its own unit; CITES and LEMIS overlap on US routes, so they are never summed.
+  const UNIT = { s: "CITES seized shipments", l: "records seized at US ports", d: "declared shipments", n: "news cases" };
+  const parts = Object.entries(UNIT).map(([k, u]) => { const rs = shown.filter((r) => r.k === k); return rs.length ? `<span class="mono">${fmt(rs.reduce((n, r) => n + r.n, 0))}</span> ${u}` : ""; }).filter(Boolean);
+  return `${lead}${parts.join(" and ")} on ${shown.length} route${shown.length > 1 ? "s" : ""}.`;
 }
 
 // ------------------------------------------------------------------ controls (left panel in Flows mode)
@@ -199,6 +213,7 @@ export function renderControls(el) {
     <input type="range" id="f-top" min="3" max="40" value="${f.top}" aria-label="How many routes to draw" style="width:100%">
     <div class="sec"><h3>Evidence</h3></div>
     ${chk("f-ev-s", f.ev.seized, "Seized shipments", "CITES, source code I (confiscated or seized)")}
+    ${chk("f-ev-l", f.ev.lemis, "Seized at US ports", "US Fish and Wildlife Service LEMIS, 2000–2022. Overlaps US-reported CITES seizures: compare, don't add")}
     ${chk("f-ev-d", f.ev.declared, "Declared trade", "CITES, all other sources: mostly legal, dashed")}
     ${chk("f-ev-n", f.ev.news, "News routes", "origin and destination named in WildTrace cases")}
     ${chk("f-spread", f.spread, "Spread across markets", `at most ${PER_MARKET} routes into any one country, so no single market fills the list`)}
@@ -221,11 +236,11 @@ export function renderControls(el) {
   el.querySelectorAll("[data-rm]").forEach((b) => b.addEventListener("click", () => set(() => ({ g: f.groups, "f-from": f.from, "f-to": f.to }[b.dataset.rm].delete(b.dataset.v)))));
   el.querySelector("#f-top").addEventListener("change", (e) => set(() => (f.top = +e.target.value)));
   el.querySelector("#f-top").addEventListener("input", (e) => (e.target.previousElementSibling.querySelector(".mono").textContent = `top ${e.target.value}`));
-  [["f-ev-s", "seized"], ["f-ev-d", "declared"], ["f-ev-n", "news"]].forEach(([id, k]) => el.querySelector(`#${id}`).addEventListener("change", (e) => set(() => (f.ev[k] = e.target.checked))));
+  [["f-ev-s", "seized"], ["f-ev-l", "lemis"], ["f-ev-d", "declared"], ["f-ev-n", "news"]].forEach(([id, k]) => el.querySelector(`#${id}`).addEventListener("change", (e) => set(() => (f.ev[k] = e.target.checked))));
   el.querySelector("#f-us").addEventListener("change", (e) => set(() => (f.noUS = !e.target.checked)));
   el.querySelector("#f-spread").addEventListener("change", (e) => set(() => (f.spread = e.target.checked)));
   el.querySelector("#f-reset").addEventListener("click", () => set(() => Object.assign(f, { story: "species", country: "", colorBy: "region", top: 14, noUS: false, spread: true,
-    ev: { seized: true, declared: false, news: false } }, f.groups.clear(), f.from.clear(), f.to.clear())));
+    ev: { seized: true, lemis: false, declared: false, news: false } }, f.groups.clear(), f.from.clear(), f.to.clear())));
   el.querySelector("#f-copy").addEventListener("click", () => navigator.clipboard?.writeText(location.href).then(() => dispatchEvent(new CustomEvent("wildtrace:toast", { detail: "Link to this view copied" }))));
   el.querySelectorAll("[data-open]").forEach((b) => b.addEventListener("click", () => dispatchEvent(new CustomEvent("wildtrace:open", { detail: b.dataset.open }))));
 }
@@ -243,7 +258,7 @@ export function renderSide(el, g) {
     const on = !f.off.has(r.key), [ca, cb] = ends(r, g.sc);
     const gs = Object.entries(r.gs).sort((a, b) => b[1] - a[1]).slice(0, 2).map(([k]) => spLabel(k)).join(", ");
     return `<label class="route ${on ? "" : "off"}"><input type="checkbox" data-key="${esc(r.key)}" ${on ? "checked" : ""}>
-      <span class="rt"><b class="rl" title="${esc(label(r))}">${flagLabel(r)}</b>${r.k === "d" ? ` <span class="status info">declared</span>` : r.k === "n" ? ` <span class="status warn">news</span>` : ""}
+      <span class="rt"><b class="rl" title="${esc(label(r))}">${flagLabel(r)}</b>${r.k === "d" ? ` <span class="status info">declared</span>` : r.k === "l" ? ` <span class="status bad">US ports</span>` : r.k === "n" ? ` <span class="status warn">news</span>` : ""}
         <i class="rb" style="width:${Math.max(6, (r.n / top) * 100)}%;background:linear-gradient(90deg,${ca},${cb})"></i><small>${spIcons(r)}${esc(gs)}</small></span>
       <span class="rt-r"><span class="mono">${fmt(r.n)}</span>${r.k !== "n" ? `<button class="ev" data-route="${esc(r.key)}" title="See the evidence for this route" aria-label="Evidence for ${esc(label(r))}"><b>Evidence</b> ›</button>` : ""}</span></label>`;
   }).join("");
@@ -285,7 +300,7 @@ export function fromQuery(q) {
   f.story = q.get("story") || "species"; f.country = q.get("c") || "";
   f.groups = new Set(list("g")); f.from = new Set(list("from")); f.to = new Set(list("to"));
   f.colorBy = q.get("colour") || "region"; f.top = +q.get("n") || 14;
-  const ev = q.get("ev") || "s"; f.ev = { seized: ev.includes("s"), declared: ev.includes("d"), news: ev.includes("n") };
+  const ev = q.get("ev") || "s"; f.ev = { seized: ev.includes("s"), lemis: ev.includes("l"), declared: ev.includes("d"), news: ev.includes("n") };
   f.noUS = q.get("us") === "0"; f.spread = q.get("spread") !== "0"; f.off = new Set(list("off"));
 }
 
@@ -391,6 +406,7 @@ const PURPOSE = { P: "personal", T: "commercial", S: "scientific", Z: "zoo", H: 
 
 /** Inspector page for a route "s|origin|importer" (seized) or "d|exporter|importer" (declared). */
 export function routeView(key, ic) {
+  if (key.startsWith("l|")) return lemisRouteView(key, ic);
   const [k, a, b] = key.split("|"), d = S.data.flows;
   if (!d) return `<p class="muted">Loading trade flows…</p>`;
   const rows = k === "s" ? d.seized.filter((r) => r[1] === a && r[3] === b) : [];
@@ -436,4 +452,70 @@ export function routeView(key, ic) {
       : `<p class="muted" style="font-size:13px">No news case in WildTrace matches these species in these countries yet. News covers few of the seizures that governments report.</p>`}
     <div class="row" style="margin-top:14px"><button class="btn" data-act="copy">Copy link</button></div>
     <p class="muted" style="font-size:11.5px;margin-top:10px">${esc(d.cite)}</p>`;
+}
+
+/** News cases on the same species in the same countries: they support a route, they are not its shipments. */
+function newsFor(ccs, groups, ic) {
+  const news = S.data.cases.filter((c) => c.place && ccs.has(c.place.country) && c.species.some((s) => groups[s]))
+    .sort((x, y) => (y.date || "").localeCompare(x.date || "")).slice(0, 10);
+  return `<div class="eyebrow" style="margin:16px 0 6px">${ic.ui("news")} In the news</div>
+    ${news.length ? `<p class="muted" style="font-size:12px;margin:0 0 6px">WildTrace cases involving the same species in ${[...ccs].map((c) => esc(name(c))).join(", ")}. They support the pattern; they are not the same shipments.</p>
+      ${news.map((c) => `<button class="link-row" data-go="case|${c.id}"><span style="display:inline-flex;gap:8px;align-items:center;min-width:0">${ic.kind(c.kind)}<span>${esc(c.summary)}</span></span>
+        <span style="display:inline-flex;gap:4px;align-items:center">${(c.sources || []).slice(0, 3).map((s) => ic.outlet(s.outlet)).join("")}<span class="muted" style="font-size:12px;margin-left:4px">${esc(c.date || "")}</span></span></button>`).join("")}`
+      : `<p class="muted" style="font-size:13px">No news case in WildTrace matches these species in these countries yet.</p>`}`;
+}
+
+// LEMIS product names carry their definition in brackets ("Shoe (including boots)"): the chip shows the
+// name, the tooltip the full text.
+const prodChip = (d, t, n) => { const full = d.product_names[t] || t;
+  return `<span class="term-chip" title="${esc(full)}">${esc(full.replace(/\s*\(.*\)\s*$/, ""))} <span class="muted">${fmt(n)}</span></span>`; };
+
+/** Inspector page for a LEMIS route "l|origin|US": imports the US Fish and Wildlife Service seized. */
+function lemisRouteView(key, ic) {
+  const [, a, b] = key.split("|"), d = S.data.lemis;
+  if (!d) return `<p class="muted">Loading US port seizures…</p>`;
+  const rows = d.seized.filter((r) => r[1] === a && r[3] === b), total = rows.reduce((n, r) => n + r[4], 0);
+  const groups = {}; rows.forEach(([g, , , , n]) => (groups[g] = (groups[g] || 0) + n));
+  const det = d.detail?.[`${a}|${b}`];
+  const years = det ? Object.entries(det.years) : [], ymax = Math.max(1, ...years.map(([, n]) => n));
+  const via = det?.via?.map(([c]) => c) || [];
+  const named = (m, names) => Object.entries(m).map(([k, n]) => `${esc(names?.[k] || k || "not stated")} (${fmt(n)})`).join(", ");
+  return `
+    <div class="eyebrow">${ic.ui("package")} Route · seized at US ports</div>
+    <h2 class="title route-t">${ic.flag(a)}<span>${esc(name(a))}</span> <span class="muted">→</span> ${ic.flag(b)}<span>${esc(name(b))}</span></h2>
+    <div class="tiles"><div class="tile"><div class="v">${fmt(total)}</div><div class="k">import records seized by US wildlife inspectors</div></div>
+      <div class="tile"><div class="v">${years.length ? `${years[0][0]}–${years[years.length - 1][0]}` : "–"}</div><div class="k">years on record</div></div></div>
+    <div class="eyebrow" style="margin:6px 0 8px">What was seized</div>
+    <div class="evid">${Object.entries(groups).sort((x, y) => y[1] - x[1]).map(([g, n]) =>
+      `<button class="chip" data-go="species|${g}">${ic.sp(g)}${esc(spLabel(g))} <span class="muted">${fmt(n)}</span></button>`).join("")}</div>
+    ${det ? `<div class="evid" style="margin-top:8px">${det.products.map(([t, n]) => prodChip(d, t, n)).join("")}</div>
+      <p class="muted" style="font-size:12px;margin:8px 0 0">Recorded taxa: <i>${det.taxa.filter(([t]) => t).map(([t, n]) => `${esc(t)} (${fmt(n)})`).join(", ")}</i></p>` : ""}
+    ${years.length > 1 ? `<div class="eyebrow" style="margin:16px 0 6px">When</div>
+      <div class="yrs">${years.map(([y, n]) => `<i title="${y}: ${n}" style="height:${Math.max(3, (n / ymax) * 44)}px"></i>`).join("")}</div>
+      <div class="yrs-l"><span>${years[0][0]}</span><span>${years[years.length - 1][0]}</span></div>` : ""}
+    ${det ? `<div class="box"><h4>What the importer declared</h4>
+      <p style="margin:0 0 6px">Purpose: ${named(det.purpose, d.purpose_names)}.</p>
+      <p style="margin:0 0 6px">Source: ${named(det.source, d.source_names)}.</p>
+      ${via.length ? `<p style="margin:0">Shipped through ${via.map((c) => esc(name(c))).join(", ")}.</p>` : ""}</div>` : ""}
+    <div class="box limit"><h4>Where is the article?</h4>
+      <p style="margin:0 0 6px">This route is not built from news. Each record is a wildlife import the US Fish and Wildlife Service seized at a US port of entry (LEMIS disposition S), released under the Freedom of Information Act and cleaned by researchers. Seizures can follow missing permits as well as smuggling, and they measure US inspection effort as much as trade. The US also reports seizures to CITES, so this route can overlap the CITES seized layer: compare the two, never add them.</p>
+      <p style="margin:0">${esc(d.note)}</p></div>
+    ${newsFor(new Set([a, b, ...via]), groups, ic)}
+    <div class="row" style="margin-top:14px"><button class="btn" data-act="copy">Copy link</button></div>
+    <p class="muted" style="font-size:11.5px;margin-top:10px">${esc(d.cite)} ${esc(d.licence)}</p>`;
+}
+
+/** Species page block: what US inspectors seized of this group, and from where. */
+export function lemisBlock(gid) {
+  const d = S.data.lemis;
+  if (!d) return "";
+  const rows = d.seized.filter((r) => r[0] === gid), tot = rows.reduce((n, r) => n + r[4], 0);
+  if (tot < 3) return "";
+  const org = {}; rows.forEach(([, o, , , n]) => o !== "XX" && (org[o] = (org[o] || 0) + n));
+  const top = Object.entries(org).sort((x, y) => y[1] - x[1]).slice(0, 5), omax = Math.max(1, ...top.map(([, n]) => n));
+  const prod = (d.products[gid] || []).slice(0, 6);
+  return `<div class="eyebrow" style="margin:16px 0 6px;--c:var(--trade)">Seized at US ports · ${fmt(tot)} records</div>
+    <dl class="facts">${top.map(([cc, n]) => `<dt>${icons.flag(cc)}${esc(name(cc))}</dt><dd class="num"><i class="rb" style="display:inline-block;height:6px;border-radius:3px;margin-right:6px;vertical-align:middle;width:${Math.max(4, (n / omax) * 70)}px;background:${REGION_COLOR[regionOf(cc)]}"></i>${fmt(n)}</dd>`).join("")}</dl>
+    ${prod.length ? `<div class="evid" style="margin-top:8px">${prod.map(([t, n]) => prodChip(d, t, n)).join("")}</div>` : ""}
+    <p class="muted" style="font-size:11.5px;margin:6px 0 0">Imports the US Fish and Wildlife Service seized, by country of origin and product (LEMIS; Marshall et al. 2025, Eskew et al. 2020; CC BY 4.0).</p>`;
 }

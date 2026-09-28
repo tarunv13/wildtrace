@@ -30,7 +30,12 @@ from ..config import WEB_DATA
 MIN_YEAR = 2015
 DECLARED_TOP = 60   # declared-trade corridors kept per species group (the file stays small)
 # Ranks that are not CITES ranks, or families a group implies but does not list.
-EXTRA_HIGHER = {"elasmobranchii": "shark_ray", "manidae": "pangolin"}
+# The groups' labels are broader than the Indian species their `taxa` lists name (news matching
+# relies on those lists staying narrow), so trade records use these wider ranks too.
+EXTRA_HIGHER = {"elasmobranchii": "shark_ray", "manidae": "pangolin", "testudines": "turtles", "varanus": "monitor_lizard",
+                "elephantidae": "elephant", "rhinocerotidae": "rhino", "ursidae": "bear", "moschidae": "musk_deer",
+                "psittaciformes": "birds", "crocodylia": "pythons_reptiles", "crocodilia": "pythons_reptiles", "alligatoridae": "pythons_reptiles", "pythonidae": "pythons_reptiles",
+                "primates": "primates", "anguillidae": "eels", "antipatharia": "sea_fan", "corallium": "sea_fan"}
 
 
 def taxon_index() -> tuple[dict[str, str], dict[str, str]]:

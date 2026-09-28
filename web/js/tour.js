@@ -65,7 +65,7 @@ export const TOURS = {
     { el: "#f-color", title: "Colour",
       body: "Region shades each line from the source region's colour to the market's. Role shows sources, hubs and markets. Species colours by what was seized." },
     { el: "#f-ev-s", title: "Evidence",
-      body: "Seized shipments are the default. Add declared (mostly legal) trade, drawn dashed, or the routes named in news cases. “Spread across markets” (on by default) keeps any one country from filling the list; untick the United States to compare the rest, since it reports seizures more completely than most." },
+      body: "Seized shipments reported to CITES are the default. Add imports seized at US ports (LEMIS), declared (mostly legal) trade, drawn dashed, or the routes named in news cases. “Spread across markets” (on by default) keeps any one country from filling the list; untick the United States to compare the rest, since it reports seizures more completely than most." },
     { el: "#fs-body", title: "Routes, and the proof behind each",
       body: "Every route is a switch. <b>Evidence</b> opens what was seized, when, who reported it and why it moved, the news cases for the same species in those countries, and a link to check the CITES database. Clicking a line on the map opens it too." },
     { el: '[data-open="matrix"]', title: "Who supplies whom",

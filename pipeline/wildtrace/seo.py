@@ -212,6 +212,17 @@ def build_pages(cases: list[dict], species: dict, countries: dict, meta: dict, o
                 d_["from"][o_] = d_["from"].get(o_, 0) + n_
             d_["to"][i_] = d_["to"].get(i_, 0) + n_
         cites_since = fl.get("year_min")
+    # Imports seized at US ports (lemis.json, from `wildtrace lemis`), by origin and product.
+    lemis_path = Path(out_dir) / "data" / "lemis.json"
+    lemis, lemis_products, lemis_names = {}, {}, {}
+    if lemis_path.exists():
+        lm = json.loads(lemis_path.read_text(encoding="utf-8"))
+        for g_, o_, _e, _i, n_ in lm["seized"]:
+            d_ = lemis.setdefault(g_, {"n": 0, "from": {}})
+            d_["n"] += n_
+            if o_ != "XX":
+                d_["from"][o_] = d_["from"].get(o_, 0) + n_
+        lemis_products, lemis_names = lm.get("products", {}), lm.get("product_names", {})
     for gid, g in species.items():
         mine = [c for c in cases if gid in c.get("species", [])]
         cz = cites.get(gid)
@@ -229,6 +240,16 @@ def build_pages(cases: list[dict], species: dict, countries: dict, meta: dict, o
 <div class="cols2"><div><h3>Taken from</h3><ul>{"".join(f'<li>{esc(cc_name(cc))} <span class="muted">{n:,}</span></li>' for cc, n in tf)}</ul></div>
 <div><h3>Seized in</h3><ul>{"".join(f'<li>{esc(cc_name(cc))} <span class="muted">{n:,}</span></li>' for cc, n in tt)}</ul></div></div>
 <p><a class="pill" href="{SITE}/?mode=flows&amp;g={esc(gid)}">Follow {esc(label.lower())} on the Flows map →</a></p>"""
+        lz = lemis.get(gid)
+        if lz and lz["n"] >= 5:
+            lf = sorted(lz["from"].items(), key=lambda kv: -kv[1])[:8]
+            prods = ", ".join(f"{lemis_names.get(k, k).lower()} ({n:,})" for k, n in lemis_products.get(gid, [])[:5])
+            cites_html += f"""
+<h2>Seized at US ports</h2>
+<p><b>{lz["n"]:,}</b> import records of {esc(label.lower())} were seized by the US Fish and Wildlife Service
+  (LEMIS; Marshall et al. 2025, Eskew et al. 2020; CC BY 4.0). Most often seized as: {esc(prods)}.
+  These records reflect US inspection effort and overlap the US seizures reported to CITES above: compare them, do not add them.</p>
+<h3>Country of origin</h3><ul>{"".join(f'<li>{esc(cc_name(cc))} <span class="muted">{n:,}</span></li>' for cc, n in lf)}</ul>"""
         by_country: dict[str, int] = {}
         for c in mine:
             cc = (c.get("place") or {}).get("country")

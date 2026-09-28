@@ -2,7 +2,28 @@
 
 All notable changes to WildTrace. Dates are the release date, newest first.
 
-## Unreleased
+## 1.7.0 — 2026-09-28
+
+### Added
+- **Seized at US ports.** A new evidence layer in Flows draws imports the US Fish and Wildlife
+  Service seized (LEMIS disposition S), from the country of origin to the US, with its own route
+  page: products, taxa, years, declared purpose and source, and transit countries. Species pages
+  gain a "Seized at US ports" block with the top origins and products. Data: Marshall et al. 2025
+  (Current Biology; 2000-2022, land vertebrates and arachnids) and Eskew et al. 2020 (Scientific
+  Data; 2000-2014, fish, invertebrates and plants), both CC BY 4.0. Genera are placed in families with the GBIF key
+  of the seized-wildlife codebook (Stringham et al. 2021). New command `wildtrace lemis`; new
+  download `lemis_seized_flows.csv`.
+
+### Changed
+- **Wider taxon matching for trade records.** CITES and LEMIS rows now also match on the ranks a
+  group's label implies (turtles = Testudines, monitor lizards = *Varanus*, bears = Ursidae,
+  elephants = Elephantidae, rhinos = Rhinocerotidae, parrots = Psittaciformes, crocodilian skins,
+  primates, eels, black corals), not only the Indian species each group lists. CITES seized
+  shipments in Flows rise from 15,512 to 24,719 (turtles 17 to 1,611, bears 129 to 741). News
+  matching is unchanged. Most of the gain is US-reported (US-bound routes are about 83% of CITES
+  seizure records), which the default "Spread across markets" view and Methods make explicit.
+- **Methods** gains "Seized at US ports": sources, the disposition filter, and three limits (paperwork
+  seizures, US inspection effort, and overlap with US-reported CITES seizures: compare, never add).
 
 ### Changed
 - **The video guide comes first.** A first-time visitor sees the 2-minute video before anything else

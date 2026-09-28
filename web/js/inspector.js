@@ -4,7 +4,7 @@
 import { esc, fmt } from "./charts.js";
 import { KIND, KIND_COLOR, KIND_LABEL } from "./globe.js";
 import { S, ccName, go, spLabel } from "./store.js";
-import { roleBar, routeView, sankey } from "./flows.js";
+import { lemisBlock, roleBar, routeView, sankey } from "./flows.js";
 import * as ic from "./icons.js";
 import { countryBlock, speciesBlock } from "./zoo.js";
 
@@ -88,6 +88,8 @@ export function render(item, el, ctx) {
   el.querySelectorAll("[data-open-zoo]").forEach((b) => b.addEventListener("click", () => dispatchEvent(new CustomEvent("wildtrace:open", { detail: "zoo" }))));
   el.querySelectorAll("[data-flows-g]").forEach((b) => b.addEventListener("click", () => {
     Object.assign(S.flow, { story: "species" }); S.flow.groups = new Set([b.dataset.flowsG]); S.flow.from.clear(); S.flow.to.clear(); S.flow.off.clear();
+    // A group with no CITES seizures (e.g. only US port records) needs the LEMIS layer to show anything.
+    if (!S.data.flows?.seized.some((r) => r[0] === b.dataset.flowsG)) S.flow.ev.lemis = true;
     dispatchEvent(new CustomEvent("wildtrace:flows-focus"));
   }));
   el.scrollTop = 0;
@@ -178,7 +180,7 @@ function speciesView(gid) {
       ${online ? `<dt>Online listings</dt><dd>${online.flagged} flagged as trade this build <span class="muted">(${online.not_flagged} not)</span></dd>` : ""}
       ${owt ? `<dt>OWT labelled set</dt><dd>${owt.R} trade · ${owt.IR} irrelevant</dd>` : ""}
     </dl>
-    ${sankey(gid)}${S.data.flows?.seized.some((r) => r[0] === gid) ? `<div class="row" style="margin-top:8px"><button class="btn" data-flows-g="${gid}">Follow on the Flows map</button></div>` : ""}
+    ${sankey(gid)}${lemisBlock(gid)}${S.data.flows?.seized.some((r) => r[0] === gid) || S.data.lemis?.seized.some((r) => r[0] === gid) ? `<div class="row" style="margin-top:8px"><button class="btn" data-flows-g="${gid}">Follow on the Flows map</button></div>` : ""}
     ${speciesBlock(gid)}
     ${Object.keys(byCountry).length ? `<div class="eyebrow" style="margin:14px 0 6px">Where</div>${Object.entries(byCountry).sort((a, b) => b[1] - a[1]).slice(0, 8)
       .map(([cc, n]) => link("country", cc, `<span style="display:inline-flex;gap:8px;align-items:center">${ic.flag(cc)}${esc(ccName(cc))}</span>`, `${n} case${n > 1 ? "s" : ""}`)).join("")}` : ""}

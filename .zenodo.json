@@ -1,7 +1,7 @@
 {
   "title": "WildTrace: the open atlas of illegal wildlife trade",
   "upload_type": "software",
-  "description": "<p>An open-source map of the global illegal wildlife trade in fauna and flora: seizures, arrests and convictions from public reports, each case graded by the strength of its evidence (validated, official, corroborated, single report), with an in-browser link-analysis workbench. The archived release includes the pipeline code (MIT) and the published data in <code>web/data/</code>: case data CC BY 4.0; CITES-derived flows (<code>flows*.json</code>, <code>cites_*_flows.csv</code>) under the CITES Trade Database terms (non-commercial, with attribution: CITES Trade Database, compiled by UNEP-WCMC for the CITES Secretariat); VIRION-derived virus counts (<code>zoonoses.json</code>, <code>species_viruses.csv</code>) ODbL 1.0 (Carlson et al. 2022, mBio 13(2): e02985-21). No person accused is named.</p>",
+  "description": "<p>An open-source map of the global illegal wildlife trade in fauna and flora: seizures, arrests and convictions from public reports, each case graded by the strength of its evidence (validated, official, corroborated, single report), with an in-browser link-analysis workbench. The archived release includes the pipeline code (MIT) and the published data in <code>web/data/</code>: case data CC BY 4.0; CITES-derived flows (<code>flows*.json</code>, <code>cites_*_flows.csv</code>) under the CITES Trade Database terms (non-commercial, with attribution: CITES Trade Database, compiled by UNEP-WCMC for the CITES Secretariat); US LEMIS seizure counts (<code>lemis.json</code>, <code>lemis_seized_flows.csv</code>) CC BY 4.0 (Marshall et al. 2025, Current Biology; Eskew et al. 2020, Scientific Data); VIRION-derived virus counts (<code>zoonoses.json</code>, <code>species_viruses.csv</code>) ODbL 1.0 (Carlson et al. 2022, mBio 13(2): e02985-21). No person accused is named.</p>",
   "creators": [
     {
       "name": "Verma, Tarun Kumar",
@@ -15,7 +15,9 @@
     "OSINT",
     "CITES",
     "link analysis",
-    "conservation"
+    "conservation",
+    "LEMIS",
+    "wildlife seizures"
   ],
   "related_identifiers": [
     {
@@ -24,6 +26,6 @@
       "resource_type": "other"
     }
   ],
-  "notes": "Code MIT. Case data (cases.*) CC BY 4.0. CITES-derived files (flows*.json, cites_*_flows.csv) are NOT CC BY: CITES Trade Database terms apply (non-commercial, with attribution). VIRION-derived files (zoonoses.json, species_viruses.csv) ODbL 1.0.",
+  "notes": "Code MIT. Case data (cases.*) CC BY 4.0. CITES-derived files (flows*.json, cites_*_flows.csv) are NOT CC BY: CITES Trade Database terms apply (non-commercial, with attribution). LEMIS-derived files (lemis.json, lemis_seized_flows.csv) CC BY 4.0, cite Marshall et al. 2025 and Eskew et al. 2020. VIRION-derived files (zoonoses.json, species_viruses.csv) ODbL 1.0.",
   "access_right": "open"
 }
