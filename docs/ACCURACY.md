@@ -38,9 +38,18 @@ so no figure is measured on cases the rules were tuned on.
 - **Place** accuracy is not yet audited systematically; known errors come from towns that share a name with
   a place elsewhere.
 
+## Tried and not adopted: a learned relevance filter (29 September 2026)
+
+A classifier trained on the 800 audit labels (65 non-events) was tested leave-one-audit-out: train on three
+audits, score the fourth. Two feature sets, multilingual sentence embeddings (paraphrase-multilingual-MiniLM-L12-v2)
+and character n-grams, gave the same result. Dropping the lowest-scoring 2% of cases removed 7 of 65 non-events
+but also 9 of 735 real events (pooled precision 91.9% -> 92.6%); dropping 6% removed 16 non-events and 32 real
+events. A filter that loses a real case for every false one it removes is not an improvement, so it is not used.
+The remaining errors are too varied for 65 examples to teach.
+
 ## Why the last few percent are hard
 
 The remaining errors are a long tail: each fresh sample surfaces classes the last one did not (a suburb, a
-film industry, a decree). Rules close each class but not the tail. The next step is a learned relevance
-model trained on the audit labels, used alongside the rules and checked the same way, with a fresh blind
-audit every quarter ([FUNDING.md](FUNDING.md) lists what pays for them).
+film industry, a decree). Rules close each class but not the tail. Reaching 98% needs many more labelled non-events (several hundred) before a learned model can help, or
+human validation of single-report cases before they are published; both are funded work. Each quarter
+brings a fresh blind audit ([FUNDING.md](FUNDING.md) lists what pays for them).
