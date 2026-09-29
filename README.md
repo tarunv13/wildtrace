@@ -508,8 +508,8 @@ latest version. To cite the exact data you used, cite its version DOI:
 
 | Version | Date | What it added | DOI |
 | --- | --- | --- | --- |
-| 1.10.0 | 2026-09-29 | ECO-SOLVE comparison, ambiguous words, image evidence, Thai, amphibians | minted by Zenodo on release (see the [Zenodo record](https://doi.org/10.5281/zenodo.22902819)) |
-| 1.9.0 | 2026-09-29 | caught online, captive-bred claims, 2,126 cases | minted by Zenodo on release |
+| 1.10.0 | 2026-09-29 | ECO-SOLVE comparison, ambiguous words, image evidence, Thai, amphibians | being minted by Zenodo (listed on the [concept record](https://doi.org/10.5281/zenodo.22902819) when ready) |
+| 1.9.0 | 2026-09-29 | caught online, captive-bred claims, 2,126 cases | [10.5281/zenodo.23025869](https://doi.org/10.5281/zenodo.23025869) |
 | 1.8.0 | 2026-09-29 | Risk pathways, research agenda | [10.5281/zenodo.23024232](https://doi.org/10.5281/zenodo.23024232) |
 | 1.7.0 | 2026-09-28 | US port seizures (LEMIS) | [10.5281/zenodo.23023112](https://doi.org/10.5281/zenodo.23023112) |
 | 1.6.2 | 2026-09-23 | video guide | [10.5281/zenodo.22923626](https://doi.org/10.5281/zenodo.22923626) |
