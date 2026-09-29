@@ -454,7 +454,10 @@ enforcement_cues:
 # They never make a case on their own (a case needs an event verb from enforcement_cues), but they
 # count as enforcement context for ambiguous terms and appear in the evidence.
 topic_cues:
-  trade: [smuggling, smuggled, trafficking, trafficked, poaching, illegal wildlife trade, tráfico, tráfico de animais, tráfico de fauna, contrabando,
+  trade: [trade, traded, trading, trader, traders, smuggler, smugglers, trafficker, traffickers, poacher, poachers, poached,
+          sold, selling, for sale, dealing, dealers, exports, export, imports, luggage, baggage, suitcase, contraband, seizures,
+          heist, theft, stolen, shops, bushmeat, stockpile, destroyed, burnt, burned, conviction, jail, sentenced,
+          smuggling, smuggled, trafficking, trafficked, poaching, illegal wildlife trade, tráfico, tráfico de animais, tráfico de fauna, contrabando,
           trafic, braconnage, तस्करी, तस्कर, buôn lậu, penyelundupan, perdagangan satwa, ลักลอบ, ค้าสัตว์ป่า]
 
 # Genre: stories about the problem rather than an event (features, statements, programmes, reports).
@@ -484,7 +487,9 @@ rescue_trade_context: [trafic, traficados, traficadas, illegal, illegally, capti
 
 # Masks: known phrases that contain a species or cue word but name something else. They are blanked
 # before matching (the words themselves stay in the lexicon for every other context).
-masks: [costa do marfim, costa de marfil, costa d'avorio, presas em rede, presa em rede, preso em rede, presos em rede, presas em redes,
+masks: [tiger reserve, tiger reserves, leopard tortoise, leopard tortoises, al-monitor, sandalwood actress, sandalwood actor,
+        sandalwood filmmaker, sandalwood film, sandalwood films, sandalwood industry, sandalwood high school, kasturi kepala hitam,
+        costa do marfim, costa de marfil, costa d'avorio, presas em rede, presa em rede, preso em rede, presos em rede, presas em redes,
         jaguarão, caburé, arrêtés préfectoraux, arrêté préfectoral, arrêté municipal, em araras, de araras, "araras, sp", araras (sp), araras-sp, tiger strike force, special tiger protection force, state tiger strike force, human trafficking, drug trafficking,
         trafficking in persons, ivory coast, côte d'ivoire, cote d'ivoire, ivory park, la patria, tigre-d'água, tigre d'água,
         tartarugas-tigre, pasir penyu, tiger global, tiger shroff, paper tiger, python programming, monty python]
@@ -544,7 +549,7 @@ ambiguous:
   - {term: python, group: pythons_reptiles, lang: en, needs: [enforcement, trade, wildlife, quantity], note: "also the programming language"}
   - {term: coral, group: sea_fan, lang: en, needs: [enforcement, trade, quantity], note: "also reefs in climate news, place names"}
   - {term: ivory, group: elephant, lang: en, needs: [enforcement, trade, quantity], note: "also a colour; Ivory Coast is a negative cue"}
-  - {term: चंदन, group: sandalwood, lang: hi, needs: [trade], needs_terms: [लकड़ी, टन, किलो, क्विंटल, पेड़, बरामद, तस्कर], note: "sandalwood; also a common first name (चंदन यादव)"}
+  - {term: चंदन, group: sandalwood, lang: hi, needs_regex: 'लकड़ी|टन|किलो|क्विंटल|कुंतल|पेड़|लट्ठे|कट्टे|कंटेनर|जार|कस्टम|सीआईएसएफ|कीमती चंदन|चंदन तस्कर|चंदन चोरी|चोरी का चंदन', note: "sandalwood; also a common first name (चंदन यादव)"}
   - {term: chandan, group: sandalwood, lang: hi_latn, needs: [trade], needs_terms: [wood, logs, tonnes, kg, trees], note: "also a first name"}
   - {term: denuncia, cue: arrest, lang: pt, needs_terms: [pessoas, suspeitos, acusados, investigados, réus, homens, mulher, homem, integrantes], note: "a prosecutor charging people; also an NGO complaining (Proyecto Santa María denuncia)"}
   - {term: frog, group: amphibians, lang: en, needs: [enforcement, trade, quantity], note: "also frog in general writing"}

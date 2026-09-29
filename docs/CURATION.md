@@ -24,6 +24,7 @@ Plural terms match their singular ("parakeets" finds "parakeet") unless the sing
 
 | Date | Change | Evidence | Effect |
 | --- | --- | --- | --- |
+| 2026-09-29 | Trade context words for ambiguous terms (trade, smugglers, traffickers, poachers, sold, luggage, exports, heist, theft, seizures ...); masks (Tiger Reserve, leopard tortoise, Al-Monitor, Sandalwood film industry, Kasturi Kepala Hitam); चंदन needs wood or customs words | review of 1,820 ambiguous-word hits: 162 real trade stories held, person names and place names accepted | decisions right 86.5% -> 92.1% on the reviewed labels; audit 5 precision 96.5% |
 | 2026-09-29 | Event gate: a case needs an event verb; topic words ("trafficking", "tráfico", "तस्करी") are context only | blind audit 1: 37 of 200 published cases were not events | precision 81.5% -> 94.5% (fresh audit 2) |
 | 2026-09-29 | Genre, statistics and rescue rules; masks for non-species phrases (Tiger Strike Force, Costa do Marfim, arrêtés préfectoraux, Araras, human trafficking) | audits 1-3 error classes | precision 96.0% (audit 3), 95.5% (audit 4); see ACCURACY.md |
 | 2026-09-29 | Leftmost-longest species matching; "चंदन" (also a first name), "denuncia", "बाघ", "बंदर", Thai "กบ" context-checked; codebook generic names never map to a narrower group | "Chandan Yadav arrested" stories; "red sandalwood" tagged sandalwood; "deer antlers" tagged musk deer | species right in 99.0% of genuine cases |

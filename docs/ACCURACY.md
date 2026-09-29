@@ -10,9 +10,10 @@ they contain headlines; the counts and error classes are public.
 
 ## Current figure
 
-**95.5% of published cases are genuine wildlife-trade enforcement events** (191 of 200; 95% interval
-91.7% to 97.6%; audit of 29 September 2026 on the build of that day). Species were right in 99.0% of the
-genuine cases.
+**96.5% of published cases are genuine wildlife-trade enforcement events** (193 of 200; 95% interval
+93.0% to 98.3%; audit 5, 29 September 2026). Species were right in 98.4% of the genuine cases. The previous
+audit measured 95.5% (91.7% to 97.6%); the intervals overlap, so precision is holding steady rather than
+proven higher.
 
 The target is 98%. It is not reached yet, and WildTrace does not claim it. Precision by evidence grade in
 the same audit: corroborated 97.6% (40/41), single report 95.1% (135/142), official 94.1% (16/17).
@@ -25,6 +26,7 @@ the same audit: corroborated 97.6% (40/41), single report 95.1% (135/142), offic
 | 2 | event-verb gate, genre and statistics rules, masks | 200, fresh | 189 (94.5%) | statistics in Portuguese and Spanish, reports, "arrêtés" (orders), a town named Araras (macaws) |
 | 3 | second round of rules | 200, fresh | 192 (96.0%) | football ("Costa do Marfim"), bycatch rescues, tender notices, political statements, NGO complaints |
 | 4 | third round of rules, leftmost-longest species matching | 200, fresh | 191 (95.5%) | a suburb named Rosewood, the Sandalwood film industry, legal decrees, opinion, research features |
+| 5 | ambiguous-word rules tuned from 1,820 reviewed hits (below) | 200, fresh | 193 (96.5%) | meeting remarks, a research feature, administrative and fines policy, an awareness warning, a python-skin manuscript, one non-wildlife story |
 
 Each fix is recorded with its evidence in [CURATION.md](CURATION.md). Every audit uses a new random seed,
 so no figure is measured on cases the rules were tuned on.
@@ -37,6 +39,16 @@ so no figure is measured on cases the rules were tuned on.
 - **Coverage** follows the sources searched: newsrooms, government sites and the languages WildTrace reads.
 - **Place** accuracy is not yet audited systematically; known errors come from towns that share a name with
   a place elsewhere.
+
+## Ambiguous-word review (29 September 2026)
+
+Every hit of an ambiguous word in the screened reports (1,820 hits, 1,625 unique headlines) was read and labelled
+`should_count` y/n: does the word mean the traded species or an enforcement act in that headline? Under the old
+rules 86.5% of decisions were right: accepted words were 94.4% right, but half of held words (162) were real trade
+stories the rule missed, because context words such as *trade*, *smugglers*, *sold*, *luggage* and *heist* were not
+recognised. After the changes logged in CURATION.md, 92.1% of decisions are right on the same labels (accepted
+95.6%, misses 162 -> 73). That is measured on the labels the changes came from, so audit 5 above is the
+independent check. Labels are kept across rebuilds (private, `data/labels/ambiguous_review.csv`).
 
 ## Tried and not adopted: a learned relevance filter (29 September 2026)
 

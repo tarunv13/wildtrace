@@ -229,17 +229,27 @@ def live_listings(listings, scores) -> dict:
 
 def ambiguous_review(records, candidate_ids: set[str]) -> None:
     """Every ambiguous-term hit (accepted or held) in every screened record, for human review.
-    Private (data/labels, gitignored): it carries headlines. Reviewers mark `verdict` right/wrong;
+    Private (data/labels, gitignored): it carries headlines. Reviewers fill `should_count` (y/n: does the term mean
+    the traded species / an enforcement act here); `verdict` (right/wrong) is derived against the current decision;
     the counts per term show which context rules to tighten or loosen."""
     import csv
+    path = LABELS / "ambiguous_review.csv"
+    # Keep reviewers' work: a verdict and note stay with their (record, term) across rebuilds.
+    kept = {}
+    if path.exists():
+        for old in csv.DictReader(open(path, encoding="utf-8")):
+            if (old.get("should_count") or "").strip():
+                kept[(old["id"], old["term"])] = (old["should_count"], old.get("note", ""))
     rows = []
     for r in records:
         for h in lexicon.ambiguous_hits(f"{r.title} {r.text}"):
+            sc, note = kept.get((r.id, h["term"]), ("", ""))
+            v = "" if not sc else ("right" if bool(h["accepted"]) == (sc == "y") else "wrong")
             rows.append({"id": r.id, "date": r.published, "title": r.title[:200], "term": h["term"], "group": h.get("group") or "",
                          "cue": h.get("cue") or "", "accepted": h["accepted"], "context": ";".join(h["context"]),
-                         "became_candidate": r.id in candidate_ids, "verdict": ""})
+                         "became_candidate": r.id in candidate_ids, "verdict": v, "should_count": sc, "note": note})
     LABELS.mkdir(parents=True, exist_ok=True)
-    with open(LABELS / "ambiguous_review.csv", "w", newline="", encoding="utf-8") as f:
+    with open(path, "w", newline="", encoding="utf-8") as f:
         w = csv.DictWriter(f, fieldnames=list(rows[0]) if rows else ["id"]); w.writeheader(); w.writerows(rows)
     by = Counter((x["term"], x["accepted"]) for x in rows)
     print(f"  ambiguous terms: {len(rows)} hits; " + ", ".join(f"{t} {'kept' if a else 'held'} {n}" for (t, a), n in by.most_common(10)))

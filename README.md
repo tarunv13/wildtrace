@@ -59,8 +59,8 @@ All eleven: [answers.html](https://tarunv13.github.io/wildtrace/answers.html).
 ## How accurate is it?
 
 Measured by blind audits of random samples of published cases, each judged against its sources:
-**95.5% are genuine wildlife-trade enforcement events** (191 of 200, 95% interval 91.7-97.6%), and species
-are right in 99.0% of them. Four audits took precision from 81.5% to its current level; the 98% target is not
+**96.5% are genuine wildlife-trade enforcement events** (193 of 200, 95% interval 93.0-98.3%), and species
+are right in 98.4% of them. Five audits took precision from 81.5% to its current level; the 98% target is not
 reached yet, and the site says so. Method, history and limits: [docs/ACCURACY.md](docs/ACCURACY.md).
 
 ## Wildlife crime is a security risk. How strong is the evidence?
@@ -497,7 +497,7 @@ Ideas, not promises. Discuss them in [Issues](https://github.com/tarunv13/wildtr
 ## Known limitations
 
 - Three in four cases rest on a single report, and 905 of 1,871 name no place.
-- Measured precision is 95.5% (target 98%, not yet reached); recall is not measured. See [docs/ACCURACY.md](docs/ACCURACY.md).
+- Measured precision is 96.5% (target 98%, not yet reached); recall is not measured. See [docs/ACCURACY.md](docs/ACCURACY.md).
 - Platform names come from headlines only for Google News records: Google's robots.txt forbids fetching
   its article links, and WildTrace respects that.
 - Image evidence (`wildtrace vision`) runs locally on images you supply; the daily build does not yet
