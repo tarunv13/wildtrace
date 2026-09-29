@@ -667,13 +667,13 @@
       <data key="d0">Commodity</data>
       <data key="d1">Musk deer – pods</data>
     </node>
-    <node id="case:5aed941a5d4b">
+    <node id="case:b36d44c84e1d">
       <data key="d0">Case</data>
       <data key="d1">Arrest · Leopard · Mumbai</data>
       <data key="d2">2026-09-26</data>
       <data key="d3">arrest</data>
-      <data key="d4">0.7</data>
-      <data key="d5">1</data>
+      <data key="d4">0.85</data>
+      <data key="d5">2</data>
     </node>
     <node id="location:mumbai">
       <data key="d0">Location</data>
@@ -687,6 +687,10 @@
     <node id="outlet:hindustantimes.com">
       <data key="d0">Outlet</data>
       <data key="d1">hindustantimes.com</data>
+    </node>
+    <node id="outlet:hindustan_times">
+      <data key="d0">Outlet</data>
+      <data key="d1">Hindustan Times</data>
     </node>
     <node id="case:f5ebdd3448fc">
       <data key="d0">Case</data>
@@ -4856,10 +4860,6 @@
       <data key="d1">Punjab</data>
       <data key="d10">IN</data>
       <data key="d12">state</data>
-    </node>
-    <node id="outlet:hindustan_times">
-      <data key="d0">Outlet</data>
-      <data key="d1">Hindustan Times</data>
     </node>
     <node id="commodity:birds-birds">
       <data key="d0">Commodity</data>
@@ -30030,33 +30030,33 @@
       <data key="d16">2026-06-29</data>
       <data key="d17">1b5c3635c6a6</data>
     </edge>
-    <edge source="case:5aed941a5d4b" target="species:leopard">
+    <edge source="case:b36d44c84e1d" target="species:leopard">
       <data key="d13">involves</data>
       <data key="d14">1</data>
       <data key="d15">2026-09-26</data>
       <data key="d16">2026-09-26</data>
-      <data key="d17">5aed941a5d4b</data>
+      <data key="d17">b36d44c84e1d</data>
     </edge>
-    <edge source="case:5aed941a5d4b" target="location:mumbai">
+    <edge source="case:b36d44c84e1d" target="location:mumbai">
       <data key="d13">occurred_at</data>
       <data key="d14">1</data>
       <data key="d15">2026-09-26</data>
       <data key="d16">2026-09-26</data>
-      <data key="d17">5aed941a5d4b</data>
+      <data key="d17">b36d44c84e1d</data>
     </edge>
     <edge source="location:mumbai" target="location:maharashtra">
       <data key="d13">within</data>
       <data key="d14">10</data>
       <data key="d15">2025-06-09</data>
       <data key="d16">2026-09-26</data>
-      <data key="d17">5aed941a5d4b;11f00a598ecc;5a98efe2de97;4c8a1d439f69;538810c1bff2;164f672d8efd;47e7db32d911;ded487436f34;6ebd76591b9b;895788c4dca0</data>
+      <data key="d17">b36d44c84e1d;11f00a598ecc;5a98efe2de97;4c8a1d439f69;538810c1bff2;164f672d8efd;47e7db32d911;ded487436f34;6ebd76591b9b;895788c4dca0</data>
     </edge>
-    <edge source="outlet:hindustantimes.com" target="case:5aed941a5d4b">
+    <edge source="outlet:hindustantimes.com" target="case:b36d44c84e1d">
       <data key="d13">reported</data>
       <data key="d14">1</data>
       <data key="d15">2026-09-26</data>
       <data key="d16">2026-09-26</data>
-      <data key="d17">5aed941a5d4b</data>
+      <data key="d17">b36d44c84e1d</data>
     </edge>
     <edge source="outlet:hindustantimes.com" target="case:2bd431bc94ad">
       <data key="d13">reported</data>
@@ -30071,6 +30071,146 @@
       <data key="d15">2026-07-06</data>
       <data key="d16">2026-07-06</data>
       <data key="d17">af5068f4da12</data>
+    </edge>
+    <edge source="outlet:hindustan_times" target="case:b36d44c84e1d">
+      <data key="d13">reported</data>
+      <data key="d14">1</data>
+      <data key="d15">2026-09-26</data>
+      <data key="d16">2026-09-26</data>
+      <data key="d17">b36d44c84e1d</data>
+    </edge>
+    <edge source="outlet:hindustan_times" target="case:a61f24a13c98">
+      <data key="d13">reported</data>
+      <data key="d14">1</data>
+      <data key="d15">2026-08-30</data>
+      <data key="d16">2026-08-30</data>
+      <data key="d17">a61f24a13c98</data>
+    </edge>
+    <edge source="outlet:hindustan_times" target="case:4a3eeb399e57">
+      <data key="d13">reported</data>
+      <data key="d14">1</data>
+      <data key="d15">2026-08-24</data>
+      <data key="d16">2026-08-24</data>
+      <data key="d17">4a3eeb399e57</data>
+    </edge>
+    <edge source="outlet:hindustan_times" target="case:b1d3170d70c0">
+      <data key="d13">reported</data>
+      <data key="d14">1</data>
+      <data key="d15">2026-07-28</data>
+      <data key="d16">2026-07-28</data>
+      <data key="d17">b1d3170d70c0</data>
+    </edge>
+    <edge source="outlet:hindustan_times" target="case:303d1ad1339a">
+      <data key="d13">reported</data>
+      <data key="d14">1</data>
+      <data key="d15">2026-07-25</data>
+      <data key="d16">2026-07-25</data>
+      <data key="d17">303d1ad1339a</data>
+    </edge>
+    <edge source="outlet:hindustan_times" target="case:a7cef584eccd">
+      <data key="d13">reported</data>
+      <data key="d14">1</data>
+      <data key="d15">2026-07-01</data>
+      <data key="d16">2026-07-01</data>
+      <data key="d17">a7cef584eccd</data>
+    </edge>
+    <edge source="outlet:hindustan_times" target="case:3014750e44a0">
+      <data key="d13">reported</data>
+      <data key="d14">1</data>
+      <data key="d15">2026-06-20</data>
+      <data key="d16">2026-06-20</data>
+      <data key="d17">3014750e44a0</data>
+    </edge>
+    <edge source="outlet:hindustan_times" target="case:3514948b01dc">
+      <data key="d13">reported</data>
+      <data key="d14">1</data>
+      <data key="d15">2026-05-27</data>
+      <data key="d16">2026-05-27</data>
+      <data key="d17">3514948b01dc</data>
+    </edge>
+    <edge source="outlet:hindustan_times" target="case:91f777b5becf">
+      <data key="d13">reported</data>
+      <data key="d14">1</data>
+      <data key="d15">2026-05-23</data>
+      <data key="d16">2026-05-23</data>
+      <data key="d17">91f777b5becf</data>
+    </edge>
+    <edge source="outlet:hindustan_times" target="case:60c529f56336">
+      <data key="d13">reported</data>
+      <data key="d14">1</data>
+      <data key="d15">2026-04-19</data>
+      <data key="d16">2026-04-19</data>
+      <data key="d17">60c529f56336</data>
+    </edge>
+    <edge source="outlet:hindustan_times" target="case:164f672d8efd">
+      <data key="d13">reported</data>
+      <data key="d14">1</data>
+      <data key="d15">2026-04-13</data>
+      <data key="d16">2026-04-13</data>
+      <data key="d17">164f672d8efd</data>
+    </edge>
+    <edge source="outlet:hindustan_times" target="case:87ca60403bfd">
+      <data key="d13">reported</data>
+      <data key="d14">1</data>
+      <data key="d15">2026-03-29</data>
+      <data key="d16">2026-03-29</data>
+      <data key="d17">87ca60403bfd</data>
+    </edge>
+    <edge source="outlet:hindustan_times" target="case:9af82a32e755">
+      <data key="d13">reported</data>
+      <data key="d14">1</data>
+      <data key="d15">2026-02-18</data>
+      <data key="d16">2026-02-18</data>
+      <data key="d17">9af82a32e755</data>
+    </edge>
+    <edge source="outlet:hindustan_times" target="case:f1eb6695fc22">
+      <data key="d13">reported</data>
+      <data key="d14">1</data>
+      <data key="d15">2026-01-12</data>
+      <data key="d16">2026-01-12</data>
+      <data key="d17">f1eb6695fc22</data>
+    </edge>
+    <edge source="outlet:hindustan_times" target="case:97107646e759">
+      <data key="d13">reported</data>
+      <data key="d14">1</data>
+      <data key="d15">2025-12-04</data>
+      <data key="d16">2025-12-04</data>
+      <data key="d17">97107646e759</data>
+    </edge>
+    <edge source="outlet:hindustan_times" target="case:c968446a9714">
+      <data key="d13">reported</data>
+      <data key="d14">1</data>
+      <data key="d15">2025-11-08</data>
+      <data key="d16">2025-11-08</data>
+      <data key="d17">c968446a9714</data>
+    </edge>
+    <edge source="outlet:hindustan_times" target="case:ded487436f34">
+      <data key="d13">reported</data>
+      <data key="d14">1</data>
+      <data key="d15">2025-09-21</data>
+      <data key="d16">2025-09-21</data>
+      <data key="d17">ded487436f34</data>
+    </edge>
+    <edge source="outlet:hindustan_times" target="case:0cddb044adef">
+      <data key="d13">reported</data>
+      <data key="d14">1</data>
+      <data key="d15">2025-07-13</data>
+      <data key="d16">2025-07-13</data>
+      <data key="d17">0cddb044adef</data>
+    </edge>
+    <edge source="outlet:hindustan_times" target="case:060c77d264a4">
+      <data key="d13">reported</data>
+      <data key="d14">1</data>
+      <data key="d15">2025-05-27</data>
+      <data key="d16">2025-05-27</data>
+      <data key="d17">060c77d264a4</data>
+    </edge>
+    <edge source="outlet:hindustan_times" target="case:59ec1becd6eb">
+      <data key="d13">reported</data>
+      <data key="d14">1</data>
+      <data key="d15">2024-07-06</data>
+      <data key="d16">2024-07-06</data>
+      <data key="d17">59ec1becd6eb</data>
     </edge>
     <edge source="case:f5ebdd3448fc" target="species:red_sanders">
       <data key="d13">involves</data>
@@ -41565,139 +41705,6 @@
       <data key="d15">2026-08-30</data>
       <data key="d16">2026-08-30</data>
       <data key="d17">a61f24a13c98</data>
-    </edge>
-    <edge source="outlet:hindustan_times" target="case:a61f24a13c98">
-      <data key="d13">reported</data>
-      <data key="d14">1</data>
-      <data key="d15">2026-08-30</data>
-      <data key="d16">2026-08-30</data>
-      <data key="d17">a61f24a13c98</data>
-    </edge>
-    <edge source="outlet:hindustan_times" target="case:4a3eeb399e57">
-      <data key="d13">reported</data>
-      <data key="d14">1</data>
-      <data key="d15">2026-08-24</data>
-      <data key="d16">2026-08-24</data>
-      <data key="d17">4a3eeb399e57</data>
-    </edge>
-    <edge source="outlet:hindustan_times" target="case:b1d3170d70c0">
-      <data key="d13">reported</data>
-      <data key="d14">1</data>
-      <data key="d15">2026-07-28</data>
-      <data key="d16">2026-07-28</data>
-      <data key="d17">b1d3170d70c0</data>
-    </edge>
-    <edge source="outlet:hindustan_times" target="case:303d1ad1339a">
-      <data key="d13">reported</data>
-      <data key="d14">1</data>
-      <data key="d15">2026-07-25</data>
-      <data key="d16">2026-07-25</data>
-      <data key="d17">303d1ad1339a</data>
-    </edge>
-    <edge source="outlet:hindustan_times" target="case:a7cef584eccd">
-      <data key="d13">reported</data>
-      <data key="d14">1</data>
-      <data key="d15">2026-07-01</data>
-      <data key="d16">2026-07-01</data>
-      <data key="d17">a7cef584eccd</data>
-    </edge>
-    <edge source="outlet:hindustan_times" target="case:3014750e44a0">
-      <data key="d13">reported</data>
-      <data key="d14">1</data>
-      <data key="d15">2026-06-20</data>
-      <data key="d16">2026-06-20</data>
-      <data key="d17">3014750e44a0</data>
-    </edge>
-    <edge source="outlet:hindustan_times" target="case:3514948b01dc">
-      <data key="d13">reported</data>
-      <data key="d14">1</data>
-      <data key="d15">2026-05-27</data>
-      <data key="d16">2026-05-27</data>
-      <data key="d17">3514948b01dc</data>
-    </edge>
-    <edge source="outlet:hindustan_times" target="case:91f777b5becf">
-      <data key="d13">reported</data>
-      <data key="d14">1</data>
-      <data key="d15">2026-05-23</data>
-      <data key="d16">2026-05-23</data>
-      <data key="d17">91f777b5becf</data>
-    </edge>
-    <edge source="outlet:hindustan_times" target="case:60c529f56336">
-      <data key="d13">reported</data>
-      <data key="d14">1</data>
-      <data key="d15">2026-04-19</data>
-      <data key="d16">2026-04-19</data>
-      <data key="d17">60c529f56336</data>
-    </edge>
-    <edge source="outlet:hindustan_times" target="case:164f672d8efd">
-      <data key="d13">reported</data>
-      <data key="d14">1</data>
-      <data key="d15">2026-04-13</data>
-      <data key="d16">2026-04-13</data>
-      <data key="d17">164f672d8efd</data>
-    </edge>
-    <edge source="outlet:hindustan_times" target="case:87ca60403bfd">
-      <data key="d13">reported</data>
-      <data key="d14">1</data>
-      <data key="d15">2026-03-29</data>
-      <data key="d16">2026-03-29</data>
-      <data key="d17">87ca60403bfd</data>
-    </edge>
-    <edge source="outlet:hindustan_times" target="case:9af82a32e755">
-      <data key="d13">reported</data>
-      <data key="d14">1</data>
-      <data key="d15">2026-02-18</data>
-      <data key="d16">2026-02-18</data>
-      <data key="d17">9af82a32e755</data>
-    </edge>
-    <edge source="outlet:hindustan_times" target="case:f1eb6695fc22">
-      <data key="d13">reported</data>
-      <data key="d14">1</data>
-      <data key="d15">2026-01-12</data>
-      <data key="d16">2026-01-12</data>
-      <data key="d17">f1eb6695fc22</data>
-    </edge>
-    <edge source="outlet:hindustan_times" target="case:97107646e759">
-      <data key="d13">reported</data>
-      <data key="d14">1</data>
-      <data key="d15">2025-12-04</data>
-      <data key="d16">2025-12-04</data>
-      <data key="d17">97107646e759</data>
-    </edge>
-    <edge source="outlet:hindustan_times" target="case:c968446a9714">
-      <data key="d13">reported</data>
-      <data key="d14">1</data>
-      <data key="d15">2025-11-08</data>
-      <data key="d16">2025-11-08</data>
-      <data key="d17">c968446a9714</data>
-    </edge>
-    <edge source="outlet:hindustan_times" target="case:ded487436f34">
-      <data key="d13">reported</data>
-      <data key="d14">1</data>
-      <data key="d15">2025-09-21</data>
-      <data key="d16">2025-09-21</data>
-      <data key="d17">ded487436f34</data>
-    </edge>
-    <edge source="outlet:hindustan_times" target="case:0cddb044adef">
-      <data key="d13">reported</data>
-      <data key="d14">1</data>
-      <data key="d15">2025-07-13</data>
-      <data key="d16">2025-07-13</data>
-      <data key="d17">0cddb044adef</data>
-    </edge>
-    <edge source="outlet:hindustan_times" target="case:060c77d264a4">
-      <data key="d13">reported</data>
-      <data key="d14">1</data>
-      <data key="d15">2025-05-27</data>
-      <data key="d16">2025-05-27</data>
-      <data key="d17">060c77d264a4</data>
-    </edge>
-    <edge source="outlet:hindustan_times" target="case:59ec1becd6eb">
-      <data key="d13">reported</data>
-      <data key="d14">1</data>
-      <data key="d15">2024-07-06</data>
-      <data key="d16">2024-07-06</data>
-      <data key="d17">59ec1becd6eb</data>
     </edge>
     <edge source="case:9c9ea761d806" target="species:leopard">
       <data key="d13">involves</data>
