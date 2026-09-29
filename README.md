@@ -365,7 +365,7 @@ wildtrace cites path/to/Trade_database_download_v2026.1 # yearly: CITES supply -
 wildtrace lemis data/raw/lemis --taxonomy path/to/codebook # US port seizures (LEMIS, CC BY)
 wildtrace captive path/to/Trade_database_download_v2026.1 # yearly: captive-bred claims in CITES trade
 wildtrace ecosolve data/raw/ecosolve/adverts-data.csv  # ECO-SOLVE adverts vs WildTrace cases
-wildtrace vision path/to/images                        # OCR + BioCLIP species evidence (local, private)
+wildtrace vision path/to/images                        # OCR + BioCLIP species evidence (pip install -e ".[vision]")
 wildtrace zoonoses                                     # weekly: VIRION + WHO outbreak reports
 python scripts/make_og.py                              # redraw the share card with the new counts
 python -m http.server -d web 8000                      # open http://localhost:8000
