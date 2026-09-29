@@ -2,7 +2,7 @@
 
     python scripts/make_guide.py [--base URL]
 
-A real browser plays a scripted walkthrough that answers three research questions, with captions
+A real browser plays a scripted walkthrough: the question-first opening, an answer with its sources, routes, accuracy, with captions
 and a visible cursor drawn into the page (motion on the OpenHiggsfield easing: cubic-bezier(0.2, 0,
 0, 1) in, cubic-bezier(0.4, 0, 1, 1) out). Nothing is generated: every frame is the real interface.
 Outputs web/media/guide.mp4 (H.264, plays everywhere), guide.jpg (poster), guide-thumb.jpg (Pulse card) and guide.vtt (captions for
@@ -74,6 +74,15 @@ cues: list[tuple[float, str]] = []
 cuts: list[tuple[float, float]] = []   # loading waits removed in the edit (jump cuts)
 
 
+def _ffmpeg() -> str:
+    """ffmpeg on PATH, else the binary bundled with imageio-ffmpeg."""
+    exe = shutil.which("ffmpeg")
+    if exe:
+        return exe
+    import imageio_ffmpeg
+    return imageio_ffmpeg.get_ffmpeg_exe()
+
+
 def main() -> None:
     OUT.mkdir(parents=True, exist_ok=True)
     tmp = Path(tempfile.mkdtemp(prefix="wt-guide-"))
@@ -101,10 +110,16 @@ def main() -> None:
 
         def card(h, sub="", eyebrow="", hold=3.2):
             pg.evaluate("([h, p, e]) => window.__guide.title(h, p, e)", [h, sub, eyebrow])
-            cues.append((at(), f"{(eyebrow + ': ') if eyebrow else ''}{h}. {sub}".strip()))
+            cues.append((at(), f"{(eyebrow + ': ') if eyebrow else ''}{h}{'' if h[-1] in '.?!' else '.'} {sub}".strip()))
             pg.wait_for_timeout(int(hold * 1000))
             pg.evaluate("() => window.__guide.title('')")
             pg.wait_for_timeout(500)
+
+        def idle():
+            """Return once the page paints again (two animation frames)."""
+            for _ in range(3):
+                pg.evaluate("() => new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)))")
+                pg.wait_for_timeout(300)
 
         def click(sel, wait=1.4, ready=None):
             """Point, tap, click. With `ready`, the wait until that element is drawn is cut from the video."""
@@ -117,38 +132,35 @@ def main() -> None:
             if ready:
                 a = at() + 0.5
                 pg.wait_for_selector(ready, state="visible", timeout=180000)
+                idle()                                                  # a map re-projection blocks the page: cut it too
                 pg.wait_for_timeout(1200)                               # let it settle on screen
                 cuts.append((a, at() - 0.6))
             pg.wait_for_timeout(int(wait * 1000))
 
-        # ---- Intro
-        card("WildTrace in 2 minutes", "The open atlas of illegal wildlife trade: three research questions, answered live.", "How to use", 3.4)
-        say("Every point is a seizure, arrest or conviction from public reports, graded by its evidence.", "The Atlas", 3.8)
-        pg.evaluate("s => window.__guide.point(s)", "#pulse")
-        say("Pulse sums up what is in view. Every row is a filter.", "The Atlas", 2.6)
+        def scroll_to(sel):
+            pg.evaluate("s => document.querySelector(s)?.scrollIntoView({ block: 'center', behavior: 'smooth' })", sel)
+            pg.wait_for_timeout(700)
+            pg.evaluate("s => window.__guide.point(s)", sel)
 
-        # ---- Q1: pangolin in India, how strong is the evidence?
-        card("How strong is the evidence on pangolin cases in India?", "", "Question 1 of 3", 2.6)
-        click("#q", 0.3)
-        pg.keyboard.type("pangolin", delay=90)
-        pg.wait_for_timeout(700)
-        say("One search box for species, places and cases.", "Question 1", 1.8)
-        click('#omni-results .hit[data-i]', 1.4)
-        say("Each species: its CITES listing, trade names and where it is seized.", "Question 1", 2.8)
-        click('[data-act="filter-species"]', 1.2)
-        click("#close", 1.2)                                        # Pulse unfolds when the record closes
-        click('#pulse .bar[data-f="countries"][data-v="IN"]', 1.4)
-        say("Pangolin and India now filter the map, Pulse and timeline.", "Question 1", 2.6)
-        click("#pulse .feed .item", 1.6)
-        say("Each case: a plain account and its evidence grade.", "Question 1", 2.8)
-        pg.evaluate("() => { const b = document.querySelector('#insp-body'); b.scrollTo({ top: b.scrollHeight, behavior: 'smooth' }); }")
-        say("Every source is listed with its outlet. Nobody accused is ever named.", "Question 1", 3.0)
-        click("#close", 0.6)
-        if pg.locator("[data-clear-all]").count():
-            click("[data-clear-all]", 0.8)
+        # ---- Intro: the Atlas opens with a question
+        card("WildTrace in 2 minutes", "Ask a question. Get the answer, its sources and its limits.", "How to use", 3.4)
+        pg.evaluate("s => window.__guide.point(s)", "#ask-h")
+        say("The Atlas opens with a question, not a dashboard.", "Ask", 3.0)
+        click('[data-persona="journalists"]', 0.6)
+        say("Say who you are, and the questions change to fit.", "Ask", 2.6)
 
-        # ---- Q2: red sanders
-        card("Where does seized red sanders go, and through which hubs?", "", "Question 2 of 3", 2.6)
+        # ---- Q1: an answer, and its anatomy
+        card("Is wildlife sold online ever caught?", "", "Question 1 of 3", 2.4)
+        click('.qcard[data-answer="is-wildlife-sold-online-ever-caught"]', 1.0, ready="#insp-body .answer-lede")
+        say("Every answer: one line, its number and a chart.", "Question 1", 3.2)
+        scroll_to("#insp-body .link-row")
+        say("Who answers: each source is named and linked.", "Question 1", 2.8)
+        scroll_to("#insp-body .box.limit")
+        say("And what the number cannot tell you.", "Question 1", 2.8)
+        click("#close", 0.8)
+
+        # ---- Q2: follow the trade on the map
+        card("Where does seized red sanders go?", "", "Question 2 of 3", 2.4)
         click('[data-mode="flows"]', 1.0, ready="#fs-body .route")
         say("Flows: seized shipments reported to CITES, from source to market.", "Question 2", 3.0)
         pg.evaluate("s => window.__guide.point(s)", "#f-addg")
@@ -158,31 +170,33 @@ def main() -> None:
         pg.wait_for_selector('#fs-body .ev[data-route="s|IN|CN"]', timeout=120000)
         pg.wait_for_timeout(1500)
         cuts.append((a, at() - 0.8))
-        say("Pick a species. Lines shade from source region to market.", "Question 2", 2.8)
+        say("Lines shade green at the source, blue in transit, amber at the market.", "Question 2", 3.2)
         click('#fs-body .ev[data-route="s|IN|CN"]', 1.6)
-        say("Evidence: what was seized, when, who reported it, and the news.", "Question 2", 3.4)
+        say("Evidence: what was seized, when, who reported it, and the news.", "Question 2", 3.2)
         click("#close", 0.8)
 
-        # ---- Q3: zoonoses
-        card("Do animal-borne outbreaks and trafficking overlap in Central Africa?", "", "Question 3 of 3", 2.6)
-        click('[data-mode="zoo"]', 1.0, ready="#fs-body table")
-        say("Zoonoses: WHO outbreak reports beside the trade. A shared map, not a cause.", "Question 3", 3.2)
-        pg.evaluate("s => window.__guide.point(s)", "#fs-body table")
-        say("DR Congo, Uganda and Gabon lead outbreaks from wildlife contact.", "Question 3", 3.0)
-        click('#fs-body [data-open="zoo"]', 1.0, ready=".zoo-t")
-        say("Which traded species carry relatives of human viruses.", "Question 3", 2.8)
-        click("#sheet-close", 0.8)
+        # ---- Q3: can I trust it?
+        card("How accurate is WildTrace?", "", "Question 3 of 3", 2.4)
+        click('[data-mode="cases"]', 1.0, ready="#ask-h")
+        click('.qcard[data-answer="how-accurate-is-wildtrace"]', 1.0, ready="#insp-body .answer-lede")
+        say("Measured, not asserted: a blind audit of 200 random cases.", "Question 3", 3.4)
+        click("#close", 0.6)
+        scroll_to("#pulse .feed .item")
+        pg.wait_for_timeout(400)
+        click("#pulse .feed .item", 1.4, ready="#insp-body .title")
+        say("Each case: a plain account and its evidence grade.", "Question 3", 2.8)
+        pg.evaluate("() => { const b = document.querySelector('#insp-body'); b.scrollTo({ top: b.scrollHeight, behavior: 'smooth' }); }")
+        say("Every source is listed with its outlet. Nobody accused is ever named.", "Question 3", 3.0)
+        click("#close", 0.6)
 
         # ---- Tools and close
         click('[data-sheet="investigate"]', 1.0, ready="#cy canvas")
-        say("Investigate: a link chart, plus your own data, kept in your browser.", "Tools", 3.2)
+        say("Investigate: a link chart, plus your own data, kept in your browser.", "Tools", 3.0)
         click("#sheet-close", 0.6)
         click('[data-sheet="analysis"]', 1.0, ready="#an-month svg")
         say("Analysis: the whole record on one sheet.", "Tools", 2.4)
         click("#sheet-close", 0.6)
-        pg.evaluate("s => window.__guide.point(s)", "#tour-btn")
-        say("Tours explain every section; switch them off any time.", "Tools", 2.4)
-        card("Open data, free to reuse", "Download every case as CSV, cite it with DOI 10.5281/zenodo.22902819 · tarunv13.github.io/wildtrace", "WildTrace", 4.0)
+        card("Open data, free to reuse", "Every answer has a citable page · download every case as CSV · DOI 10.5281/zenodo.22902819", "WildTrace · Follow the trade", 4.2)
         end = at()
         pg.close(); ctx.close(); b.close()
 
@@ -199,12 +213,12 @@ def main() -> None:
     # Cut the loading seconds, then encode small H.264 and VP9 files and a poster.
     common = ["-ss", f"{start:.2f}", "-i", str(webm), "-t", f"{end:.2f}", "-an",
               "-vf", f"fps=25,select='not({keep})',setpts=N/FRAME_RATE/TB/{speed:.4f},fps=25"]
-    subprocess.run(["ffmpeg", "-y", "-loglevel", "error", *common, "-c:v", "libx264", "-preset", "slow", "-crf", "30",
+    subprocess.run([_ffmpeg(), "-y", "-loglevel", "error", *common, "-c:v", "libx264", "-preset", "slow", "-crf", "30",
                     "-pix_fmt", "yuv420p", "-movflags", "+faststart", str(OUT / "guide.mp4")], check=True)
-    subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-ss", "0.8", "-i", str(OUT / "guide.mp4"), "-frames:v", "1",
+    subprocess.run([_ffmpeg(), "-y", "-loglevel", "error", "-ss", "0.8", "-i", str(OUT / "guide.mp4"), "-frames:v", "1",
                     "-q:v", "4", str(OUT / "guide.jpg")], check=True)
     # Small thumbnail for the Pulse card: the globe from the Atlas scene (the title card reads as blank when small).
-    subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-ss", "5", "-i", str(OUT / "guide.mp4"), "-frames:v", "1",
+    subprocess.run([_ffmpeg(), "-y", "-loglevel", "error", "-ss", "5", "-i", str(OUT / "guide.mp4"), "-frames:v", "1",
                     "-vf", "crop=640:360:500:190,scale=240:-2", "-q:v", "4", str(OUT / "guide-thumb.jpg")], check=True)
     # Captions for screen readers (the same words are burned into the picture).
     def ts(t):

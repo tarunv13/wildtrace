@@ -26,7 +26,7 @@ const mode = (m) => () => dispatchEvent(new CustomEvent("wildtrace:mode", { deta
 export const TOURS = {
   main: { name: "The Atlas", steps: [
     { el: null, title: "Welcome to WildTrace",
-      body: "One open map of the illegal trade in wild animals and plants: seizures, arrests and convictions from public reports, where traded wildlife comes from and goes, and where animal-borne outbreaks are reported. About a minute; leave at any point. Prefer to watch? A 2-minute video answers three research questions on the live Atlas.",
+      body: "One open map of the illegal trade in wild animals and plants: seizures, arrests and convictions from public reports, where traded wildlife comes from and goes, and where animal-borne outbreaks are reported. About a minute; leave at any point. Prefer to watch? A 2-minute video shows how to ask a question, read the answer and check its evidence.",
       cta: [["▶ Watch the 2-minute video", () => dispatchEvent(new CustomEvent("wildtrace:video"))]] },
     { el: "#globe", place: "center", title: "The Atlas",
       body: "Every case sits where its report says it happened. The icon inside a point is the kind of event (box: seizure, lock: arrest, hands: rescue); paler points rest on a single report; a ring means the place is approximate; the glow shows where reporting is dense. Switch cases and observatories on and off in the legend, bottom right, and turn on satellite imagery with the map buttons to see the landscape. Trade routes live in Flows." },

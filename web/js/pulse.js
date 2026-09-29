@@ -44,7 +44,7 @@ export function renderPulse(el) {
     <p class="lede">${any ? "Filtered view. Click a chip to remove it." : `Seizures, arrests and convictions from ${fmt(reports)} public reports, ${esc(m.window?.[0] || "")} to ${esc(m.window?.[1] || "")}. <b>${fmt(mapped)}</b> are pinned to a city or district; the rest are country-level or name no place. Nobody accused is ever named.`}</p>
     ${any ? "" : `<button class="guide-card-cta" data-guide aria-label="Watch the 2-minute video guide">
       <span class="gc-thumb"><img src="media/guide-thumb.jpg" alt=""><span class="gc-play">▶</span></span>
-      <span class="gc-text"><b>New here? Watch the 2-minute guide</b><span>Three research questions, answered on this Atlas</span></span></button>`}
+      <span class="gc-text"><b>New here? Watch the 2-minute guide</b><span>Ask a question, read the answer, check the evidence</span></span></button>`}
     <div class="active-filters">${[
       ...[...f.kinds].map((k) => `<button class="chip k" style="--kc:${KIND_COLOR[k]}" data-f="kinds" data-v="${k}">${KIND_LABEL[k]} <span class="x">✕</span></button>`),
       ...[...f.species].map((s) => `<button class="chip" data-f="species" data-v="${s}">${esc(spLabel(s))} <span class="x">✕</span></button>`),

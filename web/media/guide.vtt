@@ -1,64 +1,55 @@
 WEBVTT
 
-00:00:00.003 --> 00:00:03.825
-How to use: WildTrace in 2 minutes. The open atlas of illegal wildlife trade: three research questions, answered live.
+00:00:00.004 --> 00:00:03.839
+How to use: WildTrace in 2 minutes. Ask a question. Get the answer, its sources and its limits.
 
-00:00:03.925 --> 00:00:07.639
-The Atlas: Every point is a seizure, arrest or conviction from public reports, graded by its evidence.
+00:00:03.939 --> 00:00:08.351
+Ask: The Atlas opens with a question, not a dashboard.
 
-00:00:07.739 --> 00:00:10.251
-The Atlas: Pulse sums up what is in view. Every row is a filter.
+00:00:08.451 --> 00:00:10.968
+Ask: Say who you are, and the questions change to fit.
 
-00:00:10.351 --> 00:00:16.207
-Question 1 of 3: How strong is the evidence on pangolin cases in India?.
+00:00:11.068 --> 00:00:16.969
+Question 1 of 3: Is wildlife sold online ever caught?
 
-00:00:16.307 --> 00:00:20.521
-Question 1: One search box for species, places and cases.
+00:00:17.069 --> 00:00:20.897
+Question 1: Every answer: one line, its number and a chart.
 
-00:00:20.621 --> 00:00:30.517
-Question 1: Each species: its CITES listing, trade names and where it is seized.
+00:00:20.997 --> 00:00:24.418
+Question 1: Who answers: each source is named and linked.
 
-00:00:30.617 --> 00:00:36.010
-Question 1: Pangolin and India now filter the map, Pulse and timeline.
+00:00:24.518 --> 00:00:28.936
+Question 1: And what the number cannot tell you.
 
-00:00:36.110 --> 00:00:38.880
-Question 1: Each case: a plain account and its evidence grade.
+00:00:29.036 --> 00:00:37.085
+Question 2 of 3: Where does seized red sanders go?
 
-00:00:38.980 --> 00:00:45.293
-Question 1: Every source is listed with its outlet. Nobody accused is ever named.
-
-00:00:45.393 --> 00:00:52.427
-Question 2 of 3: Where does seized red sanders go, and through which hubs?.
-
-00:00:52.527 --> 00:00:57.360
+00:00:37.185 --> 00:00:42.013
 Question 2: Flows: seized shipments reported to CITES, from source to market.
 
-00:00:57.460 --> 00:01:03.262
-Question 2: Pick a species. Lines shade from source region to market.
+00:00:42.113 --> 00:00:47.895
+Question 2: Lines shade green at the source, blue in transit, amber at the market.
 
-00:01:03.362 --> 00:01:09.128
+00:00:47.995 --> 00:00:52.880
 Question 2: Evidence: what was seized, when, who reported it, and the news.
 
-00:01:09.228 --> 00:01:15.898
-Question 3 of 3: Do animal-borne outbreaks and trafficking overlap in Central Africa?.
+00:00:52.980 --> 00:01:02.437
+Question 3 of 3: How accurate is WildTrace?
 
-00:01:15.998 --> 00:01:19.111
-Question 3: Zoonoses: WHO outbreak reports beside the trade. A shared map, not a cause.
+00:01:02.537 --> 00:01:12.049
+Question 3: Measured, not asserted: a blind audit of 200 random cases.
 
-00:01:19.211 --> 00:01:25.367
-Question 3: DR Congo, Uganda and Gabon lead outbreaks from wildlife contact.
+00:01:12.149 --> 00:01:14.861
+Question 3: Each case: a plain account and its evidence grade.
 
-00:01:25.467 --> 00:01:32.854
-Question 3: Which traded species carry relatives of human viruses.
+00:01:14.961 --> 00:01:22.701
+Question 3: Every source is listed with its outlet. Nobody accused is ever named.
 
-00:01:32.954 --> 00:01:41.144
+00:01:22.801 --> 00:01:30.316
 Tools: Investigate: a link chart, plus your own data, kept in your browser.
 
-00:01:41.244 --> 00:01:45.029
+00:01:30.416 --> 00:01:34.267
 Tools: Analysis: the whole record on one sheet.
 
-00:01:45.129 --> 00:01:47.436
-Tools: Tours explain every section; switch them off any time.
-
-00:01:47.536 --> 00:01:51.959
-WildTrace: Open data, free to reuse. Download every case as CSV, cite it with DOI 10.5281/zenodo.22902819 · tarunv13.github.io/wildtrace
+00:01:34.367 --> 00:01:38.977
+WildTrace · Follow the trade: Open data, free to reuse. Every answer has a citable page · download every case as CSV · DOI 10.5281/zenodo.22902819
