@@ -514,7 +514,7 @@ If WildTrace helps your work, please cite it. Use the **Cite this repository** b
 
 **APA 7**
 
-> Verma, T. K. (2026). *WildTrace: the open atlas of illegal wildlife trade* (Version 1.10.0) [Computer software]. Zenodo. https://doi.org/10.5281/zenodo.22902819
+> Verma, T. K. (2026). *WildTrace: the open atlas of illegal wildlife trade* (Version 1.11.0) [Computer software]. Zenodo. https://doi.org/10.5281/zenodo.22902819
 
 **BibTeX**
 
@@ -523,7 +523,7 @@ If WildTrace helps your work, please cite it. Use the **Cite this repository** b
   author  = {Verma, Tarun Kumar},
   title   = {WildTrace: the open atlas of illegal wildlife trade},
   year    = {2026},
-  version = {1.10.0},
+  version = {1.11.0},
   doi     = {10.5281/zenodo.22902819},
   url     = {https://github.com/tarunv13/wildtrace},
   license = {MIT}
@@ -535,7 +535,8 @@ latest version. To cite the exact data you used, cite its version DOI:
 
 | Version | Date | What it added | DOI |
 | --- | --- | --- | --- |
-| 1.10.0 | 2026-09-29 | ECO-SOLVE comparison, ambiguous words, image evidence, Thai, amphibians | being minted by Zenodo (listed on the [concept record](https://doi.org/10.5281/zenodo.22902819) when ready) |
+| 1.11.0 | 2026-09-29 | ask a question, measured accuracy (95.5% in a blind audit), event gate, new brand; 1,871 cases | being minted by Zenodo (listed on the [concept record](https://doi.org/10.5281/zenodo.22902819) when ready) |
+| 1.10.0 | 2026-09-29 | ECO-SOLVE comparison, ambiguous words, image evidence, Thai, amphibians | [10.5281/zenodo.23033058](https://doi.org/10.5281/zenodo.23033058) |
 | 1.9.0 | 2026-09-29 | caught online, captive-bred claims, 2,126 cases | [10.5281/zenodo.23025869](https://doi.org/10.5281/zenodo.23025869) |
 | 1.8.0 | 2026-09-29 | Risk pathways, research agenda | [10.5281/zenodo.23024232](https://doi.org/10.5281/zenodo.23024232) |
 | 1.7.0 | 2026-09-28 | US port seizures (LEMIS) | [10.5281/zenodo.23023112](https://doi.org/10.5281/zenodo.23023112) |
