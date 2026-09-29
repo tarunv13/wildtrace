@@ -535,7 +535,7 @@ latest version. To cite the exact data you used, cite its version DOI:
 
 | Version | Date | What it added | DOI |
 | --- | --- | --- | --- |
-| 1.11.0 | 2026-09-29 | ask a question, measured accuracy (95.5% in a blind audit), event gate, new brand; 1,871 cases | being minted by Zenodo (listed on the [concept record](https://doi.org/10.5281/zenodo.22902819) when ready) |
+| 1.11.0 | 2026-09-29 | ask a question, measured accuracy (95.5% in a blind audit), event gate, new brand; 1,871 cases | [10.5281/zenodo.23034475](https://doi.org/10.5281/zenodo.23034475) |
 | 1.10.0 | 2026-09-29 | ECO-SOLVE comparison, ambiguous words, image evidence, Thai, amphibians | [10.5281/zenodo.23033058](https://doi.org/10.5281/zenodo.23033058) |
 | 1.9.0 | 2026-09-29 | caught online, captive-bred claims, 2,126 cases | [10.5281/zenodo.23025869](https://doi.org/10.5281/zenodo.23025869) |
 | 1.8.0 | 2026-09-29 | Risk pathways, research agenda | [10.5281/zenodo.23024232](https://doi.org/10.5281/zenodo.23024232) |
