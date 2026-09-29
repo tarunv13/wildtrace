@@ -668,3 +668,25 @@ svg .hit { fill: transparent; cursor: default; }
 .tbl .num { text-align: right; font-variant-numeric: tabular-nums; }
 .tbl tr:last-child td { border-bottom: 0; }
 @media (max-width: 640px) { .tbl th:last-child, .tbl td:last-child { display: none; } }
+
+/* Ask: the question-first opening of Pulse */
+.ask { margin-bottom: 18px; padding-bottom: 16px; border-bottom: 1px solid var(--line); }
+.ask .lede { margin-bottom: 10px; }
+.ask-for { margin: 4px 0 12px; }
+.qcards { display: grid; gap: 8px; }
+.qcard { display: grid; gap: 4px; text-align: left; padding: 12px 14px; border-radius: 14px; border: 1px solid var(--line);
+  background: linear-gradient(90deg, color-mix(in srgb, var(--qc) 10%, #fff) 0 4px, rgba(255,255,255,.72) 4px);
+  cursor: pointer; transition: transform .16s cubic-bezier(.2,.8,.2,1), box-shadow .16s, border-color .16s; }
+.qcard:hover, .qcard:focus-visible { transform: translateY(-1px); border-color: color-mix(in srgb, var(--qc) 45%, transparent);
+  box-shadow: 0 6px 18px -10px color-mix(in srgb, var(--qc) 60%, transparent); }
+.qcard .qq { font-weight: 650; font-size: 14.5px; line-height: 1.3; color: var(--ink); }
+.qcard .qn { font-size: 12.5px; color: var(--ink-3); }
+.qcard .qn b { color: var(--qc); font-size: 14px; font-variant-numeric: tabular-nums; }
+.ask-all { margin-top: 10px; font-size: 13px; }
+.headline.sub { font-size: 21px; margin-top: 4px; }
+.answer-lede { font-size: 15.5px; line-height: 1.5; color: var(--ink); margin: 6px 0 12px; }
+.big-tile .v { color: var(--qc); font-size: 34px; }
+.abars { display: grid; gap: 6px; margin: 12px 0 4px; }
+.abar { display: grid; grid-template-columns: minmax(7rem, 42%) 1fr auto; align-items: center; gap: 8px; font-size: 12.5px; }
+.abar i { display: block; height: 9px; border-radius: 5px; width: var(--w); background: var(--qc); opacity: .85; }
+@media (prefers-reduced-motion: reduce) { .qcard { transition: none; } }

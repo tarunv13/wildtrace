@@ -24,6 +24,10 @@ Plural terms match their singular ("parakeets" finds "parakeet") unless the sing
 
 | Date | Change | Evidence | Effect |
 | --- | --- | --- | --- |
+| 2026-09-29 | Event gate: a case needs an event verb; topic words ("trafficking", "tráfico", "तस्करी") are context only | blind audit 1: 37 of 200 published cases were not events | precision 81.5% -> 94.5% (fresh audit 2) |
+| 2026-09-29 | Genre, statistics and rescue rules; masks for non-species phrases (Tiger Strike Force, Costa do Marfim, arrêtés préfectoraux, Araras, human trafficking) | audits 1-3 error classes | precision 96.0% (audit 3), 95.5% (audit 4); see ACCURACY.md |
+| 2026-09-29 | Leftmost-longest species matching; "चंदन" (also a first name), "denuncia", "बाघ", "बंदर", Thai "กบ" context-checked; codebook generic names never map to a narrower group | "Chandan Yadav arrested" stories; "red sandalwood" tagged sandalwood; "deer antlers" tagged musk deer | species right in 99.0% of genuine cases |
+| 2026-09-29 | Daily run: English editions rotate over three days; job limit 180 min; unbuffered logs | daily run cancelled at 120 min (collection outgrew the limit) | every edition still covered every 3 days |
 | 2026-09-29 | Google News `when:` months converted (12m -> 1y) | `when:12m` returned 0 results for Portuguese; `when:1y` returned 78 | one-year backfill re-run: +3,997 reports |
 | 2026-09-29 | Online-crime searches in 8 languages | ECO-SOLVE comparison: online trade reaches enforcement in news | +582 reports, platforms per case |
 | 2026-09-29 | Enforcement verbs added (busts, foils, raid, charged, दबोचा, बरामद, khởi tố, thu giữ, diringkus, diamankan, autuado, aseguran, démantelé) | real missed reports in the online backfill, e.g. "Indonesia busts online trade in wildlife skulls" (TRAFFIC) | cases 1,999 -> 2,133 |

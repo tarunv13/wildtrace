@@ -84,7 +84,7 @@ groups:
     terms:
       th: [เต่าบก, เต่าดาว, เต่าทะเล, ตะพาบ]
       en: [star tortoise, star tortoises, softshell turtle, softshell turtles, flapshell turtle, tortoise, tortoises, turtle, turtles]
-      pt: [tartarugas, jabutis, quelônios, ovos de tartaruga]
+      pt: [tigre-d'água, tartarugas tigre-d'água, tartarugas, jabutis, quelônios, ovos de tartaruga]
       es: [tortugas, huevos de tortuga, caguama]
       fr: [tortues]
       hi_latn: [kachua, kachhua]
@@ -144,6 +144,7 @@ groups:
     cites: "I"
     products: [skin, claws]
     terms:
+      id_ms: [macan dahan, macan tutul, kulit macan]
       th: [เสือดาว, เสือดำ, เสือลายเมฆ]
       en: [leopard skin, leopard skins, leopard pelt, leopard pelts, leopard claws, leopard hide, leopard hides, clouded leopard, leopard poaching, leopard poachers]
       hi_latn: [tendua khal, tendue ki khal]
@@ -234,6 +235,7 @@ groups:
     cites: "I"
     products: [bile, gall bladder, paws]
     terms:
+      id_ms: [beruang madu, empedu beruang]
       th: [หมีควาย, หมีหมา, อุ้งตีนหมี, ดีหมี]
       en: [bear bile, bear gall, bear paws, sloth bear, sun bear]
       vi: [mật gấu]
@@ -442,12 +444,50 @@ sale_cues:
 
 # Words that signal an enforcement event (the news side).
 enforcement_cues:
-  seizure: [ยึด, ตรวจยึด, ลักลอบ, seized, seizure, seize, seizes, recovered, confiscated, intercepted, haul, bust, busted, busts, foils, foiled, raid, raided, racket busted,
-            बरामद, thu giữ, tạm giữ, menyita, diamankan, aseguran, aseguramiento, démantelé, saisis, smuggling, smuggled, trafficking, जब्त, bắt giữ, disita, ของกลาง, apreensão, apreende, apreendidos, apreendidas, tráfico de animais, decomiso, decomisan, incautan, incautación, incautaron, tráfico de fauna, saisie, saisies, saisi, trafic]
-  arrest: [ผู้ต้องหา, arrested, arrest, arrests, held, nabbed, detained, apprehended, charged, indicted, गिरफ्तार, दबोचा, दबोचे, पकड़ा, पकड़े, हिरासत, diringkus, khởi tố, autuado, flagrante, ditangkap, ditahan, จับกุม, preso, presos, presa, detenido, detenidos, capturados, arrêté, arrêtés, interpellés]
-  conviction: [convicted, sentenced, jailed, imprisonment, rigorous imprisonment, pleaded guilty, fined, condamnés, सजा, dihukum, condenado, condenados, sentenciado, condamné]
-  rescue: [rescued, released into the wild, rehabilitated, resgata, resgatados, resgatadas, rescatan, rescatados]
+  seizure: [ยึด, ตรวจยึด, crack down, cracks down, hunts down, stopped, intercepte, intercepté, interceptés, interceptée, blows lid off, intercepts, dismantled, dismantles, dismantling, forfeited, forfeiture, preservation order, recovers, recovery of, confiscates, confiscation, detenciones, allanamientos, allanamiento, incautación, incautaciones, decomisaron, decomisados, aseguraron, apreensões, apreendida, apreendido, desarticula, desarticulada, démantèlement, saisie de, thu hồi, penyitaan, menggagalkan, gagalkan, seized, seizure, seize, seizes, recovered, confiscated, intercepted, haul, bust, busted, busts, foils, foiled, raid, raided, racket busted, बरामद, thu giữ, tạm giữ, menyita, diamankan, aseguran, aseguramiento, démantelé, saisis, जब्त, bắt giữ, disita, ของกลาง, apreensão, apreende, apreendidos, apreendidas, decomiso, decomisan, incautan, incautación, incautaron, saisie, saisies, saisi]
+  arrest: [ผู้ต้องหา, remand, probe, denunciados, denunciadas, captura, capturan, capturaron, remanded, booked, nabs, nab, detains, detenido por, capturado, capturada, detidos, detidas, detido, detida, interpellé, interpellée, placés en garde à vue, ditetapkan tersangka, arrested, arrest, arrests, held, nabbed, detained, apprehended, charged, indicted, गिरफ्तार, दबोचा, दबोचे, पकड़ा, पकड़े, हिरासत, diringkus, khởi tố, autuado, flagrante, ditangkap, ditahan, จับกุม, preso, presos, presa, detenido, detenidos, capturados, arrêté, arrêtés, interpellés]
+  conviction: [faces, in prison, years in prison, prison, procès, trial, plead guilty, pleads guilty, fines, fined for, court fines, convicts, sentences, sentencia, sentenciados, condenada, condamnée, divonis, convicted, sentenced, jailed, imprisonment, rigorous imprisonment, pleaded guilty, fined, condamnés, सजा, dihukum, condenado, condenados, sentenciado, condamné]
+  rescue: [sauvés, sauvées, sauvé, rescued, released into the wild, rehabilitated, resgata, resgatados, resgatadas, rescatan, rescatados]
   bail: [bail granted, granted bail, acquitted, discharged]
+
+# Topic words say what a story is about, not that anything happened: "trafficking" alone is a topic.
+# They never make a case on their own (a case needs an event verb from enforcement_cues), but they
+# count as enforcement context for ambiguous terms and appear in the evidence.
+topic_cues:
+  trade: [smuggling, smuggled, trafficking, trafficked, poaching, illegal wildlife trade, tráfico, tráfico de animais, tráfico de fauna, contrabando,
+          trafic, braconnage, तस्करी, तस्कर, buôn lậu, penyelundupan, perdagangan satwa, ลักลอบ, ค้าสัตว์ป่า]
+
+# Genre: stories about the problem rather than an event (features, statements, programmes, reports).
+# A story with a genre cue becomes a case only with hard event evidence: an event verb AND a number.
+genre_cues:
+  feature: [la otra cara, the other side of, commentary, opinion, editorial, explainer, analysis, podcast, interview, what we know, how , why , story of, frontlines,
+            fight against, battle against, corridor for, whack-a-mole, the business of, le business, difficile lutte, lucha contra]
+  programme: [convocatoria, licitação, licitación, edital, chamada pública, tender, request for proposals, seeks, demands, calls for probe,
+              politicise, looks to, plans to, proposes, govt to, training, workshop, webinar, awareness, campaign, coalition, compendium, guide, toolkit, launches, launched, programme,
+              program, hosted, joining forces, strengthen, to curb, to combat, to tackle, vows, pledges, calls for, urges, alerta sobre,
+              capacitação, campanha, programa, promueve, sensibilisation, atelier, formation, pelatihan, sosialisasi, पहल, जागरूकता]
+  hard: [la otra cara, the other side of, commentary, opinion, editorial, explainer, podcast, whack-a-mole, story of, "totaliza", "somam",
+         multas chegam, chegam a r$]
+  report: [report finds, study finds, report says, new report, data shows, survey, index, ranking, according to a report]
+
+# Aggregates: counts over a period, not one event. Hard negative: these are statistics, not cases.
+aggregate_cues:
+  period: ["%", "em 2024", "em 2025", "em 2026", "en 2024", "en 2025", "en 2026", "between 20", "entre 20", in three months, in six months, in 12 months,
+           past year, over the past, "de 20", release report, releases report, ": report", new data, since january, so far this year, this year, last year, in 2024, in 2025, in 2026, em novembro, em outubro, em setembro,
+           en lo que va, según la defensoría, segundo dados, balanço, cresce, crece, rise in, increase in, record year, annual, yearly, (1990]
+
+# Rescue-only stories count as trade only with a trade or captivity word (else: wildlife in a house,
+# a stranded turtle, human-wildlife conflict).
+rescue_trade_context: [trafic, traficados, traficadas, illegal, illegally, captivity, cativeiro, cativeiro irregular, ilegal, ilegalmente, trafficking, smuggl, tráfico,
+                       traficantes, sold, selling, for sale, pet, pets, trade, venda, vendidos, maus-tratos, feira, tianguis, market,
+                       seized, apreend, confiscat, sem registro, criados ilegalmente, ilegales, contrabando, कैद, पिंजरे, satwa dilindungi]
+
+# Masks: known phrases that contain a species or cue word but name something else. They are blanked
+# before matching (the words themselves stay in the lexicon for every other context).
+masks: [costa do marfim, costa de marfil, costa d'avorio, presas em rede, presa em rede, preso em rede, presos em rede, presas em redes,
+        jaguarão, caburé, arrêtés préfectoraux, arrêté préfectoral, arrêté municipal, em araras, de araras, "araras, sp", araras (sp), araras-sp, tiger strike force, special tiger protection force, state tiger strike force, human trafficking, drug trafficking,
+        trafficking in persons, ivory coast, côte d'ivoire, cote d'ivoire, ivory park, la patria, tigre-d'água, tigre d'água,
+        tartarugas-tigre, pasir penyu, tiger global, tiger shroff, paper tiger, python programming, monty python]
 
 agencies:
   IN: [WCCB, Wildlife Crime Control Bureau, DRI, Directorate of Revenue Intelligence, Customs, Forest Department, forest officials, forest officers, forest department, STF, Special Task Force, CBI, police, Crime Branch, Coast Guard, SSB, Sashastra Seema Bal, BSF, Border Security Force, RPF, Railway Protection Force, CISF, Assam Rifles, ITBP]
@@ -504,16 +544,21 @@ ambiguous:
   - {term: python, group: pythons_reptiles, lang: en, needs: [enforcement, trade, wildlife, quantity], note: "also the programming language"}
   - {term: coral, group: sea_fan, lang: en, needs: [enforcement, trade, quantity], note: "also reefs in climate news, place names"}
   - {term: ivory, group: elephant, lang: en, needs: [enforcement, trade, quantity], note: "also a colour; Ivory Coast is a negative cue"}
+  - {term: चंदन, group: sandalwood, lang: hi, needs: [trade], needs_terms: [लकड़ी, टन, किलो, क्विंटल, पेड़, बरामद, तस्कर], note: "sandalwood; also a common first name (चंदन यादव)"}
+  - {term: chandan, group: sandalwood, lang: hi_latn, needs: [trade], needs_terms: [wood, logs, tonnes, kg, trees], note: "also a first name"}
+  - {term: denuncia, cue: arrest, lang: pt, needs_terms: [pessoas, suspeitos, acusados, investigados, réus, homens, mulher, homem, integrantes], note: "a prosecutor charging people; also an NGO complaining (Proyecto Santa María denuncia)"}
   - {term: frog, group: amphibians, lang: en, needs: [enforcement, trade, quantity], note: "also frog in general writing"}
   - {term: frogs, group: amphibians, lang: en, needs: [enforcement, trade, quantity]}
   - {term: toad, group: amphibians, lang: en, needs: [enforcement, trade, quantity]}
-  - {term: กบ, group: amphibians, lang: th, needs: [enforcement, trade, quantity], note: "two letters; also inside กบฏ (rebel), ประกบ"}
+  - {term: กบ, group: amphibians, lang: th, needs_regex: 'กบ\s*[\d,]+\s*(ตัว|กิโล|กก)', note: "two letters, and Thai has no spaces: matches across words (จาก|บุคคล). Counts only as a count of frogs (กบ 500 ตัว)"}
+  - {term: बाघ, group: tiger, lang: hi, needs: [enforcement, trade, quantity, species], note: "tiger; also in names and places"}
+  - {term: बंदर, group: primates, lang: hi, needs: [trade], needs_terms: [तस्कर, तस्करी, बरामद, दुर्लभ, विदेशी, बिक्री], note: "monkey; mostly human-monkey conflict news"}
   - {term: shell, group: turtles, lang: en, needs: [enforcement, trade, wildlife], note: "also the oil company"}
 
 # Phrases that make a match NOT a wildlife-trade report. Each came from a real
 # false positive: a film ("Kattalan", an ivory-smuggling thriller), a liquor brand
 # ("Nepali Kasturi" = musk), a township ("Ivory Park", Johannesburg).
 negative_cues:
+  sports: [futebol, copa do mundo, world cup, campeonato, "16 avos", oitavas de final, goleada, mundial sub, eliminatórias, premier league, la liga]
   entertainment: [thriller, premieres, premiere, web series, box office, trailer, sonyliv, netflix, prime video, ott release, movie review, film review]
   brands: [kasturi sharab, kasturi liquor, nepali kasturi, कस्तूरी शराब, नेपाली कस्तूरी, kasturi whisky, tiger shroff, tiger 3, tiger zinda, paper tiger, tiger global]
-  places: [ivory park, ivory coast, côte d'ivoire, cote d'ivoire]

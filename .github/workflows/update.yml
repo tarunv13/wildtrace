@@ -22,10 +22,13 @@ on:
         default: false
 permissions: { contents: write, pages: write, id-token: write }
 concurrency: { group: pages, cancel-in-progress: false }
+env:
+  PYTHONUNBUFFERED: "1"
+
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 120
+    timeout-minutes: 180
     outputs:
       changed: ${{ steps.commit.outputs.changed }}
     steps:
@@ -50,7 +53,7 @@ jobs:
         run: |
           EXTRA="--no-gdelt"
           if [ "$(date -u +%u)" = "1" ] || [ "${{ inputs.full }}" = "true" ]; then EXTRA="--official"; fi
-          python -m wildtrace.cli collect --gnews --online --countries ALL --timespan 1w --gnews-window 3d $EXTRA
+          python -m wildtrace.cli collect --gnews --online --rotate --countries ALL --timespan 1w --gnews-window 3d $EXTRA
       - name: Outbreaks and viruses (WHO, VIRION)
         run: python -m wildtrace.cli zoonoses || echo "zoonoses refresh failed; keeping the last published file"
       - name: Build (refuses to publish if cases drop by more than 10%)

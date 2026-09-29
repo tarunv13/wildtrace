@@ -2,6 +2,33 @@
 
 All notable changes to WildTrace. Dates are the release date, newest first.
 
+## 1.11.0 — 2026-09-29
+
+### Added
+- **Ask it a question.** The Atlas opens with "What do you want to know?": eleven live answers, filtered for
+  journalists, researchers, policy and everyone. Each answer gives the answer and its number, a chart, who answers
+  (the sources and their standing), what the number cannot tell you, and where to explore it; each has a citable
+  page (`answers.html`, `answers/<slug>.html`, QAPage and FAQ structured data).
+- **Measured accuracy.** `wildtrace accuracy sample|score`: blind audits of random samples of published cases.
+  Four audits on fresh samples took precision from 81.5% to **95.5%** (191/200, 95% interval 91.7-97.6%); species
+  right in 99.0% of genuine cases. The 98% target is not reached and the site says so (`docs/ACCURACY.md`, the
+  "How accurate is WildTrace?" answer).
+- **Brand.** A new mark in which the trail runs from source (green) through transit (blue) to market (amber); motto
+  "Follow the trade."; favicons, app icons, web manifest, lockup and a GitHub social preview (`docs/BRAND.md`).
+- **Funding** (`docs/FUNDING.md`, Sponsor button): what support buys and the routes being pursued.
+
+### Changed
+- **A case needs an event.** Topic words ("trafficking", "tráfico", "तस्करी") no longer make a case on their own; an
+  event verb does. Features, commentary, programmes, reports, tenders, political statements and period statistics
+  are held back; rescue-only stories need a trade link or a count of 10+. Masks blank phrases that only look like
+  wildlife (Tiger Strike Force, Costa do Marfim, arrêtés préfectoraux, human trafficking, a town named Araras).
+  Cases: 2,290 -> **1,871**, each more likely to be real. Every rule and its evidence: `docs/CURATION.md`.
+- **Species matching** is leftmost-longest ("red sandalwood smuggling" is red sanders only); generic codebook names
+  never map to a narrower group; "चंदन" (also a first name), "denuncia", "बाघ", "बंदर" and Thai "กบ" are
+  context-checked, not deleted.
+- **Daily run** rotates the English-language news editions over three days (each still covered every three days),
+  with a 180-minute limit and unbuffered logs, after collection outgrew the old limit.
+
 ## 1.10.0 — 2026-09-29
 
 ### Added

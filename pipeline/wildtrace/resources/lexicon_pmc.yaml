@@ -1855,10 +1855,7 @@ groups:
     - wing
     ambiguous:
     - bird
-    - martin
     - parrot
-    - raven
-    - robin
   bulbs_ornamental:
     terms:
       cy:
@@ -3429,8 +3426,7 @@ groups:
     - powder
     - skull
     - unspecified
-    ambiguous:
-    - deer
+    ambiguous: []
   orchids:
     terms:
       NA:
@@ -5253,8 +5249,7 @@ groups:
     - trimming
     - trophy
     - unspecified
-    ambiguous:
-    - monitor
+    ambiguous: []
   red_sanders:
     terms:
       en:
@@ -5295,8 +5290,7 @@ groups:
     - wood
     - wood chips
     - wood product
-    ambiguous:
-    - sandalwood
+    ambiguous: []
   resins_gums:
     terms:
       NA:

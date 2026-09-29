@@ -1,10 +1,10 @@
 <div align="center">
 
-<img src="docs/img/logo.svg" width="104" alt="WildTrace logo">
+<img src="docs/img/logo.svg" width="104" alt="WildTrace mark: a trail from source (green) through transit (blue) to market (amber), across the globe">
 
 # WildTrace
 
-**The open atlas of illegal wildlife trade.**
+**The open atlas of illegal wildlife trade. Follow the trade.**
 
 One map of seizures, arrests and convictions worldwide, in fauna and flora, with every case
 graded by the strength of its evidence, and a link-analysis workbench that runs in your browser.
@@ -19,7 +19,9 @@ crime revenue, disease risk and the loss of ecosystems people depend on.
 
 [Open the Atlas](https://tarunv13.github.io/wildtrace/) ·
 [Risk pathways](https://tarunv13.github.io/wildtrace/pathways.html) ·
+[Questions](https://tarunv13.github.io/wildtrace/answers.html) ·
 [Research agenda](docs/RESEARCH_AGENDA.md) ·
+[Accuracy](docs/ACCURACY.md) ·
 [Who it's for](#who-its-for) ·
 [How much to trust a case](#how-much-to-trust-a-case) ·
 [Download the data](https://tarunv13.github.io/wildtrace/data/cases.csv) ·
@@ -32,10 +34,34 @@ crime revenue, disease risk and the loss of ecosystems people depend on.
 <p align="center">
   <img src="docs/img/atlas.png" alt="The WildTrace globe with clustered case markers across Africa, South Asia and South America, a summary panel on the left and a timeline along the bottom" width="100%">
   <br>
-  <sub>The Atlas (screenshot from an earlier build; now 2,290 cases in 75 countries). Colour is the kind of event, paler dots are single reports, the glow is density of reporting.</sub>
+  <sub>The Atlas (screenshot from an earlier build; now 1,871 audited cases in 61 countries). Colour is the kind of event, paler dots are single reports, the glow is density of reporting.</sub>
 </p>
 
 ---
+
+## Ask it a question
+
+WildTrace opens with questions, not a dashboard: **What do you want to know?** Eleven live answers, filtered
+for journalists, researchers, policy and everyone, each giving the answer, its number, a chart, **who answers**
+(the sources and their standing), **what the number cannot tell you**, and where to explore it on the map.
+Every answer also has a citable page for readers and answer engines:
+
+| Question | Page |
+| --- | --- |
+| Which wildlife is seized most often? | [answers/what-wildlife-is-seized-most](https://tarunv13.github.io/wildtrace/answers/what-wildlife-is-seized-most.html) |
+| Is wildlife sold online ever caught? | [answers/is-wildlife-sold-online-ever-caught](https://tarunv13.github.io/wildtrace/answers/is-wildlife-sold-online-ever-caught.html) |
+| How often does a seizure end in a conviction? | [answers/how-often-a-seizure-ends-in-conviction](https://tarunv13.github.io/wildtrace/answers/how-often-a-seizure-ends-in-conviction.html) |
+| Can "captive-bred" labels be trusted? | [answers/can-captive-bred-labels-be-trusted](https://tarunv13.github.io/wildtrace/answers/can-captive-bred-labels-be-trusted.html) |
+| How accurate is WildTrace? | [answers/how-accurate-is-wildtrace](https://tarunv13.github.io/wildtrace/answers/how-accurate-is-wildtrace.html) |
+
+All eleven: [answers.html](https://tarunv13.github.io/wildtrace/answers.html).
+
+## How accurate is it?
+
+Measured by blind audits of random samples of published cases, each judged against its sources:
+**95.5% are genuine wildlife-trade enforcement events** (191 of 200, 95% interval 91.7-97.6%), and species
+are right in 99.0% of them. Four audits took precision from 81.5% to its current level; the 98% target is not
+reached yet, and the site says so. Method, history and limits: [docs/ACCURACY.md](docs/ACCURACY.md).
 
 ## Wildlife crime is a security risk. How strong is the evidence?
 
@@ -74,9 +100,9 @@ they show where wildlife is sold openly while almost nothing reaches the public 
 | Thailand | Bears | 1,303 | 0 |
 | Thailand | Parrots & songbirds | 1,046 | 0 |
 | Indonesia | Parrots & songbirds | 859 | 0 |
-| Colombia | Parrots & songbirds | 1,180 | 1 |
+| Colombia | Parrots & songbirds | 1,154 | 1 |
 | Thailand | Tiger | 2,232 | 3 |
-| Thailand | Elephant (ivory) | 2,917 | 4 |
+| Thailand | Elephant (ivory) | 2,917 | 2 |
 
 It is not a detection rate (the sources watch different things with different effort), and part of the
 gap was WildTrace's own: 10,313 of the adverts are in Thai, so WildTrace now reads Thai news too. Only
@@ -221,8 +247,8 @@ Every case carries one status:
 | **Corroborated** | Two or more independent outlets report it |
 | **Single report** | One outlet only: a lead, not a finding |
 
-As of 29 September 2026: **255 official, 317 corroborated, 1,718 single report**. Three in four
-cases still rest on one outlet, and **1,056 of 2,290 cases name no place** at all. Those numbers are
+As of 29 September 2026: **194 official, 305 corroborated, 1,372 single report**. Three in four
+cases still rest on one outlet, and **905 of 1,871 cases name no place** at all. Those numbers are
 on the site, not buried here, because a map that hides them would be misleading.
 
 Found a mistake? Use **Report a correction** on any case, which opens a pre-filled issue.
@@ -247,7 +273,7 @@ Found a mistake? Use **Report a correction** on any case, which opens a pre-fill
 - **Licence:** case data CC BY 4.0, code MIT. `flows.json` is derived from the CITES Trade Database
   and shared under its terms (non-commercial, with attribution); the virus counts in
   `zoonoses.json` come from VIRION under ODbL 1.0.
-- **Coverage:** 2,290 cases, 75 countries, 3,319 public reports, 2024-01-15 to 2026-09-28; 24,786
+- **Coverage:** 1,871 cases, 61 countries, 2,768 public reports, 2024-01-19 to 2026-09-28; 24,786
   seized and 7 million declared CITES shipments since 2015; 2,116 zoonotic WHO outbreak reports.
 
 ## How it fits together
@@ -470,7 +496,8 @@ Ideas, not promises. Discuss them in [Issues](https://github.com/tarunv13/wildtr
 
 ## Known limitations
 
-- Three in four cases rest on a single report, and 1,056 of 2,290 name no place.
+- Three in four cases rest on a single report, and 905 of 1,871 name no place.
+- Measured precision is 95.5% (target 98%, not yet reached); recall is not measured. See [docs/ACCURACY.md](docs/ACCURACY.md).
 - Platform names come from headlines only for Google News records: Google's robots.txt forbids fetching
   its article links, and WildTrace respects that.
 - Image evidence (`wildtrace vision`) runs locally on images you supply; the daily build does not yet
@@ -516,6 +543,8 @@ latest version. To cite the exact data you used, cite its version DOI:
 | 1.6.1 | 2026-09-23 | satellite view | [10.5281/zenodo.22922540](https://doi.org/10.5281/zenodo.22922540) |
 | 1.6.0 | 2026-09-23 | route evidence, icons | [10.5281/zenodo.22921009](https://doi.org/10.5281/zenodo.22921009) |
 | 1.5.0 | 2026-09-23 | Flows, Zoonoses, Analysis | [10.5281/zenodo.22913379](https://doi.org/10.5281/zenodo.22913379) |
+
+Brand, colours and mark: [docs/BRAND.md](docs/BRAND.md). Supporting the project: [docs/FUNDING.md](docs/FUNDING.md).
 
 Please also cite the data WildTrace builds on when you use those layers: the CITES Trade Database
 (UNEP-WCMC), Marshall et al. 2025 and Eskew et al. 2020 (LEMIS), Carlson et al. 2022 (VIRION), Stringham

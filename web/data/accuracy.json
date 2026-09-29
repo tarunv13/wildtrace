@@ -1,0 +1,23 @@
+{
+ "date": "2026-09-29",
+ "n": 200,
+ "relevant": 191,
+ "precision": 0.955,
+ "ci": [
+  0.9167024063390322,
+  0.9761477282752958
+ ],
+ "species_ok": 0.9895287958115183,
+ "kind_ok": null,
+ "country_ok": null,
+ "errors": {
+  "statistics": 3,
+  "opinion": 1,
+  "place name (Rosewood)": 1,
+  "legal text (arrete = decree)": 1,
+  "not trade": 1,
+  "false friend (Sandalwood film industry)": 1,
+  "research feature": 1
+ },
+ "method": "blind random sample of published cases, each judged against its source headlines by a reviewer"
+}

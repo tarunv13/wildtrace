@@ -8,6 +8,7 @@
   wildtrace captive <folder>                             captive-bred claims in CITES trade (web/data/captive_claims.json)
   wildtrace ecosolve <csv>                               ECO-SOLVE adverts vs WildTrace cases (web/data/online_gap.json)
   wildtrace vision  <image|folder> [--captions csv]       OCR + BioCLIP species evidence for images (private)
+  wildtrace accuracy sample|score [file]                 blind audit: sample cases, then score precision (web/data/accuracy.json)
   wildtrace lemis   <folder> [--taxonomy <codebook>]     US LEMIS seizures by origin + product (web/data/lemis.json)
   wildtrace zoonoses [--offline]                         VIRION + WHO outbreaks (web/data/zoonoses.json)
   wildtrace relabel                                      merge reviewed labels into corrections.csv
@@ -31,6 +32,8 @@ def _collect(a) -> None:
     print("  ->", write_jsonl(feeds.collect_feeds(), "feeds"))
     if a.gnews:
         eds = list(feeds.GNEWS_EDITIONS) if "ALL" in countries else [c for c in feeds.GNEWS_EDITIONS if c.split("-")[0] in countries]
+        if getattr(a, "rotate", False):
+            eds = feeds.rotate_editions(eds)
         print(f"Google News RSS: {eds}")
         groups = {g.strip() for g in (getattr(a, "groups", "") or "").split(",") if g.strip()} or None
         print("  ->", write_jsonl(feeds.collect_gnews(eds, when=a.gnews_window, groups=groups), "gnews"))
@@ -88,6 +91,12 @@ def _doctor() -> None:
 
 
 def main(argv=None) -> None:
+    # Logs name Thai, Hindi and Vietnamese terms: never let a narrow console encoding (cp1252) crash a build.
+    for stream in (sys.stdout, sys.stderr):
+        try:
+            stream.reconfigure(encoding="utf-8", errors="replace")
+        except (AttributeError, ValueError):
+            pass
     p = argparse.ArgumentParser("wildtrace", description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = p.add_subparsers(dest="cmd", required=True)
     t = sub.add_parser("train"); t.add_argument("--target-recall", type=float, default=0.98)
@@ -102,6 +111,7 @@ def main(argv=None) -> None:
         c.add_argument("--history", type=int, default=0, help="backfill this many past months (Google News date ranges)")
         c.add_argument("--no-gdelt", action="store_true", help="skip GDELT (heavily throttled)")
         c.add_argument("--online", action="store_true", help="also search for online wildlife crime reaching enforcement")
+        c.add_argument("--rotate", action="store_true", help="query a third of the English editions each day (daily runs)")
         c.add_argument("--groups", default="", help="limit the news search to these species groups (comma-separated)")
         c.add_argument("--gnews-window", default="30d", help="how far back Google News searches reach (daily runs use 3d)")
     mi = sub.add_parser("mine", help="mine the research literature for taxa, trade names and datasets")
@@ -113,6 +123,8 @@ def main(argv=None) -> None:
     cp = sub.add_parser("captive"); cp.add_argument("folder")
     ec = sub.add_parser("ecosolve"); ec.add_argument("csv")
     vi = sub.add_parser("vision"); vi.add_argument("path"); vi.add_argument("--captions", default="", help="CSV with image,caption")
+    ac = sub.add_parser("accuracy"); ac.add_argument("action", choices=["sample", "score"]); ac.add_argument("file", nargs="?", default="")
+    ac.add_argument("--n", type=int, default=200); ac.add_argument("--seed", type=int, default=29)
     le = sub.add_parser("lemis"); le.add_argument("folder")
     le.add_argument("--taxonomy", default="", help="PMC8579131 zip or folder (genus -> family/order), improves matching")
     le.add_argument("--min-year", type=int, default=2000)
@@ -152,6 +164,9 @@ def main(argv=None) -> None:
         from .classify.vision import run as vision_run
         caps = {r["image"]: r["caption"] for r in _csv.DictReader(open(a.captions, encoding="utf-8"))} if a.captions else None
         print(vision_run(a.path, caps))
+    elif a.cmd == "accuracy":
+        from .accuracy import sample as acc_sample, score as acc_score
+        print(acc_sample(a.n, a.seed) if a.action == "sample" else acc_score(a.file))
     elif a.cmd == "lemis":
         from .collect.lemis import aggregate as lemis_aggregate, publish as lemis_publish
         print(lemis_publish(lemis_aggregate(a.folder, a.taxonomy or None, a.min_year)))

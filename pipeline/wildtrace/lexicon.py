@@ -13,12 +13,28 @@ from .config import RESOURCES
 
 def norm(text: str) -> str:
     text = unicodedata.normalize("NFKC", text or "").lower()
+    text = text.replace("’", "'").replace("‘", "'").replace("ʼ", "'")   # curly apostrophes
     return re.sub(r"\s+", " ", text)
 
 
 @lru_cache(maxsize=1)
+def _mask_re() -> re.Pattern[str] | None:
+    masks = sorted((norm(m) for m in load().get("masks") or []), key=len, reverse=True)
+    return re.compile("|".join(re.escape(m) for m in masks)) if masks else None
+
+
+def prep(text: str) -> str:
+    """Normalised text with known non-species phrases blanked ("tiger strike force", "ivory coast")."""
+    t = norm(text)
+    rx = _mask_re()
+    return rx.sub(" ", t) if rx else t
+
+
+@lru_cache(maxsize=1)
 def _ambiguous_words() -> frozenset[str]:
-    return frozenset(norm(a["term"]) for a in load().get("ambiguous", []))
+    """Curated ambiguous words (lexicon.yaml). They take precedence over strong lists. Codebook-derived
+    ambiguous names do not: a core species name ("elephant") stays a strong term."""
+    return frozenset(norm(a["term"]) for a in load().get("ambiguous", []) if "codebook" not in (a.get("source") or ""))
 
 
 def _pattern(term: str) -> re.Pattern[str]:
@@ -27,6 +43,8 @@ def _pattern(term: str) -> re.Pattern[str]:
     # Not when the singular is itself an ambiguous word ("pythons" must not match "Python" bare).
     if re.fullmatch(r"[a-z][a-z \-]{3,}[^s]s", norm(term)) and norm(term)[:-1] not in _ambiguous_words():
         t = t[:-1] + "s?"
+    elif re.fullmatch(r"[a-z][a-z \-]{2,}[a-rt-z]", norm(term)):
+        t = t + "(?:s|es)?"            # and a singular term matches its plural ("parrot" finds "parrots")
     # \b does not work for Devanagari/Thai combining marks; use lookarounds on word chars
     # only when the term starts/ends with an ASCII letter or digit.
     left = r"(?<![a-z0-9])" if re.match(r"[a-z0-9]", norm(term)) else ""
@@ -105,7 +123,8 @@ def _context_sets() -> dict[str, tuple[frozenset[str], tuple[str, ...]]]:
     lex = load()
     strong = [t for gid, g in lex["groups"].items() if gid != GENERAL for ts in (g.get("terms") or {}).values() for t in ts]
     general = [t for ts in (lex["groups"].get(GENERAL, {}).get("terms") or {}).values() for t in ts]
-    return {"species": split(strong), "enforcement": split([t for ts in lex["enforcement_cues"].values() for t in ts]),
+    return {"species": split(strong), "enforcement": split([t for ts in lex["enforcement_cues"].values() for t in ts]
+                                 + [t for ts in (lex.get("topic_cues") or {}).values() for t in ts]),
             "trade": split([t for ts in lex["sale_cues"].values() for t in ts]), "wildlife": split(general)}
 
 
@@ -125,7 +144,7 @@ def _ambiguous_any() -> re.Pattern[str]:
 
 def ambiguous_hits(text: str) -> list[dict]:
     """Every ambiguous term in the text, with the context found around it and whether it counts."""
-    t = norm(text)
+    t = prep(text)
     out = []
     if not _ambiguous_any().search(t):      # fast path: most texts have no ambiguous word
         return out
@@ -133,8 +152,12 @@ def ambiguous_hits(text: str) -> list[dict]:
         for m in p.finditer(t):
             snip = t[max(0, m.start() - WINDOW):m.end() + WINDOW]
             ctx = _context(snip.replace(m.group(0), " ", 1))
-            out.append({"term": a["term"], "group": a.get("group"), "cue": a.get("cue"), "context": sorted(ctx),
-                        "accepted": bool(ctx & set(a.get("needs") or []))})
+            terms_ok = any(norm(x) in snip for x in a.get("needs_terms") or []) or bool(
+                a.get("needs_regex") and re.search(a["needs_regex"], snip))
+            if terms_ok:
+                ctx.add("terms")
+            out.append({"term": a["term"], "group": a.get("group"), "cue": a.get("cue"), "context": sorted(ctx), "span": m.span(),
+                        "accepted": terms_ok if a.get("needs_regex") else (bool(ctx & set(a.get("needs") or [])) or terms_ok)})
             break
     return out
 
@@ -148,7 +171,7 @@ def codewords() -> list[dict[str, Any]]:
 def codeword_hits(text: str) -> list[dict[str, Any]]:
     """Watchlist hits. Unverified codewords only flag an item for human review;
     they never make it a case on their own."""
-    t = norm(text)
+    t = prep(text)
     return [c for c in codewords() if _pattern(c["term"]).search(t)]
 
 
@@ -183,21 +206,33 @@ GENERAL = "wildlife_general"
 def species_groups(text: str) -> list[str]:
     """Groups named in the text. The catch-all 'wildlife (unspecified)' group is kept
     only when nothing more specific matches."""
-    t = norm(text)
-    hits = [gid for gid, pats in _compiled().items() if any(p.search(t) for _, p in pats)]
-    hits += [a["group"] for a in ambiguous_hits(text) if a["accepted"] and a.get("group") and a["group"] not in hits]
+    t = prep(text)
+    found: list[tuple[int, int, str]] = []
+    for gid, pats in _compiled().items():
+        for _, p in pats:
+            found += [(m.start(), m.end(), gid) for m in p.finditer(t)]
+    found += [(a["span"][0], a["span"][1], a["group"]) for a in ambiguous_hits(text) if a["accepted"] and a.get("group")]
+    # Leftmost-longest: where matches from different groups overlap, the one that starts first (then the
+    # longer) wins, as in a tokenizer. "red sandalwood smuggling" is red sanders, not also sandalwood;
+    # "लाल चंदन" is red sanders even though "चंदन" alone means sandalwood.
+    picked, last_end = [], -1
+    for s0, e0, gid in sorted(found, key=lambda x: (x[0], -(x[1] - x[0]))):
+        if s0 >= last_end:
+            picked.append((s0, e0, gid))
+            last_end = e0
+    hits = list(dict.fromkeys(g for _, _, g in picked))
     specific = [g for g in hits if g != GENERAL]
     return specific or hits
 
 
 def matched_terms(text: str) -> list[str]:
-    t = norm(text)
+    t = prep(text)
     terms = {term for pats in _compiled().values() for term, p in pats if p.search(t)}
     return sorted(terms | {a["term"] for a in ambiguous_hits(text) if a["accepted"]})
 
 
 def count_cues(text: str, section: str) -> dict[str, int]:
-    t = norm(text)
+    t = prep(text)
     out = {k: sum(1 for p in pats if p.search(t)) for k, pats in cues(section).items()}
     if section == "enforcement_cues":
         for a in ambiguous_hits(text):

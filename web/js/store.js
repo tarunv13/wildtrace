@@ -21,7 +21,7 @@ export const emit = (what = "filters") => subs.forEach((fn) => fn(what));
 
 // graph.json (the link chart) is fetched only when Investigate opens: see loadGraph().
 const FILES = { cases: "cases", stats: "stats", species: "species", countries: "countries", regions: "regions", obs: "observatories", meta: "meta", speciesIcons: "species_icons", outlets: "outlets",
-  report: "model_report", trade: "trade_signals", sources: "sources", codewords: "codewords" };
+  report: "model_report", trade: "trade_signals", sources: "sources", codewords: "codewords", answers: "answers" };
 export async function loadGraph() {
   if (!S.data.graph.elements?.length) {
     try { S.data.graph = await (await fetch("data/graph.json", { cache: "no-cache" })).json(); } catch { /* keep empty */ }
@@ -90,6 +90,6 @@ export const fwd = () => { if (S.pos < S.trail.length - 1) { S.pos++; sync(); } 
 export const closeTrail = () => { S.pos = -1; S.trail = []; history.pushState(null, "", location.pathname + location.search); emit("nav"); };
 function sync() { const c = S.trail[S.pos]; history.replaceState(null, "", `#${c.kind}/${encodeURIComponent(c.id)}`); emit("nav"); }
 export function fromHash() {
-  const m = location.hash.match(/^#(case|species|country|obs|entity|route)\/(.+)$/);
+  const m = location.hash.match(/^#(answer|case|species|country|obs|entity|route)\/(.+)$/);
   return m ? { kind: m[1], id: decodeURIComponent(m[2]) } : null;
 }

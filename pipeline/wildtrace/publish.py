@@ -17,7 +17,7 @@ from . import lexicon
 from .collect.base import read_all_raw
 from .config import INTERIM, LABELS, MODELS, RESOURCES, WEB_DATA, ensure_dirs
 from .extract.cases import cluster, summarise
-from .extract.events import extract, is_enforcement_candidate
+from .extract.events import extract, gate, is_enforcement_candidate, record_text
 from .graph import build as graph
 from .privacy import assert_public_safe, scrub
 
@@ -273,7 +273,9 @@ def build(min_relevance: float | None = None, fetch_text: bool = True) -> dict:
     from .sources_tier import domain as _dom
     news = [r for r in news if not r.published or r.published >= MIN_DATE]
     news = [r for r in news if _dom((r.extra or {}).get("source_url") or r.url) not in NOT_EVENTS]
-    cand = [r for r in news if is_enforcement_candidate(f"{r.title} {r.text}")]
+    decisions = {r.id: gate(record_text(r)) for r in news}
+    print("  screen: " + ", ".join(f"{k} {v}" for k, v in Counter(d[1] for d in decisions.values()).most_common()))
+    cand = [r for r in news if decisions[r.id][0]]
     ambiguous_review(news, {r.id for r in cand})
     if fetch_text:
         enrich(cand)

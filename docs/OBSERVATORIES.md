@@ -62,8 +62,8 @@ neither shows alone: which online markets are advertised heavily but rarely reac
 | --- | --- | --- |
 | What is recorded | adverts for protected wildlife online | seizures, arrests, convictions and rescues; seized shipments (CITES, US ports) |
 | Moment in the trade | offer (supply online) | interception and outcome (enforcement), online and offline |
-| Scale | 30,934 adverts in the public dashboard data (14 Apr 2024 - 24 Sep 2026; the sixth trend report cites 21,900+ adverts and 266,000+ products on 61 platforms to Mar 2026) | 2,290 cases from public reports; 24,786 CITES and 19,346 US port seizure records |
-| Where | 11 hubs (Thailand, Indonesia, Mexico, South Asia, Colombia, South Africa, Brazil, Nigeria, MENA, Cameroon, Czechia) | 75 countries in news (9 languages incl. Thai); every CITES Party; US ports |
+| Scale | 30,934 adverts in the public dashboard data (14 Apr 2024 - 24 Sep 2026; the sixth trend report cites 21,900+ adverts and 266,000+ products on 61 platforms to Mar 2026) | 1,871 audited cases from public reports; 24,786 CITES and 19,346 US port seizure records |
+| Where | 11 hubs (Thailand, Indonesia, Mexico, South Asia, Colombia, South Africa, Brazil, Nigeria, MENA, Cameroon, Czechia) | 61 countries in news (9 languages incl. Thai); every CITES Party; US ports |
 | Species | 440 species names, animals only (no plants) | 40 groups, fauna and flora, plus every CITES-listed taxon in trade records |
 | Evidence per record | analyst-verified adverts | graded per case (official, corroborated, single report) with sources |
 | Update | periodic releases | daily, automated, versioned with DOIs |

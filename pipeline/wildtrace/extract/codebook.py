@@ -39,6 +39,11 @@ GENERIC = {"turtle", "tortoise", "snake", "lizard", "bird", "parrot", "deer", "b
            "sea fan", "fan", "whip", "gorgonian", "raven", "robin", "martin", "swift", "crane", "kite", "jack"}
 
 
+HYPERNYM_SKIP = {("deer", "musk_deer"), ("sandalwood", "red_sanders"), ("monitor", "pythons_reptiles"), ("musk", "musk_deer"),
+                 ("horn", "rhino"), ("cat", "leopard"), ("snake", "sand_boa"), ("lizard", "monitor_lizard")}
+PERSON_NAMES = {"martin", "robin", "raven", "swift", "jack", "kite", "crane"}   # everyday names first
+
+
 def _csv(raw: bytes) -> pd.DataFrame:
     # Most tables are UTF-8; at least one carries Latin-1 bytes (e.g. 0xF3 "ó").
     for enc in ("utf-8", "cp1252", "latin-1"):
@@ -96,7 +101,9 @@ def build(src: str | Path) -> Path:
     def keep(nm: str, gid: str = "") -> bool:
         nm = nm.strip()
         if nm.lower() in GENERIC:
-            if gid and len(nm) >= 3:
+            # A generic word is evidence only for its own group, never a narrower one: "deer" is not
+            # musk deer, "sandalwood" is not red sanders, "monitor" belongs to monitor lizards.
+            if gid and len(nm) >= 3 and (nm.lower(), gid) not in HYPERNYM_SKIP and nm.lower() not in PERSON_NAMES:
                 ambiguous[gid].add(nm.lower())
             return False
         return len(nm) >= MIN_LEN and not nm.isupper()

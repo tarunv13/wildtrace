@@ -8,7 +8,7 @@ import { lemisBlock, roleBar, routeView, sankey } from "./flows.js";
 import * as ic from "./icons.js";
 import { countryBlock, speciesBlock } from "./zoo.js";
 
-const HUE = { case: "var(--cases)", species: "var(--species)", country: "var(--place)", obs: "var(--network)", entity: "var(--invest)", route: "var(--trade)" };
+const HUE = { answer: "var(--trade)", case: "var(--cases)", species: "var(--species)", country: "var(--place)", obs: "var(--network)", entity: "var(--invest)", route: "var(--trade)" };
 const LANG = { en: "English", hi: "Hindi", hi_latn: "Hindi (Latin)", te: "Telugu", te_latn: "Telugu (Latin)", vi: "Vietnamese", id_ms: "Indonesian / Malay",
   th: "Thai", pt: "Portuguese", es: "Spanish", fr: "French" };
 const inr = (v) => (v == null ? null : v >= 1e7 ? `₹${(v / 1e7).toFixed(1)} crore` : v >= 1e5 ? `₹${(v / 1e5).toFixed(1)} lakh` : `₹${fmt(v)}`);
@@ -68,6 +68,7 @@ const link = (kind, id, label, sub = "") => `<button class="link-row" data-go="$
 const caseLink = (c) => link("case", c.id, `<span style="display:inline-flex;gap:8px;align-items:center"><span style="color:${KIND_COLOR[KIND(c.kind)]};display:inline-flex">${ic.kind(c.kind)}</span>${esc(c.summary)}</span>`, esc(c.date || ""));
 
 export function title(item) {
+  if (item.kind === "answer") return (S.data.answers?.answers || []).find((a) => a.slug === item.id)?.q || "Answer";
   if (item.kind === "case") return S.data.byId[item.id]?.summary.split(" · ").slice(0, 2).join(" · ") || "Case";
   if (item.kind === "species") return spLabel(item.id);
   if (item.kind === "country") return ccName(item.id);
@@ -78,7 +79,7 @@ export function title(item) {
 
 export function render(item, el, ctx) {
   el.style.setProperty("--c", HUE[item.kind]);
-  const fn = { case: caseView, species: speciesView, country: countryView, obs: obsView, entity: entityView, route: (id) => routeView(id, ic) }[item.kind];
+  const fn = { answer: answerView, case: caseView, species: speciesView, country: countryView, obs: obsView, entity: entityView, route: (id) => routeView(id, ic) }[item.kind];
   el.innerHTML = fn ? fn(item.id, ctx) : "";
   el.querySelectorAll("[data-go]").forEach((b) => b.addEventListener("click", () => {
     const [kind, id] = b.dataset.go.split("|");
@@ -255,4 +256,25 @@ function entityView(id, ctx) {
     <dl class="facts">${Object.entries(n).filter(([k, v]) => !["id", "label", "type", "local"].includes(k) && v !== "" && v != null)
       .map(([k, v]) => `<dt>${esc(k)}</dt><dd>${esc(v)}</dd>`).join("")}</dl>
     <div class="row"><button class="btn violet" data-act="chart-entity">Show in chart</button></div>`;
+}
+
+// ------------------------------------------------------------------ answer
+// Question, answer, number, chart, who answers, limit, where to explore: the same shape everywhere.
+function answerView(slug) {
+  const a = (S.data.answers?.answers || []).find((x) => x.slug === slug);
+  if (!a) return `<p class="muted">Loading…</p>`;
+  const mx = Math.max(1, ...a.chart.map(([, n]) => n));
+  const others = (S.data.answers?.answers || []).filter((x) => x.slug !== slug && x.personas.some((p) => a.personas.includes(p))).slice(0, 3);
+  return `
+    <div class="eyebrow" style="--c:${a.color}">Answer · for ${esc(a.for.join(", "))}</div>
+    <h2 class="title">${esc(a.q)}</h2>
+    <p class="answer-lede">${esc(a.a)}</p>
+    <div class="tile big-tile" style="--qc:${a.color}"><div class="v">${esc(a.number.v)}</div><div class="k">${esc(a.number.k)}</div></div>
+    ${a.chart.length ? `<div class="abars">${a.chart.map(([l, n]) => `<div class="abar"><span>${esc(l)}</span><i style="--w:${Math.max(3, (n / mx) * 100)}%;--qc:${a.color}"></i><b class="mono">${fmt(n)}</b></div>`).join("")}</div>` : ""}
+    <div class="eyebrow" style="margin:16px 0 6px">Who answers</div>
+    ${a.who.map((w) => `<a class="link-row" href="${esc(w.url)}" ${w.url.startsWith("http") ? 'target="_blank" rel="noopener"' : ""}><span><b>${esc(w.name)}</b><br><span class="muted" style="font-size:12px">${esc(w.detail)}</span></span><span class="muted">›</span></a>`).join("")}
+    <div class="box limit"><h4>What the number cannot tell you</h4><p style="margin:0">${esc(a.limit)}</p></div>
+    <div class="row" style="margin-top:12px"><a class="btn primary" href="${esc(a.go.href)}">${esc(a.go.label)}</a>
+      <a class="btn" href="answers/${esc(a.slug)}.html" target="_blank" rel="noopener">Citable page</a><button class="btn" data-act="copy">Copy link</button></div>
+    ${others.length ? `<div class="eyebrow" style="margin:18px 0 6px">Ask next</div>${others.map((o) => `<button class="link-row" data-go="answer|${o.slug}"><span>${esc(o.q)}</span><span class="muted">›</span></button>`).join("")}` : ""}`;
 }

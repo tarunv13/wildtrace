@@ -78,11 +78,13 @@ def page(title: str, desc: str, canonical: str, body: str, jsonld: dict | None =
 <meta property="og:image" content="{SITE}/og.png">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="{SITE}/css/page.css">
+<link rel="icon" href="{SITE}/brand/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="{SITE}/brand/apple-touch-icon.png">
 {ld}
 </head>
 <body>
-<header class="top"><a class="brand" href="{SITE}/"><b>Wild</b>Trace</a>
-  <span class="tag">The open atlas of illegal wildlife trade</span></header>
+<header class="top"><a class="brand" href="{SITE}/"><img src="{SITE}/brand/mark.svg" alt="" width="26" height="26">Wild<b>Trace</b></a>
+  <span class="tag">Follow the trade. Open evidence on illegal wildlife trade.</span></header>
 <main>
 {crumb}
 {body}
@@ -358,7 +360,7 @@ def build_pages(cases: list[dict], species: dict, countries: dict, meta: dict, o
 <h1>Browse illegal wildlife trade cases</h1>
 <p class="lede">{len(cases):,} cases from {meta.get('n_reports', '')} public reports, {esc(window[0])} to {esc(window[1])},
   covering both animals and plants. Every case links to its sources and says how strongly it is evidenced.</p>
-<p><a class="pill" href="{SITE}/pathways.html">Is wildlife crime a security risk? Seven pathways and their evidence →</a></p>
+<p><a class="pill" href="{SITE}/answers.html">Questions WildTrace answers →</a> <a class="pill" href="{SITE}/pathways.html">Is wildlife crime a security risk? →</a></p>
 <h2>By species group</h2><ul class="cols">{sp_rows}</ul>
 <h2>By country</h2><ul class="cols">{cc_rows}</ul>
 <h2>The data</h2>
@@ -378,6 +380,10 @@ def build_pages(cases: list[dict], species: dict, countries: dict, meta: dict, o
     from . import pathways
     pw_path, pw_html = pathways.build(cases, species, countries, meta, out, page, esc, SITE)
     write(pw_path, pw_html)
+
+    # ---------------------------------------------------------------- questions WildTrace answers
+    from . import answers as _answers
+    _answers.publish(_answers.build(cases, species, countries, meta, out / "data"), out, page, esc, SITE, write)
 
     # ---------------------------------------------------------------- sitemap, robots, llms.txt
     entries = "".join(f"<url><loc>{SITE}/{u}</loc><lastmod>{m}</lastmod></url>" for u, m in urls)
@@ -428,6 +434,7 @@ Security: Exploring the Risk Pathways" (2026), research questions R1.37 and R5.2
 
 - Atlas (interactive map): {SITE}/
 - Browse by species and country: {SITE}/browse.html
+- Questions WildTrace answers (live, with sources and limits): {SITE}/answers.html
 - Risk pathways (wildlife crime and national security): {SITE}/pathways.html
 - US port seizures (CSV, CC BY 4.0): {SITE}/data/lemis_seized_flows.csv
 - Open research agenda: https://github.com/tarunv13/wildtrace/blob/main/docs/RESEARCH_AGENDA.md

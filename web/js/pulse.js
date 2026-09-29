@@ -26,8 +26,21 @@ export function renderPulse(el) {
   const reports = cs.reduce((n, c) => n + c.n_sources, 0);
   const latest = [...cs].sort((a, b) => (b.date || "").localeCompare(a.date || "")).slice(0, 12);
   const m = S.data.meta || {};
-  el.innerHTML = `
-    <h1 class="headline">${fmt(cs.length)} cases across ${countries.size} ${countries.size === 1 ? "country" : "countries"}</h1>
+  const A = S.data.answers?.answers || [];
+  const persona = S.persona || "everyone";
+  const qs = A.filter((a) => persona === "all" || a.personas.includes(persona)).slice(0, 6);
+  const ask = any || !A.length ? "" : `
+    <section class="ask" aria-labelledby="ask-h">
+      <h1 class="headline" id="ask-h">What do you want to know?</h1>
+      <p class="lede">Questions this atlas answers from ${fmt(reports)} public reports and three government trade records, each with its sources and its limits.</p>
+      <div class="seg ask-for" role="group" aria-label="Answers for">${[["everyone", "Everyone"], ["journalists", "Journalists"], ["researchers", "Researchers"], ["policy", "Policy"]].map(([k, l]) =>
+        `<button type="button" data-persona="${k}" aria-pressed="${k === persona}">${l}</button>`).join("")}</div>
+      <div class="qcards">${qs.map((a) => `<button class="qcard" data-answer="${a.slug}" style="--qc:${a.color}">
+        <span class="qq">${esc(a.q)}</span><span class="qn"><b>${esc(a.number.v)}</b> ${esc(a.number.k)}</span></button>`).join("")}</div>
+      <button class="linkish ask-all" data-all-q>All ${A.length} questions and their sources →</button>
+    </section>`;
+  el.innerHTML = `${ask}
+    <h1 class="headline${ask ? " sub" : ""}">${fmt(cs.length)} cases across ${countries.size} ${countries.size === 1 ? "country" : "countries"}</h1>
     <p class="lede">${any ? "Filtered view. Click a chip to remove it." : `Seizures, arrests and convictions from ${fmt(reports)} public reports, ${esc(m.window?.[0] || "")} to ${esc(m.window?.[1] || "")}. <b>${fmt(mapped)}</b> are pinned to a city or district; the rest are country-level or name no place. Nobody accused is ever named.`}</p>
     ${any ? "" : `<button class="guide-card-cta" data-guide aria-label="Watch the 2-minute video guide">
       <span class="gc-thumb"><img src="media/guide-thumb.jpg" alt=""><span class="gc-play">▶</span></span>
@@ -55,6 +68,9 @@ export function renderPulse(el) {
     <div class="feed">${latest.map((c) => `<button class="item" data-case="${c.id}" style="--kc:${KIND_COLOR[KIND(c.kind)]}"><i class="k ki">${ic.kind(c.kind)}</i><span><div class="t">${esc(c.summary)}</div>
       <div class="s">${esc(c.date || "undated")} · ${c.n_sources} report${c.n_sources > 1 ? "s" : ""}</div></span></button>`).join("") || `<p class="muted">Nothing matches these filters.</p>`}</div>`;
   el.querySelectorAll("[data-f]").forEach((b) => b.addEventListener("click", () => toggle(b.dataset.f, b.dataset.v)));
+  el.querySelectorAll("[data-persona]").forEach((b) => b.addEventListener("click", () => { S.persona = b.dataset.persona; renderPulse(el); }));
+  el.querySelectorAll("[data-answer]").forEach((b) => b.addEventListener("click", () => go({ kind: "answer", id: b.dataset.answer })));
+  el.querySelector("[data-all-q]")?.addEventListener("click", () => (location.href = "answers.html"));
   el.querySelector("[data-clear-all]")?.addEventListener("click", clearFilters);
   el.querySelector("[data-guide]")?.addEventListener("click", () => dispatchEvent(new CustomEvent("wildtrace:video")));
   el.querySelector("[data-clear-range]")?.addEventListener("click", () => { S.filters.range = null; emit("filters"); });

@@ -1,0 +1,16 @@
+{
+  "name": "WildTrace: the open atlas of illegal wildlife trade",
+  "short_name": "WildTrace",
+  "description": "Follow the trade. Open, evidence-graded data on illegal wildlife trade in animals and plants.",
+  "start_url": "/wildtrace/",
+  "scope": "/wildtrace/",
+  "display": "standalone",
+  "background_color": "#edf1ef",
+  "theme_color": "#edf1ef",
+  "icons": [
+    {"src": "brand/icon-192.png", "sizes": "192x192", "type": "image/png"},
+    {"src": "brand/icon-512.png", "sizes": "512x512", "type": "image/png"},
+    {"src": "brand/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"},
+    {"src": "brand/favicon.svg", "sizes": "any", "type": "image/svg+xml"}
+  ]
+}

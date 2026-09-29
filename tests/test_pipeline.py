@@ -428,3 +428,28 @@ def test_ambiguous_words_need_context():
     assert L.species_groups("Driver sounded the horn at the checkpoint") == []
     assert "pythons_reptiles" in L.species_groups("Customs seized a python and 12 turtles")
     assert L.species_groups("Learn Python programming today") == []
+
+
+def test_event_gate_holds_back_non_events_found_in_audits():
+    from wildtrace.extract.events import gate
+    held = ["From forest to market: Following Chattogram's wildlife trafficking trail",
+            "Apreensão de madeira ilegal no Piauí cresce quase 90% em relação a 2024",
+            "Tiger Cub Rescued After Entering House in Odisha's Mayurbhanj District",
+            "National Strategic Action Plan to Monitor and Combat Human Trafficking",
+            "Alemanha resgata vitória no último suspiro frente à Costa do Marfim",
+            "Proyecto Santa María denuncia maltrato y tráfico de loros en Yucatán"]
+    kept = ["RSASTF Seizes 36 Red Sanders Logs Worth Rs 60 Lakh, Six Arrested",
+            "PRF resgata 584 animais silvestres em Iati (PE)",
+            "Côte d'Ivoire : trois trafiquants d'ivoire arrêtés avec 12 défenses à Abidjan",
+            "MP do Ceará denuncia seis pessoas por tráfico de animais silvestres"]
+    assert not any(gate(t)[0] for t in held)
+    assert all(gate(t)[0] for t in kept)
+
+
+def test_leftmost_longest_species_and_wilson_interval():
+    from wildtrace import lexicon as L
+    from wildtrace.accuracy import wilson
+    assert L.species_groups("Two held in red sandalwood smuggling case") == ["red_sanders"]
+    assert L.species_groups("Mais de 600 tartarugas tigre-d’água são apreendidas") == ["turtles"]
+    lo, hi = wilson(191, 200)
+    assert round(lo, 3) == 0.917 and round(hi, 3) == 0.976

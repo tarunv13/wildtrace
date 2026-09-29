@@ -261,10 +261,53 @@ class Event:
         return asdict(self)
 
 
-def is_enforcement_candidate(text: str) -> bool:
+_OUTLET_TAIL = re.compile(r"\s+[-–—|]\s+[^-–—|]{2,80}$")
+_NUMBER = re.compile(r"\d")
+_MANY = re.compile(r"(?<![\d.,])(?:[1-9]\d{1,}|[1-9]\d{0,2}(?:[.,]\d{3})+)(?![\d.,]*\s*(?:%|years?|anos|años|ans|साल|kg))")
+
+
+def record_text(rec) -> str:
+    """Headline and text without the " - Outlet" tail Google News appends (outlet names are not
+    places or species: "La Patria", "Latina"), and without a snippet that only repeats the headline."""
+    title = _OUTLET_TAIL.sub("", rec.title or "")
+    text = rec.text or ""
+    if "&nbsp;" in text or (len(text) < 300 and text[:40] == (rec.title or "")[:40]):
+        text = ""
+    return f"{title}. {text}".strip(" .")
+
+
+def _any(text: str, words) -> bool:
+    t = lexicon.prep(text)
+    return any(lexicon.norm(w) in t for w in words)
+
+
+def gate(text: str) -> tuple[bool, str]:
+    """Is this report a wildlife-trade enforcement event? Returns (decision, reason) so every
+    rejection can be counted and reviewed. Rules, each from the 2026-09-29 accuracy audit:
+    a species; an event verb (topic words like "trafficking" alone are not events); no statistics;
+    genre stories (features, programmes, reports) only with hard evidence (event verb and a number);
+    rescue-only stories only with a trade or captivity word."""
+    lex = lexicon.load()
     if sum(lexicon.count_cues(text, "negative_cues").values()):
-        return False
-    return bool(lexicon.species_groups(text)) and sum(lexicon.count_cues(text, "enforcement_cues").values()) > 0
+        return False, "negative"
+    if not lexicon.species_groups(text):
+        return False, "no species"
+    ev = {k: v for k, v in lexicon.count_cues(text, "enforcement_cues").items() if v}
+    if not ev:
+        return False, "topic only" if _any(text, [w for ws in (lex.get("topic_cues") or {}).values() for w in ws]) else "no event"
+    if _any(text, [w for ws in (lex.get("aggregate_cues") or {}).values() for w in ws]):
+        return False, "statistics"
+    if _any(text, (lex.get("genre_cues") or {}).get("hard") or []):
+        return False, "genre"              # unambiguous features and period summaries, whatever their numbers
+    if _any(text, [w for k, ws in (lex.get("genre_cues") or {}).items() if k != "hard" for w in ws]) and not _NUMBER.search(text):
+        return False, "genre"
+    if set(ev) == {"rescue"} and not _any(text, lex.get("rescue_trade_context") or []) and not _MANY.search(text):
+        return False, "rescue, no trade"      # a rescue of 10+ animals is almost always an interception
+    return True, "event"
+
+
+def is_enforcement_candidate(text: str) -> bool:
+    return gate(text)[0]
 
 
 @lru_cache(maxsize=1)
@@ -289,7 +332,7 @@ def outlet_place(outlet: str, url: str = "") -> Place | None:
 
 
 def extract(rec: Record) -> Event:
-    text = f"{rec.title}. {rec.text}"
+    text = record_text(rec)
     ev = Event(rec.id, rec.url, rec.title, rec.outlet, rec.published, rec.source)
     from ..sources_tier import domain as _domain, tier as _tier
     ev.domain = _domain((rec.extra or {}).get("source_url") or (rec.url if "news.google." not in rec.url else "") or rec.outlet)
@@ -312,6 +355,8 @@ def extract(rec: Record) -> Event:
 
     hint = rec.country_hint if len(rec.country_hint) == 2 else ""
     places = find_places(text, hint)
+    # A place whose name is also a species word ("Badak" = rhino in Indonesian) is not trusted as a place.
+    places = [(i, p) for i, p in places if not lexicon.species_groups(p.name) or p.type in ("country", "state")]
     pp = primary_place(places, hint)
     if pp:
         ev.place = asdict(pp); ev.place_basis = "text"

@@ -109,6 +109,17 @@ def _when(w: str) -> str:
     return w
 
 
+def rotate_editions(editions: list[str], day: int | None = None, parts: int = 3) -> list[str]:
+    """The English-language editions return heavily overlapping results, so a daily run queries a third of
+    them in turn (each is still covered every `parts` days); local-language editions run every day.
+    Keeps the daily run inside its time limit as groups and languages grow."""
+    import datetime as _dt
+    day = _dt.date.today().toordinal() if day is None else day
+    en = [e for e in editions if GNEWS_EDITIONS[e][3] == "en"]
+    keep_en = {e for i, e in enumerate(en) if i % parts == day % parts}
+    return [e for e in editions if GNEWS_EDITIONS[e][3] != "en" or e in keep_en]
+
+
 def collect_gnews(editions: list[str] | None = None, when: str = "30d", groups: set[str] | None = None) -> list[Record]:
     """Google News RSS search. OPT-IN: Google's feed terms allow personal,
     non-commercial use only. Enable deliberately (``--gnews``) for research runs,
