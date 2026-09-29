@@ -35,6 +35,7 @@ export function mountAnalysis(root) {
       <section class="card"><h3>How it moved</h3><p class="muted">Transport stated in ${fmt(Object.values(st.by_mode || {}).reduce((a, b) => a + b, 0))} of ${fmt(k.cases)} cases; most reports never say</p><div id="an-mode"></div></section>
       <section class="card"><h3>Caught online</h3><p class="muted">${fmt(st.online?.cases || 0)} cases where the trade was online; the platforms named in their headlines are below. Adverts are watched by others (ECO-SOLVE, WILDTRADE); this is where online trade met enforcement.</p><div id="an-plat"></div></section>
       <section class="card"><h3>What was sold online</h3><p class="muted">Species groups in online-trade cases</p><div id="an-onsp"></div></section>
+      <section class="card wide"><h3>Offered online, rarely caught</h3><p class="muted">Adverts recorded by ECO-SOLVE's regional hubs against WildTrace enforcement cases for the same species and country, in the same period. Different sources with different effort: not a detection rate, but a map of where open selling meets little public enforcement.</p><div id="an-gap">${S.data.online_gap ? "" : `<p class="muted">Loading…</p>`}</div></section>
       <section class="card wide"><h3>Captive-bred claims: where to ask questions</h3><p class="muted">Commercial CITES exports declared bred in captivity, early years against recent ones. Declaring wild-caught animals as captive-bred is a documented laundering route (Lyons &amp; Natusch 2011), but genuine breeding, ranching and coral farming produce the same rise. A question to ask, never a finding.</p><div id="an-cap">${S.data.captive_claims ? "" : `<p class="muted">Loading…</p>`}</div></section>
       <section class="card wide"><h3>Seized shipments reported to CITES, per year</h3><p class="muted">All WildTrace species groups. The latest year is still being reported by countries.</p><div id="an-cites"></div></section>
     </div>
@@ -45,6 +46,13 @@ export function mountAnalysis(root) {
   hbars(root.querySelector("#an-plat"), Object.entries(st.by_platform || {}).map(([l, v]) => ({ label: l, value: v, note: "cases" })), { color: "var(--network)", max: 10 });
   hbars(root.querySelector("#an-onsp"), Object.entries(st.online?.by_species || {}).map(([g, v]) => ({ label: g === "wildlife_general" ? "Species not named" : spLabel(g), value: v, note: "cases" })), { color: "var(--species)", max: 8 });
   hbars(root.querySelector("#an-mode"), Object.entries(st.by_mode || {}).map(([l, v]) => ({ label: l[0].toUpperCase() + l.slice(1), value: v, note: "cases" })), { color: "var(--place)" });
+  const gap = S.data.online_gap;
+  if (gap) {
+    const rows = gap.pairs.filter((p) => p.adverts >= 50).sort((a, b) => b.adverts / (b.cases + 1) - a.adverts / (a.cases + 1)).slice(0, 10);
+    root.querySelector("#an-gap").innerHTML = `<table class="tbl"><thead><tr><th>Country</th><th>Group</th><th class="num">Adverts (ECO-SOLVE)</th><th class="num">Cases (WildTrace)</th></tr></thead><tbody>${rows.map((p) =>
+      `<tr><td>${flag(p.country)}${esc(S.data.countries[p.country]?.name || p.country)}</td><td>${esc(spLabel(p.group))}</td><td class="num">${fmt(p.adverts)}</td><td class="num"><b>${fmt(p.cases)}</b></td></tr>`).join("")}</tbody></table>
+      <p class="muted" style="font-size:12px;margin:6px 0 0">${fmt(gap.adverts)} adverts, ${esc(gap.window.join(" to "))}, ${gap.hubs.length} hubs. Offered online but in no WildTrace group yet: ${esc(gap.not_tracked.slice(0, 6).map(([n, v]) => `${n} (${fmt(v)})`).join(", "))}. Source: ${esc(gap.source)}. <a href="data/online_gap.csv" download>Download (CSV)</a>.</p>`;
+  }
   const cap = S.data.captive_claims;
   if (cap) {
     const top = cap.rows.filter((r) => r.shift !== null && r.records >= 50).slice(0, 8);

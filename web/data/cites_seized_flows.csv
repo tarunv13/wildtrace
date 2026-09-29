@@ -300,6 +300,7 @@ elephant,ZW,ZW,US,13
 jaguar,PE,PE,US,13
 primates,CA,CA,US,13
 bear,XX,HK,US,13
+amphibians,PA,PA,US,13
 birds,US,US,TT,13
 sea_fan,XX,US,CL,13
 pythons_reptiles,ZA,FR,US,13
@@ -612,6 +613,7 @@ birds,MM,MM,US,6
 turtles,XX,CN,IT,6
 primates,XX,NL,GB,6
 turtles,XX,GB,SG,6
+amphibians,US,US,MX,6
 pythons_reptiles,ZA,SG,US,6
 pythons_reptiles,AU,CA,US,6
 tokay_gecko,VN,VN,US,6
@@ -753,6 +755,7 @@ pythons_reptiles,XX,CO,US,4
 turtles,XX,TO,US,4
 turtles,XX,NI,US,4
 sea_fan,TO,HK,US,4
+amphibians,XX,HK,US,4
 orchids,JM,JM,US,4
 elephant,XX,ID,US,4
 turtles,US,US,CA,4
@@ -775,6 +778,7 @@ bear,RO,RO,US,4
 bear,XX,KR,US,4
 monitor_lizard,ID,US,CA,4
 monitor_lizard,XX,NL,US,4
+amphibians,NI,NI,US,4
 pythons_reptiles,US,PT,US,4
 pythons_reptiles,US,IS,US,4
 pythons_reptiles,US,LV,US,4
@@ -864,6 +868,7 @@ birds,XX,DK,US,4
 turtles,JP,JP,US,4
 lion,XX,BH,AE,4
 cheetah,BH,BH,AE,4
+amphibians,CA,CA,US,4
 shark_ray,PA,PA,US,4
 primates,SG,SG,US,4
 pythons_reptiles,AU,XX,US,4
@@ -915,6 +920,7 @@ pythons_reptiles,XX,US,QA,3
 elephant,XX,ET,US,3
 elephant,XX,IE,US,3
 elephant,XX,SA,US,3
+amphibians,EC,EC,US,3
 elephant,XX,IL,US,3
 elephant,XX,UG,US,3
 primates,US,US,CA,3
@@ -945,6 +951,7 @@ sea_fan,AG,AG,US,3
 sea_fan,XX,BE,US,3
 pythons_reptiles,US,BB,US,3
 pythons_reptiles,US,BL,US,3
+amphibians,MX,MX,US,3
 birds,AR,AR,US,3
 pythons_reptiles,CO,AT,US,3
 shark_ray,CA,CA,US,3
@@ -1069,6 +1076,7 @@ sea_fan,XX,FR,US,3
 sea_fan,PE,PE,US,3
 owl,CU,CU,US,3
 owl,AU,AU,US,3
+amphibians,VN,VN,US,3
 pythons_reptiles,BO,BO,US,3
 pythons_reptiles,CO,FR,US,3
 rhino,CN,CN,US,3
@@ -1133,6 +1141,7 @@ pythons_reptiles,US,US,RU,2
 pythons_reptiles,US,CO,US,2
 pythons_reptiles,US,IE,US,2
 pythons_reptiles,XX,KW,US,2
+amphibians,CN,CN,US,2
 birds,XX,MX,BR,2
 sea_fan,SC,MY,US,2
 agarwood,CN,CN,US,2
@@ -1306,6 +1315,7 @@ primates,FR,FR,UA,2
 medicinal_plants,US,US,VN,2
 lion,CO,CO,ZA,2
 bear,AL,AL,BG,2
+amphibians,NL,NL,US,2
 birds,JP,JP,US,2
 resins_gums,ZA,ZA,US,2
 sea_fan,XX,US,ZA,2
@@ -1330,6 +1340,7 @@ rosewood,XX,HK,US,2
 rosewood,TZ,NZ,GB,2
 rosewood,BR,CA,US,2
 rosewood,XX,US,CA,2
+amphibians,US,US,CA,2
 elephant,XX,KR,US,2
 elephant,IN,GB,US,2
 elephant,CA,CA,US,2
@@ -1435,6 +1446,7 @@ shark_ray,XX,TH,US,2
 shark_ray,XX,KR,US,2
 elephant,XX,CD,US,2
 pythons_reptiles,IT,GB,US,2
+amphibians,MG,MG,US,2
 musk_deer,XX,GB,US,2
 leopard,ZW,ZW,US,2
 pythons_reptiles,TH,DE,US,2
@@ -1511,6 +1523,7 @@ rosewood,LK,LK,SG,2
 tokay_gecko,XX,HK,US,2
 tokay_gecko,ID,ID,US,2
 primates,CN,AU,US,2
+amphibians,CO,CO,US,2
 pythons_reptiles,XX,TG,US,2
 medicinal_plants,US,CH,US,2
 tiger,XX,ID,US,2
@@ -1519,6 +1532,7 @@ monitor_lizard,CM,CH,US,2
 monitor_lizard,ID,AT,US,2
 birds,XX,SG,AU,2
 pythons_reptiles,XX,BH,AE,2
+amphibians,XX,BE,US,2
 sea_fan,TG,TG,US,2
 agarwood,XX,SG,US,2
 sea_fan,US,US,XX,2
@@ -1647,6 +1661,7 @@ bear,AL,AL,GR,1
 monitor_lizard,MY,NL,AU,1
 hornbill,CM,CM,US,1
 cheetah,XX,US,FR,1
+amphibians,NI,US,IS,1
 pythons_reptiles,US,CH,FR,1
 pythons_reptiles,US,US,SX,1
 pythons_reptiles,US,KY,US,1
@@ -1703,6 +1718,7 @@ cycads,DO,DO,US,1
 cycads,CN,CN,US,1
 cacti_succulents,US,JP,US,1
 rosewood,MX,MX,US,1
+amphibians,FR,FR,US,1
 rhino,ET,US,CA,1
 elephant,XX,US,IE,1
 elephant,XX,US,VN,1
@@ -1737,6 +1753,7 @@ turtles,HK,VN,US,1
 musk_deer,CN,US,CN,1
 musk_deer,XX,MX,US,1
 musk_deer,XX,TH,US,1
+amphibians,PA,US,IS,1
 primates,XX,UG,US,1
 medicinal_plants,CA,US,SG,1
 medicinal_plants,US,US,DK,1
@@ -1755,6 +1772,7 @@ tiger,XX,AU,US,1
 tiger,XX,TW,US,1
 primates,MZ,ZA,US,1
 orchids,CR,CR,US,1
+amphibians,XX,FR,US,1
 birds,US,EC,US,1
 sea_fan,TW,GB,US,1
 sea_fan,XX,US,PL,1
@@ -1818,6 +1836,7 @@ elephant,XX,AT,VN,1
 orchids,TH,TL,FR,1
 primates,ZM,ZM,SE,1
 lion,XX,KW,KR,1
+amphibians,XX,JE,GB,1
 red_sanders,XX,DE,SG,1
 pythons_reptiles,XX,KW,KR,1
 sea_fan,VN,VN,ES,1
@@ -1875,6 +1894,7 @@ turtles,ID,US,NL,1
 rosewood,BR,US,TW,1
 rosewood,MY,MY,AE,1
 rosewood,HN,NI,US,1
+amphibians,XX,US,CN,1
 orchids,MO,MO,US,1
 sea_fan,AU,US,CL,1
 elephant,XX,US,MX,1
@@ -2030,6 +2050,7 @@ pythons_reptiles,CH,BB,US,1
 pythons_reptiles,XX,HU,US,1
 pythons_reptiles,DE,US,HK,1
 pythons_reptiles,XX,RU,US,1
+amphibians,HK,HK,US,1
 shark_ray,XX,US,GB,1
 birds,PW,PE,US,1
 birds,PE,ES,US,1
@@ -2604,6 +2625,8 @@ bear,AZ,AZ,RO,1
 bear,XX,UA,DE,1
 monitor_lizard,SN,SN,GH,1
 monitor_lizard,SN,SN,CI,1
+amphibians,HU,DE,US,1
+amphibians,BR,US,BR,1
 pythons_reptiles,US,CL,US,1
 pythons_reptiles,CH,DK,US,1
 birds,DE,NL,ID,1
@@ -2687,6 +2710,9 @@ pythons_reptiles,US,ZA,US,1
 pythons_reptiles,US,UY,US,1
 pythons_reptiles,US,LC,US,1
 pythons_reptiles,US,MG,US,1
+amphibians,AT,AT,US,1
+amphibians,XX,MX,US,1
+amphibians,XX,US,QA,1
 eels,ES,ES,US,1
 eels,IT,GB,US,1
 eels,PT,PT,US,1
@@ -2708,6 +2734,7 @@ pythons_reptiles,NO,MX,US,1
 pythons_reptiles,MX,CA,US,1
 pythons_reptiles,XX,AR,US,1
 pythons_reptiles,MX,XX,US,1
+amphibians,CL,CL,US,1
 shark_ray,ZA,ZA,US,1
 primates,XX,UA,US,1
 cacti_succulents,XX,CA,US,1
@@ -2735,6 +2762,7 @@ pythons_reptiles,DE,TW,US,1
 pythons_reptiles,CR,CR,US,1
 rosewood,BR,ES,US,1
 rosewood,XX,US,CN,1
+amphibians,DE,DE,US,1
 rhino,AO,GB,US,1
 elephant,XX,RU,US,1
 elephant,BW,MX,US,1
@@ -2753,6 +2781,7 @@ shark_ray,NZ,GB,US,1
 shark_ray,XX,IT,US,1
 shark_ray,HS,LK,US,1
 turtles,GH,GH,US,1
+amphibians,LA,LA,US,1
 turtles,XX,GT,US,1
 elephant,NG,NG,GA,1
 elephant,GM,BE,US,1

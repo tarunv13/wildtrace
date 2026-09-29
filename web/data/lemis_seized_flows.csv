@@ -55,6 +55,7 @@ pythons_reptiles,HK,HK,US,69
 turtles,XX,XX,US,69
 sea_fan,KY,KY,US,69
 sea_fan,HK,HK,US,64
+amphibians,TH,TH,US,63
 pythons_reptiles,NI,NI,US,63
 leopard,XX,XX,US,62
 turtles,CN,CN,US,61
@@ -117,6 +118,7 @@ pythons_reptiles,ZW,ZW,US,28
 birds,XX,XX,US,27
 pythons_reptiles,SG,SG,US,27
 monitor_lizard,NG,NG,US,27
+amphibians,MG,MG,US,26
 owl,RU,RU,US,26
 pythons_reptiles,ID,GB,US,26
 pythons_reptiles,VN,GB,US,26
@@ -204,6 +206,7 @@ tiger,CA,CA,US,15
 primates,PE,PE,US,15
 shark_ray,AU,AU,US,15
 shark_ray,PE,PE,US,15
+amphibians,ID,ID,US,14
 birds,AU,AU,US,14
 pythons_reptiles,US,CN,US,14
 turtles,TH,TH,US,14
@@ -223,6 +226,7 @@ leopard,VN,VN,US,13
 primates,CN,CA,US,13
 elephant,BI,BI,US,13
 elephant,BW,BW,US,13
+amphibians,PH,PH,US,12
 birds,AR,AR,US,12
 turtles,ZA,ZA,US,12
 pythons_reptiles,VN,ES,US,12
@@ -247,6 +251,9 @@ monitor_lizard,LA,LA,US,11
 tiger,HK,HK,US,11
 sea_fan,KR,KR,US,11
 sea_fan,IN,ID,US,11
+amphibians,MX,MX,US,10
+amphibians,HK,HK,US,10
+amphibians,CO,CO,US,10
 birds,NG,NG,US,10
 owl,NL,NL,US,10
 turtles,CN,HK,US,10
@@ -299,6 +306,7 @@ sea_fan,TC,TC,US,9
 sea_fan,FR,FR,US,9
 sea_fan,KH,KH,US,9
 abalone,CA,CA,US,9
+amphibians,CN,CN,US,8
 owl,DE,DE,US,8
 birds,FR,FR,US,8
 birds,CN,CN,US,8
@@ -370,6 +378,8 @@ shark_ray,EC,EC,US,7
 medicinal_plants,HK,HK,US,7
 shark_ray,LK,LK,US,7
 sea_fan,NL,NL,US,7
+amphibians,DE,DE,US,6
+amphibians,GT,GT,US,6
 birds,HN,HN,US,6
 birds,IT,IT,US,6
 tokay_gecko,ID,ID,US,6
@@ -413,6 +423,7 @@ shark_ray,PA,PA,US,6
 sea_fan,PG,PG,US,6
 sea_fan,NZ,NZ,US,6
 sea_fan,PH,BE,US,6
+amphibians,EC,EC,US,5
 birds,US,MX,US,5
 owl,XX,XX,US,5
 birds,AU,FR,US,5
@@ -475,6 +486,11 @@ orchids,KH,KH,US,5
 agarwood,EG,EG,US,5
 agarwood,BH,BH,US,5
 shark_ray,US,US,US,5
+amphibians,LA,LA,US,4
+amphibians,NL,NL,US,4
+amphibians,VN,VN,US,4
+amphibians,ES,ES,US,4
+amphibians,BR,BR,US,4
 birds,MT,MT,US,4
 birds,DK,DK,US,4
 birds,US,BS,US,4
@@ -584,6 +600,9 @@ shark_ray,CN,CA,US,4
 shark_ray,TH,HK,US,4
 agarwood,AE,AE,US,4
 sea_fan,SB,FR,US,4
+amphibians,FR,FR,US,3
+amphibians,PA,PA,US,3
+amphibians,PY,PY,US,3
 birds,PE,RE,US,3
 owl,CN,CN,US,3
 birds,SE,SE,US,3
@@ -740,6 +759,14 @@ shark_ray,HN,HN,US,3
 shark_ray,MX,CA,US,3
 carnivorous_plants,ID,ID,US,3
 sea_fan,US,BS,US,3
+amphibians,GQ,GQ,US,2
+amphibians,AU,AU,US,2
+amphibians,CN,HK,US,2
+amphibians,GY,GY,US,2
+amphibians,MY,MY,US,2
+amphibians,ID,IT,US,2
+amphibians,UY,UY,US,2
+amphibians,CM,CM,US,2
 birds,DE,DE,US,2
 birds,ES,ES,US,2
 birds,IS,IS,US,2
@@ -1042,6 +1069,20 @@ shark_ray,VN,JP,US,2
 abalone,NZ,NZ,US,2
 sea_fan,MY,HK,US,2
 shark_ray,US,CH,US,2
+amphibians,MM,MM,US,1
+amphibians,GH,GH,US,1
+amphibians,CA,CA,US,1
+amphibians,HU,DE,US,1
+amphibians,IT,IT,US,1
+amphibians,NI,NI,US,1
+amphibians,CZ,CZ,US,1
+amphibians,XX,XX,US,1
+amphibians,JP,ES,US,1
+amphibians,BR,IT,US,1
+amphibians,ID,CH,US,1
+amphibians,US,MX,US,1
+amphibians,TZ,TZ,US,1
+amphibians,KH,KH,US,1
 birds,US,EC,US,1
 birds,ZA,AE,US,1
 owl,AR,AR,US,1

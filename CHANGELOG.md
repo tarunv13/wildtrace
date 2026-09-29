@@ -2,6 +2,33 @@
 
 All notable changes to WildTrace. Dates are the release date, newest first.
 
+## 1.10.0 — 2026-09-29
+
+### Added
+- **Offered online, rarely caught** (`wildtrace ecosolve`, `online_gap.csv`, Analysis): ECO-SOLVE's public
+  advert data (30,934 adverts, 440 species, 11 hubs, April 2024 to September 2026) mapped to WildTrace groups
+  and set against WildTrace cases for the same group, country and period. Bears in Thailand: 1,303 adverts,
+  0 cases. Aggregates only, with attribution; the advert rows stay private.
+- **Ambiguous words are kept, not deleted.** Words that name a traded species or an enforcement act and also
+  mean something else ("monitor", "horn", "python", "coral", "ivory", "crackdown", Thai "เหี้ย" and "กบ") count
+  only with supporting context nearby, take precedence over strong lists, and every hit is logged for review
+  (`data/labels/ambiguous_review.csv`, private). Codebook common words are kept the same way.
+- **Image evidence** (`wildtrace vision`): local OCR with LiteParse and zero-shot species recognition with
+  BioCLIP. A picture can confirm an ambiguous word or flag a conflict for review; nothing is published.
+- **Thai.** Species and enforcement words, a Thai-language news edition and online query, and Thai place names
+  matched without word spaces (Thailand cases 25 -> 48). A third of ECO-SOLVE's adverts are in Thai.
+- **Amphibians** (axolotls, dart frogs, salamanders, frog legs) in cases, CITES, LEMIS and captive-bred claims,
+  after Vora et al. (2026, *Nature*).
+- **Curation log** (`docs/CURATION.md`): every vocabulary decision with its evidence and effect, after
+  *Scrub Data* (Kay, Bar & Beery 2026). **Tooling** (`docs/TOOLING.md`): tools used and evaluated, including
+  the awesome-ai-apps collection.
+- Cases: 2,126 -> **2,290** in 75 countries; no report from the previous build lost.
+
+### Changed
+- Plural species terms also match the singular ("parakeets" finds "parakeet"), except where the singular is
+  an ambiguous word.
+- Context checks use word-sequence lookups instead of one large regex (27 times faster; same decisions).
+
 ## 1.9.0 — 2026-09-29
 
 ### Added

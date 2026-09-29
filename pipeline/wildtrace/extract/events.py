@@ -137,7 +137,11 @@ def find_native_places(text: str) -> list[tuple[int, Place]]:
             end = start + len(name)
             before = text[start - 1] if start else " "
             after = text[end] if end < len(text) else " "
-            if not _is_script_char(before) and not _is_script_char(after) and                     not any(a < end and start < b for a, b in taken):
+            # Thai is written without spaces between words, so a word boundary almost never exists:
+            # accept longer Thai names anywhere, and short ones after a province/district prefix.
+            thai = 0x0E00 <= ord(name[0]) <= 0x0E7F
+            thai_ok = thai and (len(name) >= 5 or text[max(0, start - 7):start].endswith(("จ.", "อ.", "จังหวัด", "อำเภอ")))
+            if (thai_ok or (not _is_script_char(before) and not _is_script_char(after))) and                     not any(a < end and start < b for a, b in taken):
                 taken.append((start, end))
                 if p.name not in found or start < found[p.name][0]:
                     found[p.name] = (start, p)
@@ -242,6 +246,7 @@ class Event:
     agencies: list[str] = field(default_factory=list)
     modes: list[str] = field(default_factory=list)
     platforms: list[str] = field(default_factory=list)
+    ambiguous: list[dict] = field(default_factory=list)   # every ambiguous term hit, accepted or held (review)
     quantities: list[dict] = field(default_factory=list)
     value_inr: float | None = None
     people_arrested: int | None = None
@@ -290,6 +295,7 @@ def extract(rec: Record) -> Event:
     ev.domain = _domain((rec.extra or {}).get("source_url") or (rec.url if "news.google." not in rec.url else "") or rec.outlet)
     ev.tier = _tier(ev.domain)
     ev.species = lexicon.species_groups(text)
+    ev.ambiguous = lexicon.ambiguous_hits(text)
     ev.terms = lexicon.matched_terms(text)
     ev.event_types = [k for k, v in lexicon.count_cues(text, "enforcement_cues").items() if v]
     ev.modes = [k for k, v in lexicon.count_cues(text, "modes").items() if v]

@@ -144,7 +144,7 @@ observatories:
     focus: Online markets worldwide; regional hubs
     global_south: Its hubs sit in the countries with the biggest regional online markets. Its bulletins include South Asia (musk deer) and Cameroon.
     languages: [multi]
-    features: "Global Monitoring System: regional hubs, each with a priority species basket and platform shortlist; manual monitoring + local-language knowledge + AI discovery. Sixth Global Trend Report (Apr 2024 - Mar 2026): 21,900+ adverts, 266,000+ products, 61 platforms, about three-quarters on Facebook. Public dashboard: 30+ countries, 79 species, downloadable data, updated manually (last May 2026)."
+    features: "Global Monitoring System: regional hubs, each with a priority species basket and platform shortlist; manual monitoring + local-language knowledge + AI discovery. Sixth Global Trend Report (Apr 2024 - Mar 2026): 21,900+ adverts, 266,000+ products, 61 platforms, about three-quarters on Facebook. Public dashboard data (downloaded 2026-09-29): 30,934 adverts, 440 species, 11 hubs, 14 Apr 2024 - 24 Sep 2026; no plants."
     access: public dashboard (ecosolve.eco/dashboard), bulletins and downloadable data
     url: https://globalinitiative.net/initiatives/ecosolve/
     hq: {lon: 6.14, lat: 46.2, city: "Geneva"}

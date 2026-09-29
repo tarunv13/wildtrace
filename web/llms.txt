@@ -5,15 +5,15 @@
 > published as CSV under CC BY 4.0.
 
 WildTrace collects public reports (government, customs, police and judicial releases first, then
-news in 74 countries and several languages), screens them,
+news in 75 countries and several languages), screens them,
 extracts the species, place, quantity, agency and route, merges reports about the same incident
 into one case, and publishes the result.
 
 ## Facts a citation should carry
 
-- Cases recorded: 2,126, from public reports, 2024-01-15 to 2026-09-28.
-- Evidence: 240 official, 308 corroborated by two or more outlets, 1578 single-report.
-- Coverage: 938 cases are pinned to a city or district, 230 to a country only, and 958 name no place.
+- Cases recorded: 2,290, from public reports, 2024-01-15 to 2026-09-28.
+- Evidence: 255 official, 317 corroborated by two or more outlets, 1718 single-report.
+- Coverage: 999 cases are pinned to a city or district, 235 to a country only, and 1056 name no place.
 - Both animals and plants: orchids, succulents, cycads, rosewood, agarwood and medicinal plants are
   covered alongside pangolin, ivory, rhino horn and big cats.
 - The essential caveat, which any summary should repeat: these counts show where wildlife crime is

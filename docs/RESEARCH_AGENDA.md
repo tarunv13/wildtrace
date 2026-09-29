@@ -67,6 +67,11 @@ natural language processing research addresses the exact problems WildTrace's pi
   policy. Narrative understanding (Zhu et al. 2023) applied to seizure reporting could measure how
   often local communities, victims and corruption appear.
 
+- **A6. Pictures as evidence.** Listings and seizure photos show what captions hide. `wildtrace vision` runs
+  local OCR (LiteParse) and zero-shot species recognition (BioCLIP) and uses the picture to confirm or
+  question ambiguous words. How accurate is it on real seizure and listing photos, per group, and which
+  look-alikes fool it (bear bile versus honey, carved bone versus ivory)?
+
 ### B. Crime, money and justice
 
 - **B1. From seizure to sentence.** WildTrace holds far more seizures than convictions. How much of the

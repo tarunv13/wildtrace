@@ -79,7 +79,7 @@ def collect_feeds() -> list[Record]:
 GNEWS_EDITIONS = {  # edition: (hl, gl, ceid, lexicon language key)
     # South & Southeast Asia
     "IN": ("en-IN", "IN", "IN:en", "en"), "IN-hi": ("hi", "IN", "IN:hi", "hi"),
-    "TH": ("en", "TH", "TH:en", "en"), "VN": ("vi", "VN", "VN:vi", "vi"), "ID": ("id", "ID", "ID:id", "id_ms"),
+    "TH": ("en", "TH", "TH:en", "en"), "TH-th": ("th", "TH", "TH:th", "th"), "VN": ("vi", "VN", "VN:vi", "vi"), "ID": ("id", "ID", "ID:id", "id_ms"),
     "MY": ("en-MY", "MY", "MY:en", "en"), "PH": ("en-PH", "PH", "PH:en", "en"), "SG": ("en-SG", "SG", "SG:en", "en"),
     # Africa (source and transit)
     "ZA": ("en-ZA", "ZA", "ZA:en", "en"), "NG": ("en-NG", "NG", "NG:en", "en"), "KE": ("en-KE", "KE", "KE:en", "en"),
@@ -93,7 +93,7 @@ GNEWS_EDITIONS = {  # edition: (hl, gl, ceid, lexicon language key)
 }
 LOCAL_CUES = {
     "en": "(seized OR arrested OR smuggling OR trafficking)", "hi": "(जब्त OR गिरफ्तार OR तस्करी)",
-    "vi": "(bắt giữ OR buôn lậu)", "id_ms": "(disita OR ditangkap OR penyelundupan)",
+    "vi": "(bắt giữ OR buôn lậu)", "th": "(จับกุม OR ตรวจยึด OR ลักลอบ OR ของกลาง)", "id_ms": "(disita OR ditangkap OR penyelundupan)",
     "pt": "(apreensão OR apreendidos OR resgata OR tráfico)", "es": "(decomiso OR incautan OR detenidos OR tráfico)",
     "fr": "(saisie OR arrêtés OR trafic)",
 }
@@ -152,6 +152,7 @@ ONLINE_QUERIES = {
     "hi": '(वन्यजीव OR तोता OR कछुआ OR तस्करी) (ऑनलाइन OR "सोशल मीडिया" OR फेसबुक)',
     "vi": '("động vật hoang dã" OR "động vật quý hiếm") ("mạng xã hội" OR Facebook OR Zalo)',
     "id_ms": '("satwa dilindungi" OR "satwa liar") (online OR "media sosial" OR Facebook)',
+    "th": '(สัตว์ป่าคุ้มครอง OR สัตว์ป่า OR ซากสัตว์ป่า) (ออนไลน์ OR เฟซบุ๊ก OR โซเชียล OR Facebook)',
 }
 
 

@@ -27,7 +27,7 @@ groups:
       te: [అలుగు]
       vi: [tê tê, vảy tê tê]
       id_ms: [trenggiling, sisik trenggiling, tenggiling]
-      th: [ตัวนิ่ม, ลิ่น]
+      th: [ตัวนิ่ม, ลิ่น, เกล็ดตัวนิ่ม, เกล็ดลิ่น]
   musk_deer:
     label: Musk deer
     taxa: [Moschus spp.]
@@ -44,6 +44,7 @@ groups:
     cites: "I"
     products: ["hemipenis (sold as hatha jodi)", skin, meat]
     terms:
+      th: [ตะกวด, ตัวเงินตัวทอง]
       en: [monitor lizard, monitor lizards, bengal monitor, water monitor]
       hi_latn: [hatha jodi, hattha jodi, hath jodi, ghorpad]  # owt
       hi: [हत्था जोड़ी, हाथा जोड़ी, गोह]
@@ -81,6 +82,7 @@ groups:
     cites: "I/II"
     products: [live, meat, calipee]
     terms:
+      th: [เต่าบก, เต่าดาว, เต่าทะเล, ตะพาบ]
       en: [star tortoise, star tortoises, softshell turtle, softshell turtles, flapshell turtle, tortoise, tortoises, turtle, turtles]
       pt: [tartarugas, jabutis, quelônios, ovos de tartaruga]
       es: [tortugas, huevos de tortuga, caguama]
@@ -95,6 +97,7 @@ groups:
     cites: "II"
     products: [dried]
     terms:
+      th: [ปะการัง]
       en: [sea fan, sea fans, black coral, black corals, corals seized, coral smuggling, coral racket, coral smugglers, red coral]
       hi_latn: [indrajal]  # owt
       hi: [इंद्रजाल]
@@ -104,6 +107,7 @@ groups:
     cites: "II"
     products: [live, dried]
     terms:
+      th: [ตุ๊กแก]
       en: [tokay gecko, tokay geckos, tokay]  # owt
       vi: [tắc kè]
       id_ms: [tokek]
@@ -121,13 +125,14 @@ groups:
       hi: [हाथी दांत, गजमुक्ता]
       vi: [ngà voi]
       id_ms: [gading gajah]
-      th: [งาช้าง]
+      th: [งาช้าง, ช้างป่า]
   tiger:
     label: Tiger
     taxa: [Panthera tigris]
     cites: "I"
     products: [skin, bones, claws, teeth]
     terms:
+      th: [เสือโคร่ง, หนังเสือ, ซากเสือ]
       en: [tiger skin, tiger skins, tiger pelt, tiger pelts, tiger bones, tiger claws, tiger teeth, tiger parts, tiger poaching, tiger poacher, tiger poachers]
       hi_latn: [bagh ki khal]
       hi: [बाघ की खाल, बाघ के नाखून]
@@ -139,6 +144,7 @@ groups:
     cites: "I"
     products: [skin, claws]
     terms:
+      th: [เสือดาว, เสือดำ, เสือลายเมฆ]
       en: [leopard skin, leopard skins, leopard pelt, leopard pelts, leopard claws, leopard hide, leopard hides, clouded leopard, leopard poaching, leopard poachers]
       hi_latn: [tendua khal, tendue ki khal]
       hi: [तेंदुए की खाल]
@@ -148,6 +154,7 @@ groups:
     cites: "I"
     products: [horn]
     terms:
+      th: [นอแรด]
       en: [rhino horn, rhino horns, rhinoceros horn, rhino poaching, rhino poachers]
       pt: [chifre de rinoceronte, chifres de rinoceronte]
       es: [cuerno de rinoceronte, cuernos de rinoceronte]
@@ -162,6 +169,7 @@ groups:
     cites: "II"
     products: [live, parts]
     terms:
+      th: [นกฮูก, นกเค้าแมว]
       en: [owl smuggling, owls seized, owl trade, owls rescued, owl seized]
       hi: [उल्लू]
   birds:
@@ -170,6 +178,7 @@ groups:
     cites: "II"
     products: [live]
     terms:
+      th: [นกแก้ว, นกกรงหัวจุก, นกขุนทอง, นกป่า]
       en: [parakeets, parrots seized, munias, hill myna, birds seized, bird trade, bird trappers, african grey, african greys, grey parrots, macaw, macaws, songbirds seized, wild birds rescued]
       pt: [aves silvestres, pássaros silvestres, araras, papagaios, curiós, trinca-ferros]
       es: [aves silvestres, guacamayas, loros, pericos]
@@ -191,6 +200,7 @@ groups:
     cites: "II"
     products: [fins, gill plates, dried]
     terms:
+      th: [หูฉลาม, ครีบฉลาม, ม้าน้ำ, ปลิงทะเล]
       en: [shark fin, shark fins, manta gill, sea cucumber, sea cucumbers, seahorse, seahorses, sea horses]
       pt: [barbatanas de tubarão, pepino-do-mar, cavalos-marinhos]
       es: [aletas de tiburón, pepino de mar, caballitos de mar]
@@ -203,6 +213,7 @@ groups:
     cites: "I/II"
     products: [live]
     terms:
+      th: [ชะนี, ลิงลม, ลิงแสม, อุรังอุตัง]
       en: [slow loris, slow lorises, orangutan, orangutans, gibbon, gibbons, langur, langurs, chimpanzee, chimpanzees, gorilla, gorillas, bonobo, marmosets, capuchin monkeys]
       pt: [macacos-prego, saguis, micos]
       es: [monos araña, titíes]
@@ -214,6 +225,7 @@ groups:
     cites: "I/II"
     products: [casque, live]
     terms:
+      th: [นกเงือก]
       en: [hornbill, hornbills, helmeted hornbill, hornbill casque]
       id_ms: [rangkong, enggang]
   bear:
@@ -222,6 +234,7 @@ groups:
     cites: "I"
     products: [bile, gall bladder, paws]
     terms:
+      th: [หมีควาย, หมีหมา, อุ้งตีนหมี, ดีหมี]
       en: [bear bile, bear gall, bear paws, sloth bear, sun bear]
       vi: [mật gấu]
   mongoose:
@@ -287,6 +300,7 @@ groups:
     cites: "II"
     products: [logs, furniture]
     terms:
+      th: [ไม้พะยูง]
       en: [rosewood, rosewood logs, dalbergia, kosso timber, illegal timber, illegal logging, Dalbergia cochinchinensis, Dalbergia latifolia, Dalbergia odorifera, Dalbergia nigra, Dalbergia oliveri, Pterocarpus erinaceus, Swietenia macrophylla, Khaya senegalensis, Cedrela odorata, Afzelia quanzensis]
       es: [palo de rosa, madera ilegal, tala ilegal]
       pt: [pau-rosa, madeira ilegal, extração ilegal de madeira]
@@ -297,6 +311,7 @@ groups:
     cites: "II"
     products: [chips, oil]
     terms:
+      th: [ไม้กฤษณา]
       en: [agarwood, agar wood, oud wood, agarwood chips, Aquilaria malaccensis, Aquilaria sinensis]
       id_ms: [gaharu, kayu gaharu]
       hi: [अगरवुड]
@@ -306,10 +321,25 @@ groups:
     cites: "I/II"
     products: [skins, live]
     terms:
+      th: [งูเหลือม, งูหลาม, จระเข้]
       en: [python skins, python skin, reptile skins, crocodile skins, snake skins seized]
       es: [pieles de reptil]
       pt: [peles de cobra, peles de jacaré]
 
+  amphibians:
+    label: Frogs, salamanders & axolotls
+    taxa: [Amphibia]
+    cites: "I/II"
+    products: [live, legs, meat]
+    note: "Added 2026-09-29: two in five amphibian species are threatened and the pet trade is a rising driver (Vora et al. 2026, Nature); ECO-SOLVE records axolotl adverts, LEMIS records frog imports."
+    terms:
+      en: [axolotl, axolotls, poison dart frog, poison dart frogs, dart frogs, harlequin frog, harlequin frogs, fire salamander, salamanders, horned frogs, frog legs, giant salamander]
+      es: [ajolote, ajolotes, rana dardo, ranas dardo, salamandras]
+      pt: [rãs, perereca, pererecas, salamandra]
+      fr: [grenouilles, salamandres, axolotl]
+      id_ms: [katak, kodok]
+      th: [ซาลาแมนเดอร์, ขากบ, กบนา]
+      vi: [ếch, kỳ giông]
   orchids:
     label: Orchids
     taxa: [Orchidaceae, Cymbidium spp., Dendrobium spp., Paphiopedilum spp., Dactylorhiza spp., Orchis spp.]
@@ -394,6 +424,7 @@ groups:
     products: [mixed or unnamed species]
     note: "Used only when no specific group matches: official releases often name no species."
     terms:
+      th: [สัตว์ป่าคุ้มครอง, ค้าสัตว์ป่า, ซากสัตว์ป่า, สัตว์ป่าสงวน]
       en: [wildlife trafficking, wildlife smuggling, wildlife crime, wild animals seized, protected species, endangered species, exotic animals seized, wildlife products,
            wildlife trade, wildlife trader, illegal wildlife, endangered wildlife, exotic wildlife, wildlife specimens, wildlife items, wildlife parts, protected animals, wildlife racket]
       pt: [animais silvestres, fauna silvestre, tráfico de animais silvestres, aves silvestres apreendidas]
@@ -411,9 +442,9 @@ sale_cues:
 
 # Words that signal an enforcement event (the news side).
 enforcement_cues:
-  seizure: [seized, seizure, seize, seizes, recovered, confiscated, intercepted, haul, bust, busted, busts, foils, foiled, raid, raided, racket busted,
+  seizure: [ยึด, ตรวจยึด, ลักลอบ, seized, seizure, seize, seizes, recovered, confiscated, intercepted, haul, bust, busted, busts, foils, foiled, raid, raided, racket busted,
             बरामद, thu giữ, tạm giữ, menyita, diamankan, aseguran, aseguramiento, démantelé, saisis, smuggling, smuggled, trafficking, जब्त, bắt giữ, disita, ของกลาง, apreensão, apreende, apreendidos, apreendidas, tráfico de animais, decomiso, decomisan, incautan, incautación, incautaron, tráfico de fauna, saisie, saisies, saisi, trafic]
-  arrest: [arrested, arrest, arrests, held, nabbed, detained, apprehended, charged, indicted, गिरफ्तार, दबोचा, दबोचे, पकड़ा, पकड़े, हिरासत, diringkus, khởi tố, autuado, flagrante, ditangkap, ditahan, จับกุม, preso, presos, presa, detenido, detenidos, capturados, arrêté, arrêtés, interpellés]
+  arrest: [ผู้ต้องหา, arrested, arrest, arrests, held, nabbed, detained, apprehended, charged, indicted, गिरफ्तार, दबोचा, दबोचे, पकड़ा, पकड़े, हिरासत, diringkus, khởi tố, autuado, flagrante, ditangkap, ditahan, จับกุม, preso, presos, presa, detenido, detenidos, capturados, arrêté, arrêtés, interpellés]
   conviction: [convicted, sentenced, jailed, imprisonment, rigorous imprisonment, pleaded guilty, fined, condamnés, सजा, dihukum, condenado, condenados, sentenciado, condamné]
   rescue: [rescued, released into the wild, rehabilitated, resgata, resgatados, resgatadas, rescatan, rescatados]
   bail: [bail granted, granted bail, acquitted, discharged]
@@ -456,6 +487,28 @@ platforms:
   Carousell: [carousell]
   Zalo: [zalo]
   Dark web: [dark web, darknet]
+
+# Ambiguous terms: words that name a traded species or an enforcement act AND mean something else.
+# They are never dropped. Each counts only with the context it needs nearby (lexicon.py, WINDOW), and
+# every hit is logged for review (data/labels/ambiguous_review.csv). Curation history: docs/CURATION.md.
+ambiguous:
+  - {term: เหี้ย, group: monitor_lizard, lang: th, needs: [enforcement, trade, wildlife, quantity], note: "water monitor; also a common swear word"}
+  - {term: crackdown, cue: seizure, lang: en, needs: [quantity, species], note: "real operations, but also policy announcements"}
+  - {term: monitor, group: monitor_lizard, lang: en, needs: [enforcement, trade, wildlife], note: "also screens, officials who monitor"}
+  - {term: monitor lizard skin, group: monitor_lizard, lang: en, needs: [enforcement, trade, wildlife, quantity]}
+  - {term: musk pods, group: musk_deer, lang: en, needs: [enforcement, trade, quantity]}
+  - {term: kasturi, group: musk_deer, lang: hi_latn, needs: [enforcement, trade, quantity], note: "also a liquor brand and a given name"}
+  - {term: horn, group: rhino, lang: en, needs: [enforcement, trade], note: "also car horns, Horn of Africa; counts only next to seizure or sale words"}
+  - {term: tiger, group: tiger, lang: en, needs: [enforcement, trade, wildlife, quantity], note: "also sports teams, brands, film titles"}
+  - {term: civet, group: wildlife_general, lang: en, needs: [enforcement, trade], note: "also civet coffee"}
+  - {term: python, group: pythons_reptiles, lang: en, needs: [enforcement, trade, wildlife, quantity], note: "also the programming language"}
+  - {term: coral, group: sea_fan, lang: en, needs: [enforcement, trade, quantity], note: "also reefs in climate news, place names"}
+  - {term: ivory, group: elephant, lang: en, needs: [enforcement, trade, quantity], note: "also a colour; Ivory Coast is a negative cue"}
+  - {term: frog, group: amphibians, lang: en, needs: [enforcement, trade, quantity], note: "also frog in general writing"}
+  - {term: frogs, group: amphibians, lang: en, needs: [enforcement, trade, quantity]}
+  - {term: toad, group: amphibians, lang: en, needs: [enforcement, trade, quantity]}
+  - {term: กบ, group: amphibians, lang: th, needs: [enforcement, trade, quantity], note: "two letters; also inside กบฏ (rebel), ประกบ"}
+  - {term: shell, group: turtles, lang: en, needs: [enforcement, trade, wildlife], note: "also the oil company"}
 
 # Phrases that make a match NOT a wildlife-trade report. Each came from a real
 # false positive: a film ("Kattalan", an ivory-smuggling thriller), a liquor brand

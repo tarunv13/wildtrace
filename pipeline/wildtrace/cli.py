@@ -6,6 +6,8 @@
   wildtrace run                                          collect + build
   wildtrace cites   <folder>                             CITES supply -> demand flows (web/data/flows.json)
   wildtrace captive <folder>                             captive-bred claims in CITES trade (web/data/captive_claims.json)
+  wildtrace ecosolve <csv>                               ECO-SOLVE adverts vs WildTrace cases (web/data/online_gap.json)
+  wildtrace vision  <image|folder> [--captions csv]       OCR + BioCLIP species evidence for images (private)
   wildtrace lemis   <folder> [--taxonomy <codebook>]     US LEMIS seizures by origin + product (web/data/lemis.json)
   wildtrace zoonoses [--offline]                         VIRION + WHO outbreaks (web/data/zoonoses.json)
   wildtrace relabel                                      merge reviewed labels into corrections.csv
@@ -109,6 +111,8 @@ def main(argv=None) -> None:
     sub.add_parser("relabel"); sub.add_parser("doctor"); sub.add_parser("gazetteer")
     ci = sub.add_parser("cites"); ci.add_argument("folder")
     cp = sub.add_parser("captive"); cp.add_argument("folder")
+    ec = sub.add_parser("ecosolve"); ec.add_argument("csv")
+    vi = sub.add_parser("vision"); vi.add_argument("path"); vi.add_argument("--captions", default="", help="CSV with image,caption")
     le = sub.add_parser("lemis"); le.add_argument("folder")
     le.add_argument("--taxonomy", default="", help="PMC8579131 zip or folder (genus -> family/order), improves matching")
     le.add_argument("--min-year", type=int, default=2000)
@@ -137,6 +141,17 @@ def main(argv=None) -> None:
     elif a.cmd == "captive":
         from .collect.captive import aggregate as captive_aggregate, publish as captive_publish
         print(captive_publish(captive_aggregate(a.folder)))
+    elif a.cmd == "ecosolve":
+        import json as _json
+        from .config import WEB_DATA
+        from .collect.ecosolve import aggregate as eco_aggregate, publish as eco_publish
+        cases = _json.loads((WEB_DATA / "cases.json").read_text(encoding="utf-8"))
+        print(eco_publish(eco_aggregate(a.csv, cases)))
+    elif a.cmd == "vision":
+        import csv as _csv
+        from .classify.vision import run as vision_run
+        caps = {r["image"]: r["caption"] for r in _csv.DictReader(open(a.captions, encoding="utf-8"))} if a.captions else None
+        print(vision_run(a.path, caps))
     elif a.cmd == "lemis":
         from .collect.lemis import aggregate as lemis_aggregate, publish as lemis_publish
         print(lemis_publish(lemis_aggregate(a.folder, a.taxonomy or None, a.min_year)))

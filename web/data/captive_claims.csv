@@ -2,6 +2,7 @@ species_group,exporter,declared_records,captive_records,captive_share,share_2015
 sea_fan,PW,152,117,0.77,0.0,0.974,0.974,Acropora tenuis; Favia spp.; Acropora spp.
 primates,NA,34,14,0.412,0.0,0.667,0.667,Macaca fascicularis
 turtles,UZ,2300,1111,0.483,0.183,0.778,0.595,Testudo horsfieldii; Testudo hermanni; Testudo spp.
+amphibians,EC,480,254,0.529,0.26,0.829,0.57,Oophaga sylvatica; Epipedobates tricolor; Epipedobates anthonyi
 turtles,JP,348,215,0.618,0.479,0.96,0.481,Mauremys japonica; Malaclemys terrapin; Terrapene carolina
 sea_fan,MY,5589,451,0.081,0.005,0.425,0.42,Acropora spp.; Euphyllia glabrescens; Euphyllia paraancora
 turtles,GB,430,415,0.965,0.533,0.922,0.389,Testudo marginata; Testudo graeca; Geochelone elegans
@@ -79,10 +80,12 @@ musk_deer,CN,308,5,0.016,0.0,0.021,0.021,Moschus berezovskii; Moschus chrysogast
 birds,CH,536,521,0.972,0.967,0.986,0.018,Ara ararauna; Cacatua leadbeateri; Ara chloropterus
 shark_ray,MX,2514,81,0.032,0.025,0.043,0.017,Hippocampus ingens; Hippocampus reidi
 primates,CH,291,290,0.997,0.984,1.0,0.016,Macaca fascicularis; Lemur catta; Callithrix jacchus
+amphibians,PA,147,141,0.959,0.95,0.967,0.016,Oophaga pumilio; Dendrobates auratus; Oophaga vicentei
 pythons_reptiles,MW,226,5,0.022,0.018,0.03,0.012,Crocodylus niloticus
 primates,KH,865,862,0.997,0.987,0.998,0.011,Macaca fascicularis; Macaca arctoides
 monitor_lizard,NL,4979,108,0.022,0.016,0.027,0.011,Varanus acanthurus; Varanus primordius; Varanus salvator
 birds,GY,3414,11,0.003,0.0,0.011,0.011,Ara hybrid; Cacatua galerita; Eclectus roratus
+amphibians,NI,3124,3105,0.994,0.988,0.998,0.01,Agalychnis callidryas; Oophaga pumilio; Dendrobates auratus
 sea_fan,GB,147,34,0.231,0.272,0.281,0.01,Euphyllia glabrescens; Euphyllia ancora; Acropora spp.
 monitor_lizard,CN,1137,8,0.007,0.004,0.014,0.01,Varanus niloticus; Varanus exanthematicus; Varanus indicus
 sea_fan,ID,898477,442946,0.493,0.487,0.496,0.009,Acropora spp.; Euphyllia glabrescens; Montipora spp.
@@ -92,6 +95,7 @@ turtles,IT,1293,1286,0.995,0.989,0.997,0.008,Testudo hermanni; Terrapene carolin
 birds,QA,447,440,0.984,0.992,1.0,0.008,Psittacus erithacus; Ara ararauna; Amazona aestiva
 birds,SY,146,145,0.993,0.992,1.0,0.008,Psittacus erithacus; Ara ararauna; Calyptorhynchus banksii
 sea_fan,HK,2220,10,0.005,0.0,0.008,0.008,Acropora spp.
+amphibians,CA,3735,3715,0.995,0.991,0.998,0.007,Dendrobates tinctorius; Dendrobates auratus; Ranitomeya fantastica
 eels,EG,430,1,0.002,0.0,0.007,0.007,Anguilla anguilla
 birds,ES,3826,3812,0.996,0.994,1.0,0.006,Ara ararauna; Amazona aestiva; Ara hybrid
 primates,ES,339,338,0.997,0.994,1.0,0.006,Macaca fascicularis; Lemur catta; Mandrillus sphinx
@@ -104,7 +108,9 @@ birds,PT,5230,5215,0.997,0.995,1.0,0.005,Psephotus haematonotus; Psittacus erith
 monitor_lizard,BE,2354,7,0.003,0.0,0.005,0.005,Varanus acanthurus; Varanus albigularis; Varanus glauerti
 primates,GY,511,3,0.006,0.0,0.005,0.005,Saguinus midas; Chiropotes chiropotes
 primates,TG,153,3,0.02,0.016,0.021,0.005,Galago senegalensis; Perodicticus potto; Erythrocebus patas
+amphibians,SR,373,1,0.003,0.0,0.005,0.005,Dendrobates tinctorius
 birds,BE,12154,12131,0.998,0.996,1.0,0.004,Amazona oratrix; Eolophus roseicapilla; Pionites leucogaster
+amphibians,NL,1421,1418,0.998,0.996,1.0,0.004,Dendrobates tinctorius; Dendrobates auratus; Dendrobates leucomelas
 turtles,CZ,400,399,0.998,0.996,1.0,0.004,Testudo hermanni; Testudo marginata; Geochelone elegans
 monitor_lizard,CH,50659,296,0.006,0.004,0.008,0.004,Varanus niloticus; Varanus salvator; Varanus reisingeri
 turtles,ML,308,241,0.782,0.987,0.991,0.004,Centrochelys sulcata; Kinixys belliana; Testudo graeca
@@ -124,6 +130,7 @@ birds,PH,5075,5074,1.0,1.0,1.0,0.0,Agapornis fischeri; Psittacus erithacus; Pion
 birds,TW,2840,2840,1.0,1.0,1.0,0.0,Myiopsitta monachus; Pyrrhura molinae; Aratinga solstitialis
 turtles,SI,1524,1524,1.0,1.0,1.0,0.0,Testudo hermanni; Testudo marginata; Centrochelys sulcata
 birds,CY,1433,1433,1.0,1.0,1.0,0.0,Amazona oratrix; Ara hybrid; Amazona auropalliata
+amphibians,DE,1183,1183,1.0,1.0,1.0,0.0,Dendrobates tinctorius; Dendrobates auratus; Dendrobates leucomelas
 turtles,BR,1155,1155,1.0,1.0,1.0,0.0,Chelonoidis carbonarius; Stigmochelys pardalis
 turtles,ZM,1133,1133,1.0,1.0,1.0,0.0,Stigmochelys pardalis; Malacochersus tornieri; Kinixys spekii
 primates,CZ,1079,1079,1.0,1.0,1.0,0.0,Lemur catta; Callithrix pygmaea; Leontopithecus chrysomelas
@@ -132,9 +139,11 @@ birds,DK,944,944,1.0,1.0,1.0,0.0,Amazona aestiva; Ara ararauna; Ara chloropterus
 shark_ray,MY,919,919,1.0,1.0,1.0,0.0,Potamotrygon spp.; Potamotrygon motoro; Potamotrygon leopoldi
 birds,AT,796,796,1.0,1.0,1.0,0.0,Pionites leucogaster; Amazona auropalliata; Amazona oratrix
 birds,LK,793,793,1.0,1.0,1.0,0.0,Eclectus roratus; Aratinga solstitialis; Agapornis personatus
+amphibians,CZ,792,792,1.0,1.0,1.0,0.0,Dendrobates tinctorius; Dendrobates leucomelas; Dendrobates auratus
 turtles,MK,787,787,1.0,1.0,1.0,0.0,Testudo hermanni; Testudo graeca; Testudo marginata
 birds,UZ,691,690,0.999,1.0,1.0,0.0,Platycercus eximius; Agapornis fischeri; Cyanoramphus malherbi
 owl,NL,598,598,1.0,1.0,1.0,0.0,Bubo bubo; Nyctea scandiaca; Tyto alba
+amphibians,HU,541,541,1.0,,1.0,,Dendrobates tinctorius; Dendrobates auratus; Adelphobates galactonotus
 turtles,SY,516,516,1.0,1.0,1.0,0.0,Testudo graeca; Centrochelys sulcata; Geochelone elegans
 turtles,MU,460,460,1.0,1.0,1.0,0.0,Aldabrachelys gigantea; Astrochelys radiata
 owl,ES,457,457,1.0,1.0,1.0,0.0,Bubo bubo; Nyctea scandiaca; Tyto alba
@@ -180,6 +189,7 @@ pythons_reptiles,MT,134,80,0.597,0.615,,,Alligator mississippiensis
 primates,BE,79,77,0.975,0.958,,,Callithrix pygmaea; Saguinus mystax; Saguinus imperator
 birds,NA,76,76,1.0,1.0,1.0,0.0,Trichoglossus haematodus; Ara chloropterus; Lorius garrulus
 pythons_reptiles,ZM,1118,60,0.054,0.003,0.003,-0.0,Crocodylus niloticus
+amphibians,UA,59,59,1.0,1.0,,,Dendrobates tinctorius; Dendrobates auratus; Dendrobates leucomelas
 birds,BB,57,57,1.0,1.0,,,Psittacus erithacus; Psittacula alexandri; Poicephalus senegalus
 turtles,BE,59,57,0.966,,,,Geochelone elegans; Terrapene carolina; Testudo hermanni
 owl,PT,50,50,1.0,1.0,1.0,0.0,Nyctea scandiaca; Bubo bubo; Tyto alba
@@ -232,10 +242,12 @@ shark_ray,NI,289,1,0.003,0.0,0.0,0.0,Isostichopus fuscus
 turtles,CD,87,1,0.011,0.0,0.0,0.0,Cycloderma aubryi
 sea_fan,XX,50,1,0.02,,0.0,,Vaughanella spp.
 bear,KR,163,1,0.006,,0.01,,Ursus arctos
+amphibians,GY,90,0,0.0,0.0,0.0,0.0,
 elephant,ZW,1257,0,0.0,0.0,0.0,0.0,
 elephant,MX,1100,0,0.0,0.0,0.0,0.0,
 elephant,IT,564,0,0.0,0.0,0.0,0.0,
 elephant,MC,101,0,0.0,0.0,0.0,0.0,
+amphibians,MG,2412,0,0.0,0.0,0.0,0.0,
 sea_fan,CU,60,0,0.0,0.0,0.0,0.0,
 monitor_lizard,PT,681,0,0.0,0.0,0.0,0.0,
 monitor_lizard,SI,36,0,0.0,0.0,0.0,0.0,
@@ -307,9 +319,11 @@ elephant,ZA,368,5,0.014,0.018,0.015,-0.003,Loxodonta africana
 turtles,KE,1882,1877,0.997,0.998,0.995,-0.004,Stigmochelys pardalis; Kinixys belliana; Kinixys spekii
 shark_ray,PE,1726,9,0.005,0.008,0.003,-0.004,Potamotrygon motoro; Potamotrygon spp.; Potamotrygon henlei
 pythons_reptiles,US,60202,8398,0.139,0.141,0.136,-0.005,Python regius; Malayopython reticulatus; Python bivittatus
+amphibians,US,414,402,0.971,0.979,0.974,-0.005,Agalychnis callidryas; Oophaga pumilio; Dendrobates auratus
 turtles,VE,367,365,0.995,0.995,0.99,-0.005,Chelonoidis carbonarius; Podocnemis vogli
 pythons_reptiles,NI,236,1,0.004,0.005,0.0,-0.005,Caiman crocodilus fuscus
 birds,DE,822,811,0.987,0.987,0.981,-0.006,Psittacus erithacus; Platycercus eximius; Aratinga solstitialis
+amphibians,CO,427,426,0.998,1.0,0.994,-0.006,Oophaga histrionica; Oophaga lehmanni; Phyllobates terribilis
 monitor_lizard,MY,1369,20,0.015,0.016,0.01,-0.006,Varanus salvator; Varanus niloticus; Varanus beccarii
 pythons_reptiles,BJ,443,9,0.02,0.025,0.019,-0.006,Python regius; Malayopython reticulatus; Python bivittatus
 birds,CD,207,1,0.005,0.006,0.0,-0.006,Psittacus erithacus
@@ -358,6 +372,7 @@ bear,RU,115,3,0.026,0.074,0.019,-0.055,Ursus arctos
 pythons_reptiles,ZW,5757,223,0.039,0.064,0.008,-0.056,Crocodylus niloticus; Crocodylus porosus
 birds,OM,1684,1510,0.897,0.935,0.877,-0.058,Psittacus erithacus; Amazona aestiva; Ara ararauna
 owl,CA,103,2,0.019,0.059,0.0,-0.059,Nyctea scandiaca
+amphibians,PE,64,63,0.984,1.0,0.938,-0.062,Ranitomeya amazonica; Ranitomeya reticulata; Ranitomeya imitator
 lion,ZA,830,788,0.949,0.974,0.907,-0.066,Panthera leo
 primates,GH,117,1,0.009,0.067,0.0,-0.067,Cercocebus atys
 pythons_reptiles,GB,24432,4953,0.203,0.238,0.167,-0.071,Python bivittatus; Crocodylus niloticus; Malayopython reticulatus

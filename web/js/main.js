@@ -222,7 +222,7 @@ function openSheet(kind, tab, focus) {
     body.innerHTML = `<div class="skeleton" style="margin:18px;height:50%"></div>`;
     Promise.all(names.map(loadExtra)).then(() => { if (sheetOpen === kind) { body.innerHTML = ""; fn(); } });
   };
-  if (kind === "analysis") later(["flows", "captive_claims"], () => mountAnalysis(body));
+  if (kind === "analysis") later(["flows", "captive_claims", "online_gap"], () => mountAnalysis(body));
   if (kind === "matrix") later(["flows"], () => flows.mountMatrix(body));
   if (kind === "zoo") later(["zoonoses", "flows"], () => zoo.mountZoo(body, t));
   if (["analysis", "matrix", "network", "table", "methods"].includes(kind)) setTimeout(() => startSection(kind), kind === "analysis" || kind === "matrix" ? 900 : 300);

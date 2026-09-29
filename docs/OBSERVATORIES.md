@@ -62,13 +62,18 @@ neither shows alone: which online markets are advertised heavily but rarely reac
 | --- | --- | --- |
 | What is recorded | adverts for protected wildlife online | seizures, arrests, convictions and rescues; seized shipments (CITES, US ports) |
 | Moment in the trade | offer (supply online) | interception and outcome (enforcement), online and offline |
-| Scale (latest public) | 21,900+ adverts, 266,000+ products, 61 platforms, Apr 2024-Mar 2026 | 1,300+ cases from public reports; 24,719 CITES and 19,117 US port seizure records |
-| Where | 30+ countries through regional hubs | 60+ countries in news; every CITES Party; US ports |
-| Species | 79 species in hub baskets | 39 groups, fauna and flora, plus every CITES-listed taxon in trade records |
+| Scale | 30,934 adverts in the public dashboard data (14 Apr 2024 - 24 Sep 2026; the sixth trend report cites 21,900+ adverts and 266,000+ products on 61 platforms to Mar 2026) | 2,290 cases from public reports; 24,786 CITES and 19,346 US port seizure records |
+| Where | 11 hubs (Thailand, Indonesia, Mexico, South Asia, Colombia, South Africa, Brazil, Nigeria, MENA, Cameroon, Czechia) | 75 countries in news (9 languages incl. Thai); every CITES Party; US ports |
+| Species | 440 species names, animals only (no plants) | 40 groups, fauna and flora, plus every CITES-listed taxon in trade records |
 | Evidence per record | analyst-verified adverts | graded per case (official, corroborated, single report) with sources |
-| Update | manual releases (last May 2026) | daily, automated, versioned with DOIs |
+| Update | periodic releases | daily, automated, versioned with DOIs |
 | Beyond the trade | legal ambiguity, deception patterns | security pathways, disease risk, legal-trade baseline |
 | Code | not open | MIT, reproducible pipeline |
+
+**Measured together** (`wildtrace ecosolve`, [`online_gap.csv`](https://tarunv13.github.io/wildtrace/data/online_gap.csv)):
+90% of adverts map to a WildTrace group. Bears in Thailand: 1,303 adverts, 0 WildTrace cases; parrots and
+songbirds in Thailand: 1,046 adverts, 0 cases; tigers in Thailand: 2,232 adverts, 3 cases. A third of the
+adverts are in Thai, which WildTrace did not read before this comparison; it does now.
 
 **What WildTrace adds to the picture:** the enforcement end of online trade. Since v1.9.0 every case records
 the platforms its reports name (never the seller), and multilingual searches look for online wildlife crime

@@ -13,7 +13,9 @@ figshare blocks scripted downloads, so fetch the zip in a browser and run:
 Output: resources/lexicon_pmc.yaml, extra common names per lexicon group
 (matched on genus/species from `taxa`) plus the recorded use-types. The
 lexicon loader merges it automatically. Short or generic names are dropped
-(see MIN_LEN / GENERIC) so precision holds.
+(see MIN_LEN) so precision holds. Names that are also everyday words (GENERIC) are not
+dropped: they go to each group's `ambiguous` list and count only with trade or enforcement
+context nearby (lexicon.ambiguous_hits).
 """
 from __future__ import annotations
 
@@ -88,22 +90,27 @@ def build(src: str | Path) -> Path:
             name2group[r["db_taxa_name_clean"].lower()] = gid
 
     names: dict[str, dict[str, set[str]]] = defaultdict(lambda: defaultdict(set))
+    ambiguous: dict[str, set[str]] = defaultdict(set)
     uses: dict[str, set[str]] = defaultdict(set)
 
-    def keep(nm: str) -> bool:
+    def keep(nm: str, gid: str = "") -> bool:
         nm = nm.strip()
-        return len(nm) >= MIN_LEN and nm.lower() not in GENERIC and not nm.isupper()
+        if nm.lower() in GENERIC:
+            if gid and len(nm) >= 3:
+                ambiguous[gid].add(nm.lower())
+            return False
+        return len(nm) >= MIN_LEN and not nm.isupper()
 
     # 2. Multilingual common names (GBIF vernaculars), keyed by ISO 639-1 where available.
     for _, r in t["03_gbif_common_names.csv"].iterrows():
         gid = id2group.get(r["gbif_id"])
-        if gid and keep(r["gbif_common_name"]):
+        if gid and keep(r["gbif_common_name"], gid):
             lang = r.get("ISO 639-1 Code") or r.get("ISO 639-2 Code") or "und"
             names[gid][lang].add(r["gbif_common_name"].strip())
     # 3. Trade-database names (LEMIS / TRAFFIC), English.
     for _, r in t["04_db_generic_common_names.csv"].iterrows():
         gid = name2group.get(r["db_taxa_name"].lower())
-        if gid and keep(r["db_name"]):
+        if gid and keep(r["db_name"], gid):
             names[gid]["en_db"].add(r["db_name"].strip().lower())
     # 4. Intended uses recorded in seizures.
     for _, r in t["01_taxa_use_combos.csv"].iterrows():
@@ -112,9 +119,9 @@ def build(src: str | Path) -> Path:
             uses[gid].add(r["standardized_use_type"])
 
     out = {"source": "Stringham et al. 2021, Data in Brief 39:107531, CC BY 4.0 (figshare 14914773)", "groups": {}}
-    for gid in sorted(set(names) | set(uses)):
+    for gid in sorted(set(names) | set(uses) | set(ambiguous)):
         out["groups"][gid] = {"terms": {k: sorted(v)[:60] for k, v in sorted(names[gid].items())},
-                              "uses": sorted(uses[gid])}
+                              "uses": sorted(uses[gid]), "ambiguous": sorted(ambiguous[gid])}
     path = RESOURCES / "lexicon_pmc.yaml"
     path.write_text(yaml.safe_dump(out, allow_unicode=True, sort_keys=False), encoding="utf-8")
     n = sum(len(v) for g in out["groups"].values() for v in g["terms"].values())

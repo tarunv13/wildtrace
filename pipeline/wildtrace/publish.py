@@ -227,6 +227,24 @@ def live_listings(listings, scores) -> dict:
             "codeword_flags": len(review)}
 
 
+def ambiguous_review(records, candidate_ids: set[str]) -> None:
+    """Every ambiguous-term hit (accepted or held) in every screened record, for human review.
+    Private (data/labels, gitignored): it carries headlines. Reviewers mark `verdict` right/wrong;
+    the counts per term show which context rules to tighten or loosen."""
+    import csv
+    rows = []
+    for r in records:
+        for h in lexicon.ambiguous_hits(f"{r.title} {r.text}"):
+            rows.append({"id": r.id, "date": r.published, "title": r.title[:200], "term": h["term"], "group": h.get("group") or "",
+                         "cue": h.get("cue") or "", "accepted": h["accepted"], "context": ";".join(h["context"]),
+                         "became_candidate": r.id in candidate_ids, "verdict": ""})
+    LABELS.mkdir(parents=True, exist_ok=True)
+    with open(LABELS / "ambiguous_review.csv", "w", newline="", encoding="utf-8") as f:
+        w = csv.DictWriter(f, fieldnames=list(rows[0]) if rows else ["id"]); w.writeheader(); w.writerows(rows)
+    by = Counter((x["term"], x["accepted"]) for x in rows)
+    print(f"  ambiguous terms: {len(rows)} hits; " + ", ".join(f"{t} {'kept' if a else 'held'} {n}" for (t, a), n in by.most_common(10)))
+
+
 def enrich(cands, limit: int = 200) -> None:
     """Add article ledes to headline-only candidates (private; cached in data/interim)."""
     from .collect.article import lede
@@ -256,6 +274,7 @@ def build(min_relevance: float | None = None, fetch_text: bool = True) -> dict:
     news = [r for r in news if not r.published or r.published >= MIN_DATE]
     news = [r for r in news if _dom((r.extra or {}).get("source_url") or r.url) not in NOT_EVENTS]
     cand = [r for r in news if is_enforcement_candidate(f"{r.title} {r.text}")]
+    ambiguous_review(news, {r.id for r in cand})
     if fetch_text:
         enrich(cand)
     events = []

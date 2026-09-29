@@ -403,3 +403,28 @@ def test_captive_claims_use_commercial_animal_trade_and_measure_shift(tmp_path):
     r = d["rows"][0]
     assert (r["group"], r["exporter"], r["records"]) == ("pythons_reptiles", "TG", 40)
     assert r["early_share"] == 0.0 and r["late_share"] == 1.0 and r["shift"] == 1.0
+
+
+def test_thai_places_match_without_word_spaces():
+    from wildtrace.extract.events import find_native_places
+    got = [(p.name, p.country) for _, p in find_native_places("ตรวจยึดหมีขอ ถูกขังในอาคารร้าง จ.นราธิวาส")]
+    assert ("Narathiwat", "TH") in got
+
+
+def test_picture_confirms_ambiguous_word_and_flags_conflicts(monkeypatch):
+    from wildtrace.classify import vision
+    monkeypatch.setattr(vision, "ocr", lambda p: "")
+    monkeypatch.setattr(vision, "species", lambda p: [{"group": "monitor_lizard", "p": 0.8, "label": "Varanus salvator"}])
+    r = vision.analyse("x.jpg", "Found a monitor in the house")
+    assert "monitor_lizard" in r["confirmed_by_picture"] and "monitor_lizard" in r["groups"]
+    monkeypatch.setattr(vision, "species", lambda p: [{"group": "not wildlife", "p": 0.9, "label": "a computer monitor"}])
+    r = vision.analyse("x.jpg", "Found a monitor in the house")
+    assert r["groups"] == [] and r["review"] is True
+
+
+def test_ambiguous_words_need_context():
+    from wildtrace import lexicon as L
+    assert L.species_groups("Rhino horn seized at airport, two arrested") == ["rhino"]
+    assert L.species_groups("Driver sounded the horn at the checkpoint") == []
+    assert "pythons_reptiles" in L.species_groups("Customs seized a python and 12 turtles")
+    assert L.species_groups("Learn Python programming today") == []
